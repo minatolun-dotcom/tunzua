@@ -1,0 +1,13 @@
+{
+  "name": "tunzua-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tunzua Consultancy static site (GitHub Pages) + cross-browser verification suite",
+  "scripts": {
+    "test:smoke": "bash scripts/smoke-test.sh",
+    "test:xbrowser": "node scripts/xbrowser.js"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
+  }
+}
