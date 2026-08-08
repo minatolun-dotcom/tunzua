@@ -5,9 +5,11 @@
   "description": "Tunzua Consultancy static site (GitHub Pages) + cross-browser verification suite",
   "scripts": {
     "test:smoke": "bash scripts/smoke-test.sh",
-    "test:xbrowser": "node scripts/xbrowser.js"
+    "test:xbrowser": "node scripts/xbrowser.js",
+    "test:lighthouse": "bash scripts/lighthouse-ci.sh"
   },
   "devDependencies": {
+    "lighthouse": "^12.0.0",
     "playwright-core": "^1.62.1"
   }
 }

@@ -35,3 +35,24 @@ jobs:
 
       - name: Run cross-browser suite (Chromium + Firefox + WebKit)
         run: node scripts/xbrowser.js
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium for Lighthouse
+        run: npx playwright-core install chromium
+
+      - name: Run Lighthouse audit with score budgets
+        run: bash scripts/lighthouse-ci.sh
