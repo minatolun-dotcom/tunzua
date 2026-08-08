@@ -43,10 +43,11 @@ This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaSc
 4. **Tally Prime** - Dedicated band with feature checklist
 5. **Pricing** - 3-tier packages with highlighted middle tier
 6. **Process** - 5 numbered steps (desktop row / mobile stack)
-7. **Testimonials** - Auto-scrolling client reviews (marquee)
-8. **About** - Mission, vision, timeline milestones, values
-9. **Contact** - Visit/Call/Email/WhatsApp cards
-10. **CTA band + Footer** - Editorial footer with socials and legal links
+7. **FAQ** - Accessible accordion (single-open, ARIA) with common service questions
+8. **Testimonials** - Auto-scrolling client reviews (marquee)
+9. **About** - Mission, vision, timeline milestones, values
+10. **Contact** - Visit/Call/Email/WhatsApp cards + **contact form** (validated, honeypot spam trap, pluggable backend endpoint with pre-filled-email fallback)
+11. **CTA band + Footer** - Editorial footer with socials and legal links
 
 ### Additional Pages
 - **Privacy Policy** (`privacy.html`)
@@ -231,25 +232,25 @@ GitHub Pages issues a certificate automatically for the custom domain once the C
 
 ### Schema.org Data
 
+Single `@graph` JSON-LD block containing: **LocalBusiness** (with `hasOfferCatalog`), **6 Service** entries (bookkeeping, GST, income tax, Tally Prime, payroll, consulting), and an **FAQPage** matching the on-page FAQ accordion.
+
 ```json
 {
-  "@type": "LocalBusiness",
-  "name": "Tunzua Consultancy",
-  "telephone": "+91-8731831178",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Churachandpur",
-    "addressRegion": "Manipur",
-    "postalCode": "795006"
-  }
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "LocalBusiness", "@id": "https://www.tunzua.com/#business", "name": "Tunzua Consultancy", ... },
+    { "@type": "Service", "@id": "https://www.tunzua.com/#svc-gst", "serviceType": "GST Filing", ... },
+    { "@type": "FAQPage", "mainEntity": [ ... ] }
+  ]
 }
 ```
 
 ### Recommended SEO Improvements
 
 1. Add Google Analytics/Plausible
-2. Implement structured data for services (Service, FAQ types)
+2. ~~Implement structured data for services (Service, FAQ types)~~ **Done Aug 8, 2026** — Service + FAQPage in the JSON-LD `@graph`
 3. Replace the self-reported `aggregateRating` schema with real review markup
+4. Wire the contact form to a form backend (Formspree/Web3Forms) — set `FORM_ENDPOINT` in `index.html`
 
 ---
 

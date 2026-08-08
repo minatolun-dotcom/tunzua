@@ -172,6 +172,45 @@ async function auditBrowser(pw, bname, launcher) {
   }
 
   report(bname + ' zero console/page errors (desktop)', errs.length === 0, errs.length ? errs.join(' | ').slice(0, 200) : 'clean');
+
+  // ---- FAQ accordion ----
+  await scrollTo(page, 5600, 10);
+  await page.waitForTimeout(900);
+  const faq = await page.evaluate(() => {
+    const first = document.getElementById('faq-b1');
+    const firstOpen = first.getAttribute('aria-expanded') === 'true';
+    const panelOpen = document.getElementById('faq-a1').getBoundingClientRect().height > 20;
+    document.getElementById('faq-b2').click();
+    return new Promise(res => setTimeout(() => res({
+      firstOpen,
+      panelOpen,
+      second: document.getElementById('faq-b2').getAttribute('aria-expanded'),
+      firstAfter: document.getElementById('faq-b1').getAttribute('aria-expanded'),
+      secondPanel: document.getElementById('faq-a2').getBoundingClientRect().height > 20
+    }), 500));
+  });
+  report(bname + ' FAQ first item open by default', faq.firstOpen && faq.panelOpen, JSON.stringify(faq));
+  report(bname + ' FAQ click swaps open item (single-open)',
+    faq.second === 'true' && faq.firstAfter === 'false' && faq.secondPanel,
+    JSON.stringify(faq));
+
+  // ---- contact form validation ----
+  const urlBefore = page.url();
+  const form = await page.evaluate(() => {
+    const f = document.getElementById('contactForm');
+    const email = document.getElementById('cf-email');
+    email.value = 'not-an-email';
+    f.requestSubmit();
+    return new Promise(res => setTimeout(() => res({
+      valid: f.checkValidity(),
+      statusText: (document.getElementById('formStatus').textContent || '').slice(0, 60)
+    }), 400));
+  });
+  const urlAfter = page.url();
+  report(bname + ' contact form blocks invalid email',
+    form.valid === false && urlAfter === urlBefore,
+    JSON.stringify(form) + ' urlStayed=' + (urlAfter === urlBefore));
+
   await page.close();
 
   // ================= MOBILE =================

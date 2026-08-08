@@ -29,26 +29,126 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Tunzua Consultancy",
-        "description": "Professional accounting, taxation, Tally Prime, GST filing and business consulting services",
-        "url": "https://www.tunzua.com",
-        "telephone": "+91-8731831178",
-        "email": "info@tunzua.com",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "53, Dawn School Road, Lailam Veng",
-            "addressLocality": "Churachandpur",
-            "addressRegion": "Manipur",
-            "postalCode": "795006",
-            "addressCountry": "IN"
-        },
-        "priceRange": "$$",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5",
-            "reviewCount": "6"
-        }
+        "@graph": [
+            {
+                "@type": "LocalBusiness",
+                "@id": "https://www.tunzua.com/#business",
+                "name": "Tunzua Consultancy",
+                "description": "Professional accounting, taxation, Tally Prime, GST filing and business consulting services",
+                "url": "https://www.tunzua.com",
+                "telephone": "+91-8731831178",
+                "email": "info@tunzua.com",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "53, Dawn School Road, Lailam Veng",
+                    "addressLocality": "Churachandpur",
+                    "addressRegion": "Manipur",
+                    "postalCode": "795006",
+                    "addressCountry": "IN"
+                },
+                "priceRange": "$$",
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "5",
+                    "reviewCount": "6"
+                },
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Accounting, Tax & Consulting Services",
+                    "itemListElement": [
+                        { "@type": "Offer", "itemOffered": { "@id": "https://www.tunzua.com/#svc-bookkeeping" } },
+                        { "@type": "Offer", "itemOffered": { "@id": "https://www.tunzua.com/#svc-gst" } },
+                        { "@type": "Offer", "itemOffered": { "@id": "https://www.tunzua.com/#svc-income-tax" } },
+                        { "@type": "Offer", "itemOffered": { "@id": "https://www.tunzua.com/#svc-tally" } },
+                        { "@type": "Offer", "itemOffered": { "@id": "https://www.tunzua.com/#svc-payroll" } },
+                        { "@type": "Offer", "itemOffered": { "@id": "https://www.tunzua.com/#svc-consulting" } }
+                    ]
+                }
+            },
+            {
+                "@type": "Service",
+                "@id": "https://www.tunzua.com/#svc-bookkeeping",
+                "serviceType": "Bookkeeping & Accounting",
+                "provider": { "@id": "https://www.tunzua.com/#business" },
+                "description": "Maintenance of books of accounts, financial record-keeping and preparation of financial statements.",
+                "areaServed": "IN"
+            },
+            {
+                "@type": "Service",
+                "@id": "https://www.tunzua.com/#svc-gst",
+                "serviceType": "GST Filing",
+                "provider": { "@id": "https://www.tunzua.com/#business" },
+                "description": "GST registration, monthly and quarterly GSTR-1/GSTR-3B filings, reconciliation and compliance management.",
+                "areaServed": "IN"
+            },
+            {
+                "@type": "Service",
+                "@id": "https://www.tunzua.com/#svc-income-tax",
+                "serviceType": "Income Tax",
+                "provider": { "@id": "https://www.tunzua.com/#business" },
+                "description": "Income tax return preparation and filing, tax planning, TDS returns and handling of assessments and notices.",
+                "areaServed": "IN"
+            },
+            {
+                "@type": "Service",
+                "@id": "https://www.tunzua.com/#svc-tally",
+                "serviceType": "Tally Prime Services",
+                "provider": { "@id": "https://www.tunzua.com/#business" },
+                "description": "Authorized Tally Prime setup, data migration, customization, training and ongoing support.",
+                "areaServed": "IN"
+            },
+            {
+                "@type": "Service",
+                "@id": "https://www.tunzua.com/#svc-payroll",
+                "serviceType": "Payroll Management",
+                "provider": { "@id": "https://www.tunzua.com/#business" },
+                "description": "Salary processing, PF/ESI compliance, TDS on salary and payroll statutory filings.",
+                "areaServed": "IN"
+            },
+            {
+                "@type": "Service",
+                "@id": "https://www.tunzua.com/#svc-consulting",
+                "serviceType": "Business Consulting",
+                "provider": { "@id": "https://www.tunzua.com/#business" },
+                "description": "Financial advisory, business structuring, compliance guidance and strategic planning support.",
+                "areaServed": "IN"
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Do you offer GST registration and filing services?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle GST registration, monthly/quarterly GSTR-1 and GSTR-3B filings, reconciliation and compliance management end-to-end — including responding to notices from the department." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Can you help with income tax returns and TDS?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We prepare and file income tax returns, manage TDS deductions and returns, and handle tax assessments, notices and appeals so you stay compliant without the stress." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Do you provide Tally Prime setup and training?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Yes — as an authorized Tally partner we handle setup, data migration, customization and on-site team training, plus ongoing support whenever you need it." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How does your pricing work?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Starters is a fixed monthly plan for basic books, Growth scales with your activity, and the Full Suite is quoted per engagement. Every plan includes a free consultation before you commit." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Do you work with businesses outside Manipur?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Yes. We serve clients across 10+ cities with remote bookkeeping, digital filings and virtual consultations — our workflows are built for distance." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How do I get started?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Send us a message through the contact form, call or WhatsApp us. We'll set up a free consultation to review your books and filing needs, then propose a plan." }
+                    }
+                ]
+            }
+        ]
     }
     </script>
 
@@ -92,6 +192,7 @@
             --hairline: #d8d0bc;
             --hairline-soft: #e4decd;
             --sel: rgba(30, 91, 61, 0.18);
+            --err: #8f3427;
         }
 
         .dark {
@@ -108,6 +209,7 @@
             --hairline: #322c20;
             --hairline-soft: #262119;
             --sel: rgba(127, 201, 164, 0.22);
+            --err: #e08a7a;
         }
 
         html { background-color: var(--paper); overflow-x: clip; }
@@ -430,6 +532,63 @@
         .cookie-inner p a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
         .cookie-btns { display: flex; gap: 10px; }
         .cookie-btns .btn { padding: 10px 18px; font-size: 0.7rem; }
+
+        /* ---------- FAQ accordion ---------- */
+        .faq-list { border-top: 1px solid var(--hairline); }
+        .faq-item { border-bottom: 1px solid var(--hairline); }
+        .faq-q {
+            width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            padding: 27px 4px; background: none; border: none; cursor: pointer; text-align: left;
+            font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 40;
+            font-weight: 540; font-size: 1.14rem; letter-spacing: -0.01em; color: var(--ink);
+            transition: color 0.2s ease;
+        }
+        .faq-q:hover { color: var(--accent); }
+        .faq-q:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+        .faq-plus { position: relative; width: 15px; height: 15px; flex-shrink: 0; opacity: 0.85; }
+        .faq-plus::before, .faq-plus::after {
+            content: ''; position: absolute; background: var(--accent);
+            transition: transform 0.32s cubic-bezier(0.2, 0.6, 0.2, 1), opacity 0.2s ease;
+        }
+        .faq-plus::before { left: 0; top: 6.5px; width: 15px; height: 2px; }
+        .faq-plus::after { left: 6.5px; top: 0; width: 2px; height: 15px; }
+        .faq-item.open .faq-plus::after { transform: rotate(90deg); opacity: 0; }
+        .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.38s cubic-bezier(0.2, 0.6, 0.2, 1); }
+        .faq-item.open .faq-a { grid-template-rows: 1fr; }
+        .faq-a > div { overflow: hidden; }
+        .faq-a p { padding: 0 4px 28px; color: var(--ink-2); font-size: 0.96rem; line-height: 1.75; max-width: 700px; }
+        @media (max-width: 640px) { .faq-q { font-size: 1.02rem; } }
+
+        /* ---------- Contact form ---------- */
+        .contact-form-wrap { margin-top: 78px; border-top: 1px solid var(--hairline); padding-top: 56px; }
+        .form-head h3 { font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 40; font-size: 1.5rem; font-weight: 560; letter-spacing: -0.01em; margin-bottom: 8px; }
+        .form-head p { color: var(--ink-2); font-size: 0.95rem; max-width: 480px; }
+        .contact-form { margin-top: 38px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 36px; }
+        .field { display: flex; flex-direction: column; gap: 9px; }
+        .field-full { grid-column: 1 / -1; }
+        .field label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
+        .field label .opt { font-weight: 400; text-transform: none; letter-spacing: 0.02em; color: var(--ink-3); }
+        .field input, .field select, .field textarea {
+            font-family: inherit; font-size: 0.98rem; color: var(--ink);
+            background: transparent; border: none; border-bottom: 1px solid var(--hairline);
+            padding: 10px 2px; border-radius: 0; transition: border-color 0.22s ease;
+            -webkit-appearance: none; appearance: none;
+        }
+        .field input::placeholder, .field textarea::placeholder { color: var(--ink-3); opacity: 0.75; }
+        .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-bottom-color: var(--accent); }
+        .field select { cursor: pointer; }
+        .field select:invalid { color: var(--ink-3); }
+        .field textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+        .field input[aria-invalid='true'] { border-bottom-color: var(--err); }
+        .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+        .form-foot { display: flex; align-items: center; gap: 22px; margin-top: 40px; flex-wrap: wrap; }
+        .form-note { font-size: 0.8rem; color: var(--ink-3); }
+        .form-status { display: none; margin-top: 22px; padding: 14px 18px; border: 1px solid var(--hairline); font-size: 0.9rem; color: var(--ink-2); }
+        .form-status.ok { display: block; border-color: var(--accent); color: var(--accent); }
+        .form-status.err { display: block; border-color: var(--err); color: var(--err); }
+        .btn:disabled { opacity: 0.6; cursor: wait; }
+        @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; gap: 24px; } .contact-form-wrap { margin-top: 56px; padding-top: 42px; } }
 
         /* ---------- Reveal animations ---------- */
         .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1); }
@@ -988,11 +1147,80 @@
             </div>
         </section>
 
+        <!-- ============ FAQ ============ -->
+        <section id="faq" class="section" style="background: var(--paper-2);">
+            <div class="wrap">
+                <div class="section-head split">
+                    <div>
+                        <span class="section-index reveal">05 — FAQ</span>
+                        <h2 class="display-lg font-display reveal" style="margin-top: 14px;">Common<br>questions.</h2>
+                    </div>
+                    <p class="body-md reveal-right">Straight answers about our services, pricing and how we work.</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item open reveal">
+                        <button class="faq-q" id="faq-b1" aria-expanded="true" aria-controls="faq-a1">
+                            <span>Do you offer GST registration and filing services?</span>
+                            <span class="faq-plus" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-b1">
+                            <div><p>Yes. We handle GST registration, monthly/quarterly GSTR-1 and GSTR-3B filings, reconciliation and compliance management end-to-end — including responding to notices from the department.</p></div>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <button class="faq-q" id="faq-b2" aria-expanded="false" aria-controls="faq-a2">
+                            <span>Can you help with income tax returns and TDS?</span>
+                            <span class="faq-plus" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-b2">
+                            <div><p>Absolutely. We prepare and file income tax returns, manage TDS deductions and returns, and handle tax assessments, notices and appeals so you stay compliant without the stress.</p></div>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <button class="faq-q" id="faq-b3" aria-expanded="false" aria-controls="faq-a3">
+                            <span>Do you provide Tally Prime setup and training?</span>
+                            <span class="faq-plus" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-b3">
+                            <div><p>Yes — as an authorized Tally partner we handle setup, data migration, customization and on-site team training, plus ongoing support whenever you need it.</p></div>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <button class="faq-q" id="faq-b4" aria-expanded="false" aria-controls="faq-a4">
+                            <span>How does your pricing work?</span>
+                            <span class="faq-plus" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-b4">
+                            <div><p>Starters is a fixed monthly plan for basic books, Growth scales with your activity, and the Full Suite is quoted per engagement. Every plan includes a free consultation before you commit.</p></div>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <button class="faq-q" id="faq-b5" aria-expanded="false" aria-controls="faq-a5">
+                            <span>Do you work with businesses outside Manipur?</span>
+                            <span class="faq-plus" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-b5">
+                            <div><p>Yes. We serve clients across 10+ cities with remote bookkeeping, digital filings and virtual consultations — our workflows are built for distance.</p></div>
+                        </div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <button class="faq-q" id="faq-b6" aria-expanded="false" aria-controls="faq-a6">
+                            <span>How do I get started?</span>
+                            <span class="faq-plus" aria-hidden="true"></span>
+                        </button>
+                        <div class="faq-a" id="faq-a6" role="region" aria-labelledby="faq-b6">
+                            <div><p>Send us a message through the contact form, call or WhatsApp us. We'll set up a free consultation to review your books and filing needs, then propose a plan.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ============ TESTIMONIALS ============ -->
         <section class="section testimonial-marquee">
             <div class="wrap">
                 <div class="section-head">
-                    <span class="section-index reveal">05 — Testimonials</span>
+                    <span class="section-index reveal">06 — Testimonials</span>
                     <h2 class="display-lg font-display reveal" style="margin-top: 14px;">What our clients say.</h2>
                 </div>
             </div>
@@ -1086,7 +1314,7 @@
         <section id="about" class="section" style="background: var(--paper-2);">
             <div class="wrap">
                 <div class="section-head">
-                    <span class="section-index reveal">06 — About</span>
+                    <span class="section-index reveal">07 — About</span>
                     <h2 class="display-lg font-display reveal" style="margin-top: 14px;">A firm built on<br>trusted numbers.</h2>
                 </div>
                 <div class="about-grid">
@@ -1132,7 +1360,7 @@
             <div class="wrap">
                 <div class="section-head split">
                     <div>
-                        <span class="section-index reveal">07 — Contact</span>
+                        <span class="section-index reveal">08 — Contact</span>
                         <h2 class="display-lg font-display reveal" style="margin-top: 14px;">Let's talk<br>business.</h2>
                     </div>
                     <p class="body-md reveal-right">Reach out for a free consultation — we'll review your books, filing needs and growth plan with zero obligation.</p>
@@ -1168,6 +1396,52 @@
                         <h3>WhatsApp</h3>
                         <a class="line" href="https://wa.me/918731831178" target="_blank" rel="noopener">Quick response guaranteed</a>
                     </div>
+                </div>
+
+                <div class="contact-form-wrap reveal">
+                    <div class="form-head">
+                        <h3>Send us a message</h3>
+                        <p>Tell us about your business and what you need — we'll reply within one business day.</p>
+                    </div>
+                    <form id="contactForm" class="contact-form" novalidate>
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="cf-name">Full name</label>
+                                <input type="text" id="cf-name" name="name" required autocomplete="name" placeholder="Your name">
+                            </div>
+                            <div class="field">
+                                <label for="cf-email">Email</label>
+                                <input type="email" id="cf-email" name="email" required autocomplete="email" placeholder="you@example.com">
+                            </div>
+                            <div class="field">
+                                <label for="cf-phone">Phone <span class="opt">(optional)</span></label>
+                                <input type="tel" id="cf-phone" name="phone" autocomplete="tel" placeholder="+91 00000 00000">
+                            </div>
+                            <div class="field">
+                                <label for="cf-service">Service</label>
+                                <select id="cf-service" name="service" required>
+                                    <option value="" disabled selected>Select a service…</option>
+                                    <option value="Accounting &amp; Bookkeeping">Accounting &amp; Bookkeeping</option>
+                                    <option value="GST Filing">GST Filing</option>
+                                    <option value="Income Tax">Income Tax</option>
+                                    <option value="Tally Prime">Tally Prime</option>
+                                    <option value="Payroll Management">Payroll Management</option>
+                                    <option value="Financial Consulting">Financial Consulting</option>
+                                    <option value="Other / Not sure">Other / Not sure</option>
+                                </select>
+                            </div>
+                            <div class="field field-full">
+                                <label for="cf-msg">How can we help?</label>
+                                <textarea id="cf-msg" name="message" rows="4" required placeholder="Briefly describe your business and what you need help with."></textarea>
+                            </div>
+                        </div>
+                        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <div class="form-foot">
+                            <button type="submit" class="btn btn-ink">Send message</button>
+                            <p class="form-note">Prefer to talk? <a href="https://wa.me/918731831178" target="_blank" rel="noopener" style="color: var(--accent);">WhatsApp us</a> or call <a href="tel:+918731831178" style="color: var(--accent);">+91 87318 31178</a>.</p>
+                        </div>
+                        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+                    </form>
                 </div>
             </div>
         </section>
@@ -1323,6 +1597,80 @@
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // ---------- FAQ accordion ----------
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const btn = item.querySelector('.faq-q');
+            btn.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                faqItems.forEach(o => {
+                    o.classList.remove('open');
+                    o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    item.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // ---------- Contact form ----------
+        // Set FORM_ENDPOINT to a form-backend URL (e.g. 'https://formspree.io/f/XXXX')
+        // to send submissions directly; when empty, the form opens a pre-filled email.
+        const FORM_ENDPOINT = '';
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const status = document.getElementById('formStatus');
+                const btn = contactForm.querySelector('button[type="submit"]');
+                // honeypot: bots fill this hidden field
+                if (contactForm.querySelector('[name="_gotcha"]').value) return;
+                if (!contactForm.checkValidity()) {
+                    contactForm.querySelectorAll('input, select, textarea').forEach(el => {
+                        el.setAttribute('aria-invalid', el.validity.valid ? 'false' : 'true');
+                    });
+                    contactForm.reportValidity();
+                    return;
+                }
+                contactForm.querySelectorAll('input, select, textarea').forEach(el => {
+                    el.setAttribute('aria-invalid', 'false');
+                    el.addEventListener('input', () => {
+                        if (el.validity.valid) el.setAttribute('aria-invalid', 'false');
+                    });
+                });
+
+                const data = Object.fromEntries(new FormData(contactForm));
+                btn.disabled = true;
+                btn.textContent = 'Sending…';
+
+                const done = () => { btn.disabled = false; btn.textContent = 'Send message'; };
+
+                if (FORM_ENDPOINT) {
+                    fetch(FORM_ENDPOINT, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                        body: JSON.stringify(data)
+                    }).then(res => {
+                        if (!res.ok) throw new Error('bad response');
+                        status.textContent = 'Thanks! Your message has been sent — we\'ll get back to you within one business day.';
+                        status.className = 'form-status ok';
+                        contactForm.reset();
+                    }).catch(() => {
+                        status.textContent = 'Something went wrong. Please email us at info@tunzua.com or use WhatsApp.';
+                        status.className = 'form-status err';
+                    }).finally(done);
+                } else {
+                    const subject = encodeURIComponent('Website enquiry — ' + (data.service || 'General'));
+                    const body = encodeURIComponent('Name: ' + data.name + '\nEmail: ' + data.email + '\nPhone: ' + (data.phone || '—') + '\nService: ' + (data.service || '—') + '\n\n' + data.message);
+                    window.location.href = 'mailto:info@tunzua.com?subject=' + subject + '&body=' + body;
+                    status.textContent = 'Opening your email app with the message pre-filled — just press send.';
+                    status.className = 'form-status ok';
+                    done();
+                }
+            });
+        }
 
         // ---------- Mobile menu ----------
         const hamburger = document.getElementById('hamburger');

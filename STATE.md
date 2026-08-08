@@ -86,6 +86,14 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 ## Change Log
 
+### August 8, 2026 — FAQ accordion, contact form, Service/FAQ schema
+
+- **FAQ section added** (between Pricing and Testimonials, `05 — FAQ`, renumbered 05→08): 6 service-relevant questions in an accessible accordion — `<button aria-expanded/aria-controls>` + `role="region"`, single-open behavior, first item open by default, smooth `grid-template-rows: 0fr→1fr` height animation, CSS plus/rotate indicator (no new sprite icons), Fraunces question type.
+- **Contact form added** to the contact section (below the Visit/Call/Email/WhatsApp cards): editorial hairline-underline fields (name, email, phone, service select, message), client-side validation (`novalidate` + `checkValidity`), honeypot `_gotcha` spam trap, `role="status" aria-live="polite"` result message, disabled/`Sending…` submit state. **Pluggable backend**: `FORM_ENDPOINT` constant in the script — when set, posts JSON to the form backend; when empty (default), the form opens a pre-filled `mailto:info@tunzua.com` with a WhatsApp/call fallback note. New `--err` token (light `#8f3427` / dark `#e08a7a`).
+- **Structured data upgraded** to a single `@graph` JSON-LD block: LocalBusiness (now with `@id` + `hasOfferCatalog`), **6 Service** entities, and an **FAQPage** matching the accordion content exactly.
+- **CI suite extended** (`scripts/xbrowser.js`, 38 → **44 checks**): FAQ first-item-open + single-open swap, and contact-form invalid-email blocking (no navigation) — verified in Chromium + Firefox locally; Lighthouse **PERF 88 | A11Y 100 | BP 100 | SEO 100**, all budgets met; heading order, div balance, icon refs all clean; mobile overflow 0 on the new sections.
+- Docs updated (README sections/schema/next-steps; STATE.md).
+
 ### August 8, 2026 — Complete Swiss/Editorial redesign (from scratch)
 
 Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with full dark skin; trim + restructure), the entire site was rebuilt from scratch. The old design system (navy-blue gradient, glassmorphism cards, Space Grotesk display, blob decorations, Tailwind utility classes) was thrown out; **all content, sections, and functionality were preserved**.
