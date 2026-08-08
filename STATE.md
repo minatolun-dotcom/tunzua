@@ -6,7 +6,15 @@
 
 ## Current Status: Production Ready ✅
 
-The Tunzua Consultancy website is a fully functional static site with all core features implemented. The August 8, 2026 pass removed the remaining third-party CDN dependencies (Font Awesome, Tailwind Play CDN), fixed broken metadata, and optimized assets.
+The Tunzua Consultancy website is a fully functional static site with all core features implemented. The August 8, 2026 pass removed the remaining third-party CDN dependencies (Font Awesome, Tailwind Play CDN), fixed broken metadata, and optimized assets. The hero is now a centered editorial column (Financial Snapshot ledger removed — figures were not accurate).
+
+---
+
+## Aug 8 — Hero centered + ledger removed
+
+- **Hero content center-aligned**: with the Financial Snapshot ledger gone, the hero is now a single centered column — eyebrow (left line decoration dropped), headline, sub, CTAs, and the 3-stat row all center on the axis (verified in light + dark, no overflow).
+- **Stats corrected earlier**: Businesses Served = 100+ (was 1,000+), 15+ years, 99% satisfaction.
+- **Client count confirmed**: 4 total clients (Green Hills Agro, Tunnu Eatery, Grace Dental, Tunnu School of Nursing) — no fifth logo needed.
 
 ---
 
