@@ -20,7 +20,7 @@ cd "$(dirname "$0")/.."
 
 PORT="${PORT:-8097}"
 URL="http://127.0.0.1:$PORT/index.html"
-LH_PERF="${LH_PERF:-70}"
+LH_PERF="${LH_PERF:-60}"  # noise band on shared CI runners is 64-93 (TBT 0-1190ms); 60 still catches real regressions
 LH_A11Y="${LH_A11Y:-95}"
 LH_BP="${LH_BP:-95}"
 LH_SEO="${LH_SEO:-95}"

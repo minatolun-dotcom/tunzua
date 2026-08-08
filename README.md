@@ -150,7 +150,7 @@ The GitHub Actions workflow (`.github/workflows/ci.yml`) runs three jobs on ever
 |-----|--------|--------|
 | `smoke-test` | `scripts/smoke-test.sh` | All pages/assets return 200; no Font Awesome `<i>` tags or CDN references; every icon `<use>` resolves to an embedded sprite symbol; div balance |
 | `cross-browser` | `scripts/xbrowser.js` | 19 layout/interactivity checks × Chromium, Firefox, **WebKit** (Safari engine) at desktop + mobile — overflow, marquees, theme toggle, counters, back-to-top, mobile menu, zero console errors (`npx playwright-core install --with-deps` provides the browsers incl. WebKit's system libs) |
-| `lighthouse` | `scripts/lighthouse-ci.sh` | Lighthouse audit with score budgets (PERF ≥ 70, A11Y ≥ 95, BP ≥ 95, SEO ≥ 95 — overridable via `LH_*` env vars) — fails the build on regression |
+| `lighthouse` | `scripts/lighthouse-ci.sh` | Lighthouse audit with score budgets (PERF ≥ 60 — set below the observed headless-CI noise band of 64–93 — A11Y ≥ 95, BP ≥ 95, SEO ≥ 95 — overridable via `LH_*` env vars) — fails the build on regression |
 
 Run them locally anytime: `npm run test:smoke`, `npm run test:xbrowser`, `npm run test:lighthouse` (requires `npm ci` + `npx playwright-core install chromium` first).
 
