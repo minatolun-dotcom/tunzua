@@ -21,7 +21,7 @@ A modern, responsive single-page website for Tunzua Consultancy - a professional
 
 This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaScript. It showcases Tunzua Consultancy's services including bookkeeping, GST filing, income tax, Tally Prime solutions, payroll management, and business consulting.
 
-**Live URL:** https://www.tunzua.com
+**Live URL:** https://tunzua.com (Pages preview: https://minatolun-dotcom.github.io/tunzua/)
 
 ---
 
@@ -156,18 +156,22 @@ Run them locally anytime: `npm run test:smoke`, `npm run test:xbrowser`, `npm ru
 
 ### DNS Configuration
 
-⚠️ **Important**: the custom domain `www.tunzua.com` currently serves an **outdated build** of the site (old CDN-based version), not this repo. The canonical tags, `sitemap.xml`, `robots.txt`, and OG image URLs point at `www.tunzua.com`, so until the domain is switched, search engines and social crawlers see the OLD site. The new site is live at the Pages preview: `https://minatolun-dotcom.github.io/tunzua/`.
+The repo is deployed to GitHub Pages at `https://minatolun-dotcom.github.io/tunzua/`. A `CNAME` file (`tunzua.com`) is committed at the repo root, and all canonical/OG/JSON-LD/sitemap URLs use `https://tunzua.com` (apex).
 
-To point `www.tunzua.com` at this repo (GitHub Pages custom domain):
+To finish pointing `tunzua.com` at GitHub Pages (currently served from Cloudflare Pages):
 
-1. Repo → **Settings → Pages → Custom domain** → enter `www.tunzua.com` → Save (GitHub verifies and issues the certificate)
-2. At your DNS provider, add a `CNAME` record:
+1. **GitHub**: Repo → **Settings → Pages → Custom domain** → enter `tunzua.com` → **Save** (the committed `CNAME` file is picked up; GitHub verifies the domain and issues an automatic certificate).
+2. **Cloudflare Pages**: remove `tunzua.com` / `www.tunzua.com` from the Pages project's custom domains so it no longer claims the domain.
+3. **Cloudflare DNS** (web records; keep MX/email records untouched):
 
 ```
-www  CNAME  minatolun-dotcom.github.io
+@    A    185.199.108.153   (and 185.199.109.153 / 110.153 / 111.153)
+@    AAAA 2606:50c0:8000::153  (and 2606:50c0:8001::153 / 8002::153 / 8003::153)
+www  CNAME minatolun-dotcom.github.io
 ```
 
-3. Wait for certificate issuance, then verify `https://www.tunzua.com/` serves this site. (If `tunzua.com` itself should also serve the site, add an `A` record per GitHub's current IPs or a root redirect.)
+4. **Cloudflare SSL/TLS mode**: keep the proxy grey (DNS-only) until GitHub shows the domain verified, then optionally enable the orange cloud with **Full (strict)** — never `Flexible` (causes an HTTPS redirect loop with GitHub Pages).
+5. Wait for the certificate, then enable **Enforce HTTPS** in Settings → Pages and verify `https://tunzua.com/` serves this site (`www` auto-redirects to the apex).
 
 ### SSL/HTTPS
 
@@ -238,8 +242,8 @@ Single `@graph` JSON-LD block containing: **LocalBusiness** (with `hasOfferCatal
 {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "LocalBusiness", "@id": "https://www.tunzua.com/#business", "name": "Tunzua Consultancy", ... },
-    { "@type": "Service", "@id": "https://www.tunzua.com/#svc-gst", "serviceType": "GST Filing", ... },
+    { "@type": "LocalBusiness", "@id": "https://tunzua.com/#business", "name": "Tunzua Consultancy", ... },
+    { "@type": "Service", "@id": "https://tunzua.com/#svc-gst", "serviceType": "GST Filing", ... },
     { "@type": "FAQPage", "mainEntity": [ ... ] }
   ]
 }
