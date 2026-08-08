@@ -86,6 +86,7 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ## Change Log
 
 ### August 8, 2026
+- Removed the custom cursor + magnifier lens feature from `index.html` (the mouse-following dot and glow bubble, their CSS incl. `lensSheen`, the two DOM elements, and the JS handlers) — site now uses the native cursor
 - Lighthouse audit (13.4.1, mobile/throttled) run against live site: home 80/94/100/92, legal 100 BP + 100 SEO, 95 a11y
 - Self-hosted Google Fonts: downloaded the exact woff2 files (Inter + Space Grotesk, latin + latin-ext, weights 400-700) into `assets/fonts/`, added `assets/css/fonts.css` with `font-display: swap`; removed the render-blocking `fonts.googleapis.com` stylesheet + preconnects from all pages; added a `<link rel="preload">` for the LCP font (Space Grotesk 700)
 - Fixed dark-mode contrast: `--text-muted` was `#475569` (2.4:1 on dark bg — unreadable); lightened to `#94a3b8` (~7:1) in the dark block of all 3 pages
