@@ -14,17 +14,18 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 | File | Size | Lines | Status |
 |------|------|-------|--------|
-| `index.html` | 165K | ~2,200 | ✅ Active (inline icon sprite) |
-| `privacy.html` | 21K | ~540 | ✅ Active (local Tailwind + sprite) |
-| `terms.html` | 23K | ~560 | ✅ Active (local Tailwind + sprite) |
-| `og-image.png` | 40K | - | ✅ Active social share banner |
+| `index.html` | 106K | ~2,300 | ✅ Active — **Swiss/Editorial redesign** (inline icon sprite, no Tailwind) |
+| `privacy.html` | 14K | ~330 | ✅ Active (new editorial skin) |
+| `terms.html` | 16K | ~360 | ✅ Active (new editorial skin) |
+| `og-image.png` | 39K | - | ✅ Active social share banner (new brand palette) |
 | `robots.txt` | 68B | - | ✅ Active |
 | `sitemap.xml` | 598B | - | ✅ Active |
-| `favicon.svg` | 14K | - | ✅ Active |
-| `tailwind.min.css` | 16K | - | ✅ Generated Tailwind CSS (index page) |
-| `assets/css/legal.css` | 885B | - | ✅ Supplemental utilities (legal pages) |
-| `assets/css/fonts.css` | 6.5K | - | ✅ Self-hosted @font-face rules (Inter + Space Grotesk) |
-| `assets/fonts/` | 16 files | - | ✅ Inter + Space Grotesk woff2 (latin + latin-ext, weights 400-700) |
+| `favicon.svg` | 15K | - | ✅ Active (dark-mode ring) |
+| `apple-touch-icon.png` | 7K | - | ✅ Active (emerald brand mark) |
+| ~~`tailwind.min.css`~~ | - | - | **Removed** — redesign uses hand-written CSS only |
+| `assets/css/legal.css` | 7.3K | - | ✅ New editorial stylesheet (legal pages, no Tailwind) |
+| `assets/css/fonts.css` | 8.5K | - | ✅ Self-hosted @font-face rules (Inter + Space Grotesk + **Fraunces**) |
+| `assets/fonts/` | 19 files | - | ✅ Inter + Space Grotesk + **Fraunces** woff2 (latin + latin-ext) |
 | `assets/fa-sprite.svg` | 28K | 150 | ✅ Source sprite for inline icons |
 | `assets/images/logo.png` | 3.8K | - | ✅ Optimized (was 127KB) |
 | `assets/images/client-0.svg` | 32K | - | ✅ Active |
@@ -84,6 +85,24 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ---
 
 ## Change Log
+
+### August 8, 2026 — Complete Swiss/Editorial redesign (from scratch)
+
+Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with full dark skin; trim + restructure), the entire site was rebuilt from scratch. The old design system (navy-blue gradient, glassmorphism cards, Space Grotesk display, blob decorations, Tailwind utility classes) was thrown out; **all content, sections, and functionality were preserved**.
+
+**New design system** (`index.html` `<style>` + `assets/css/legal.css`):
+- **Palette**: warm paper `#f5f2ea` (light) / deep ink `#15130f` (dark), single emerald accent `#1e5b3d` / `#7fc9a4` (dark), hairline rules `#d8d0bc` — no gradients, no glass, no blobs, no shadows. `.dark` variant with `color-scheme: dark`.
+- **Type**: **Fraunces** variable serif (self-hosted, 3 woff2 subsets, `opsz` optical sizing) for all display headings + brand wordmark; Inter for body/UI. Editorial scale with `clamp()` fluid sizes and `text-wrap: balance`.
+- **Structure**: strict asymmetric grid, numbered editorial sections (eyebrow index + serif headline), thin 1px rules as section separators, oversized type, uppercase tracked micro-labels.
+- **Hero**: editorial serif headline + lede + hairline rule, two CTAs, a ledger-panel proof block (stat cards + „since 2016“), stats row with counters (1,000/15/99), client-logo marquee strip pulled up under the hero.
+- **Restructure**: Why-Us folded into Services (services grid with numbered rows + feature lists), Tally Prime band, 3-tier pricing (highlighted middle tier), numbered process steps, testimonial marquee, About (mission/vision + values), Contact (address/phone/email card), slim CTA band, editorial footer with socials.
+- All previous interactive features retained and re-styled: theme toggle (persists), scroll reveal (IntersectionObserver), counters, marquees (pause on hover), cookie banner, mobile menu (scroll-lock, aria-expanded), back-to-top, anchor nav, navbar `scrolled` state.
+
+**Legal pages** (`privacy.html`, `terms.html`): rebuilt with the same system — editorial hero (eyebrow + Fraunces title + updated date + hairline), numbered sections with em dash lists, contact box; same navbar (brand + theme toggle + Back to Home) and slim footer. All policy content byte-preserved (10 + 12 sections). `tailwind.min.css` deleted (nothing references it); `scripts/smoke-test.sh` asset list updated (Fraunces + apple-touch-icon added, tailwind removed).
+
+**Assets regenerated for the new brand**: `og-image.png` (1200×630, 39KB) — ink background, emerald glow + hairline rules, Fraunces title „Modern books. Clear tax. Confident growth.“, logo + wordmark, tunzua.com badge, rendered via headless Chrome at 2× deviceScaleFactor using the site's own fonts; `apple-touch-icon.png` (180×180, 7KB) — emerald rounded square + paper ring + white-glyph logo.
+
+**Validation (all green)**: smoke test (updated asset list, div balance, sprite refs); Playwright cross-browser suite **38/38 (Chromium + Firefox, desktop 1440 + mobile 390)** — includes a real bug found during the rebuild (a corrupted `'false');` fragment in `closeMobile()` that had broken the entire main script block: fixed, plus `overflow-x: clip` on html/body + `min-width: 0` on hero-grid children to keep transforms from causing scroll overflow; Lighthouse CI gate **all budgets met** (PERF ≥70 met, TBT 0ms, CLS 0.005); zero console/page errors in both themes on all pages; full-page screenshots verified light + dark.
 
 ### August 8, 2026
 - **Lighthouse CI gate added**: new `scripts/lighthouse-ci.sh` serves the repo locally, audits with Lighthouse (mobile, throttled), and fails the build if any category drops below budget (PERF ≥ 70 — set below the documented headless-CI noise band so it catches real regressions without flaking; A11Y ≥ 95, BP ≥ 95, SEO ≥ 95 — overridable via `LH_*` env vars; Chrome auto-discovered; Lighthouse version pinned in `package.json`). New `lighthouse` job in CI (`npx playwright-core install chromium` + run). Local runs: PERF 82-93, A11Y 99-100, BP 100, SEO 100, CLS 0.

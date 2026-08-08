@@ -28,27 +28,25 @@ This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaSc
 ## Features
 
 ### Core Features
+- **Swiss/Editorial design system** - warm paper + deep ink palette, single emerald accent, Fraunces serif display, hairline rules, numbered sections — no gradients, no glass, no CDN
 - **Responsive Design** - Fully responsive across all device sizes (mobile, tablet, desktop)
-- **Dark/Light Mode** - Toggle with system preference detection and localStorage persistence
+- **Dark/Light Mode** - Light-first, full dark skin with system-preference detection and localStorage persistence
 - **Smooth Scroll Navigation** - Anchor-based navigation with smooth scrolling
-- **Mobile Menu** - Hamburger menu with full-screen overlay on mobile devices
-- **Scroll Animations** - Intersection Observer-based reveal animations
-- **Magnetic Buttons** - Interactive button hover effects
-- **Infinite Marquee** - Client logos and testimonials auto-scrolling
+- **Mobile Menu** - Hamburger menu with scroll-lock and ARIA state on mobile devices
+- **Scroll Animations** - Intersection Observer-based reveal animations (reduced-motion aware)
+- **Infinite Marquee** - Client logos (under hero) and testimonials auto-scrolling, pause on hover
 
 ### Sections
-1. **Hero** - Main value proposition with animated dashboard preview
-2. **Trust Indicators** - Counter animations for key statistics
-3. **Services** - Bento grid layout showcasing all services
-4. **Why Choose Us** - Feature highlights with glass cards
-5. **Tally Prime** - Dedicated section with pricing plans
-6. **Pricing** - Service packages with call-to-action
-7. **Process** - 5-step horizontal timeline (desktop) / vertical (mobile)
-8. **Testimonials** - Auto-scrolling client reviews
-9. **Clients** - Logo marquee with 3D hover effects
-10. **About** - Company story, mission, vision, and timeline
-11. **Contact** - Contact cards, WhatsApp quick link, Google rating
-12. **Footer** - Links, social icons, and copyright
+1. **Hero** - Editorial serif headline, lede, ledger-panel proof block, stats counters (1,000/15/99)
+2. **Clients** - Logo marquee strip pulled up under the hero
+3. **Services** - Numbered service rows (bookkeeping, GST, income tax, Tally, payroll, consulting) with feature lists
+4. **Tally Prime** - Dedicated band with feature checklist
+5. **Pricing** - 3-tier packages with highlighted middle tier
+6. **Process** - 5 numbered steps (desktop row / mobile stack)
+7. **Testimonials** - Auto-scrolling client reviews (marquee)
+8. **About** - Mission, vision, timeline milestones, values
+9. **Contact** - Visit/Call/Email/WhatsApp cards
+10. **CTA band + Footer** - Editorial footer with socials and legal links
 
 ### Additional Pages
 - **Privacy Policy** (`privacy.html`)
@@ -61,10 +59,10 @@ This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaSc
 | Technology | Purpose |
 |------------|---------|
 | HTML5 | Semantic markup |
-| CSS3 | Custom properties, animations, glassmorphism |
-| JavaScript (ES6+) | Interactivity, animations, routing |
-| Tailwind CSS (generated build) | Utility-first CSS framework |
-| Self-hosted Google Fonts | Inter + Space Grotesk (woff2, `font-display: swap`, no CDN) |
+| CSS3 | Custom properties, Swiss/Editorial layout, animations |
+| JavaScript (ES6+) | Interactivity, animations (theme, reveal, counters, marquees, menu) |
+| Hand-written CSS | Design system in page `<style>` + `assets/css/legal.css` (no Tailwind) |
+| Self-hosted Google Fonts | **Fraunces** (serif display) + Inter + Space Grotesk (woff2, `font-display: swap`, no CDN) |
 | Font Awesome 6.5 (local SVG sprite) | Icons (no CDN) |
 
 ---
@@ -79,8 +77,8 @@ tunzua/
 ├── og-image.png            # Social share banner (1200x630)
 ├── robots.txt              # Crawler rules
 ├── sitemap.xml             # XML sitemap
-├── favicon.svg             # Site favicon
-├── tailwind.min.css        # Generated Tailwind build (tree-shaken)
+├── favicon.svg             # Site favicon (dark-mode ring)
+├── apple-touch-icon.png    # iOS home-screen icon (emerald brand mark)
 ├── README.md               # This documentation
 ├── STATE.md                # Project state tracking
 └── assets/
@@ -125,9 +123,9 @@ php -S localhost:8000
 
 ### Development Notes
 
-- **No build step required** - Tailwind utilities come from the generated `tailwind.min.css`; new utilities can be added there or as small supplements in the page `<style>` block
+- **No build step required** - The design system is hand-written CSS in each page's `<style>` block (index) and `assets/css/legal.css` (legal pages); no Tailwind
 - **No framework dependencies** - Pure vanilla JS with no transpilation needed
-- **CSS Custom Properties** - Theme colors defined in `:root` and `.dark` selectors
+- **CSS Custom Properties** - Theme tokens (`--paper`, `--ink`, `--accent`, `--hairline`) defined in `:root` and `.dark` selectors
 - **Modular JavaScript** - All scripts are inline but organized by feature
 
 ---
@@ -186,8 +184,8 @@ GitHub Pages issues a certificate automatically for the custom domain once the C
 | Logo Optimization | ✅ | Compressed 127KB PNG to 3.8KB |
 | Lazy Loading | ✅ | Added to client logos |
 | Icon Delivery | ✅ | Font Awesome CDN replaced with local SVG sprite |
-| Tailwind CSS | ✅ | CDN replaced with generated local build + supplements |
-| Font Loading | ✅ | Preconnect to Google Fonts |
+| Styling | ✅ | Tailwind CDN removed — hand-written design system, no framework CSS |
+| Font Loading | ✅ | Self-hosted woff2 + `preload` for the LCP font (Fraunces latin) |
 | Theme Persistence | ✅ | localStorage for dark mode + no-flash head script |
 | Reduced Motion | ✅ | Respects `prefers-reduced-motion` |
 
@@ -273,30 +271,26 @@ GitHub Pages issues a certificate automatically for the custom domain once the C
 ### Light Mode
 | Variable | Value | Usage |
 |----------|-------|-------|
-| `--bg-primary` | `#ffffff` | Main background |
-| `--bg-secondary` | `#f8fafc` | Section backgrounds |
-| `--text-primary` | `#0f172a` | Headings |
-| `--text-secondary` | `#475569` | Body text |
-| `--text-muted` | `#475569` | Captions |
-| `--border-color` | `#e2e8f0` | Borders |
+| `--paper` | `#f5f2ea` | Main background (warm paper) |
+| `--paper-2` | `#ece7da` | Alt section / footer background |
+| `--surface` | `#fbfaf5` | Cards |
+| `--ink` | `#1a1713` | Headings / primary text |
+| `--ink-2` | `#57513f` | Body text |
+| `--ink-3` | `#6d6554` | Muted text (AA ≥ 4.5:1) |
+| `--accent` | `#1e5b3d` | Emerald accent |
+| `--hairline` | `#d8d0bc` | 1px rules / borders |
 
 ### Dark Mode
 | Variable | Value | Usage |
 |----------|-------|-------|
-| `--bg-primary` | `#0a0a1a` | Main background |
-| `--bg-secondary` | `#0f1729` | Section backgrounds |
-| `--text-primary` | `#f1f5f9` | Headings |
-| `--text-secondary` | `#94a3b8` | Body text |
-| `--border-color` | `#1e293b` | Borders |
-
-### Accent Colors
-| Color | Hex | Usage |
-|-------|-----|-------|
-| Blue | `#2563eb` | Primary accent |
-| Cyan | `#06b6d4` | Secondary accent |
-| Green | `#10b981` | Success states |
-| Purple | `#8b5cf6` | Tertiary accent |
-| Gold | `#f59e0b` | Highlights |
+| `--paper` | `#15130f` | Main background (deep ink) |
+| `--paper-2` | `#1d1a14` | Alt section / footer background |
+| `--surface` | `#1a1712` | Cards |
+| `--ink` | `#ede8dc` | Headings / primary text |
+| `--ink-2` | `#b3ac9b` | Body text |
+| `--ink-3` | `#857e6c` | Muted text |
+| `--accent` | `#7fc9a4` | Emerald accent |
+| `--hairline` | `#322c20` | 1px rules / borders |
 
 ---
 
@@ -318,4 +312,4 @@ GitHub Pages issues a certificate automatically for the custom domain once the C
 
 ## License
 
-© 2025 Tunzua Consultancy. All rights reserved.
+© 2026 Tunzua Consultancy. All rights reserved.

@@ -29,13 +29,14 @@ check() {
 
 for p in \
   index.html privacy.html terms.html \
-  tailwind.min.css assets/css/legal.css assets/css/fonts.css \
+  assets/css/legal.css assets/css/fonts.css \
   assets/fa-sprite.svg assets/images/logo.png \
   assets/images/client-0.svg assets/images/client-1.svg \
   assets/images/client-2.svg assets/images/client-3.svg \
   assets/fonts/inter-400-latin.woff2 \
+  assets/fonts/fraunces-latin.woff2 \
   assets/fonts/space-grotesk-700-latin.woff2 \
-  favicon.svg og-image.png robots.txt sitemap.xml; do
+  favicon.svg apple-touch-icon.png og-image.png robots.txt sitemap.xml; do
   check "$p"
 done
 
