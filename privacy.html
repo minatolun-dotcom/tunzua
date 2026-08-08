@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Privacy Policy | Tunzua Consultancy</title>
+    <meta name="description" content="Privacy Policy for Tunzua Consultancy - Learn how we protect your personal and financial data.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.tunzua.com/privacy.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Privacy Policy | Tunzua Consultancy">
+    <meta property="og:description" content="Learn how Tunzua Consultancy collects, uses, and protects your personal and financial data.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tunzua.com/privacy.html">
+    <meta property="og:image" content="https://www.tunzua.com/og-image.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy Policy | Tunzua Consultancy">
+    <meta name="twitter:description" content="Learn how Tunzua Consultancy collects, uses, and protects your personal and financial data.">
+    <meta name="twitter:image" content="https://www.tunzua.com/og-image.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS (generated) + supplemental utilities -->
+    <link rel="stylesheet" href="tailwind.min.css">
+    <link rel="stylesheet" href="assets/css/legal.css">
+
+    <!-- Apply saved theme before first paint (prevents dark-mode flash) -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 50px -12px rgba(0, 0, 0, 0.15);
+            --gradient-primary: linear-gradient(135deg, #1e1b4b 0%, #2563eb 50%, #06b6d4 100%);
+            --gradient-accent: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            --glow-blue: 0 0 40px rgba(37, 99, 235, 0.15);
+            --glow-cyan: 0 0 40px rgba(6, 182, 212, 0.15);
+            --accent-navy: #0a1a3a;
+            --accent-blue: #2563eb;
+            --accent-cyan: #06b6d4;
+            --accent-gold: #f59e0b;
+        }
+
+        .dark {
+            --bg-primary: #0a0a1a;
+            --bg-secondary: #0f1729;
+            --bg-tertiary: #151d33;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #475569;
+            --border-color: #1e293b;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(30, 41, 59, 0.5);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 20px 50px -12px rgba(0, 0, 0, 0.6);
+            --glow-blue: 0 0 60px rgba(37, 99, 235, 0.2);
+            --glow-cyan: 0 0 60px rgba(6, 182, 212, 0.2);
+            --accent-navy: #94a3b8;
+            --accent-blue: #60a5fa;
+            --accent-cyan: #22d3ee;
+            --accent-gold: #fbbf24;
+        }
+
+        html { background-color: var(--bg-primary); }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+        }
+
+        ::selection { background: rgba(37, 99, 235, 0.3); color: var(--text-primary); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #2563eb, #06b6d4); border-radius: 4px; }
+
+        .navbar {
+            position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 32px); max-width: 1200px; z-index: 1000;
+            background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .section-card:hover {
+            border-color: rgba(37, 99, 235, 0.2);
+            box-shadow: var(--glow-blue);
+        }
+
+        .section-separator {
+            height: 1px; max-width: 1200px; margin: 0 auto;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { width: calc(100% - 24px); padding: 10px 16px; }
+            .section-card { padding: 24px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Icon sprite (local, replaces Font Awesome CDN) -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="moon" viewBox="0 0 384 512">
+<path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
+</symbol>
+    <symbol id="sun" viewBox="0 0 512 512">
+<path d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/>
+</symbol>
+    <symbol id="arrow-left" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" transform="translate(448 0) scale(-1 1)"/></symbol>
+    </svg>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+            <img src="assets/images/logo.png" alt="Tunzua Consultancy" style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover;">
+            <span class="font-display" style="font-weight: 700; font-size: 18px; color: var(--text-primary);">Tunzua Consultancy</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <button id="themeToggle" style="width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg-secondary); border: 1px solid var(--border-color); cursor: pointer;" aria-label="Toggle theme">
+                <svg class="fa-svg" style="font-size: 14px; color: #eab308;" id="sunIcon"><use href="#sun"></use></svg>
+                <svg class="fa-svg hidden" style="font-size: 14px; color: #60a5fa;" id="moonIcon"><use href="#moon"></use></svg>
+            </button>
+            <a href="index.html" style="padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 14px; text-decoration: none; background: var(--gradient-accent); color: white; white-space: nowrap;">
+                <svg class="fa-svg" style="margin-right: 8px;"><use href="#arrow-left"></use></svg>Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-6 py-16 pt-28">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-display font-bold mb-4" style="color: var(--text-primary);">Privacy Policy</h1>
+            <p class="text-sm" style="color: var(--text-muted);">Last Updated: January 2025</p>
+        </div>
+
+        <div class="space-y-8">
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">1. Introduction</h2>
+                <p style="color: var(--text-secondary);">Tunzua Consultancy ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our accounting, taxation, and business consultancy services. By accessing our website or engaging our services, you agree to the collection and use of information in accordance with this policy.</p>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">2. Information We Collect</h2>
+                <p class="mb-3" style="color: var(--text-secondary);">We may collect information about you in various ways, including:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4" style="color: var(--text-secondary);">
+                    <li><strong>Personal Data:</strong> Name, email address, phone number, postal address, PAN, GSTIN, and other identification details necessary for accounting and tax compliance services.</li>
+                    <li><strong>Financial Data:</strong> Business financial records, bank statements, transaction data, payroll information, and other financial documents required for bookkeeping, tax filing, and Tally Prime services.</li>
+                    <li><strong>Usage Data:</strong> Information about how you interact with our website, including IP address, browser type, pages visited, time spent on pages, and other diagnostic data.</li>
+                    <li><strong>Communication Data:</strong> Records of correspondence between you and Tunzua Consultancy, including emails, phone calls, and messages.</li>
+                </ul>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">3. How We Use Your Information</h2>
+                <p class="mb-3" style="color: var(--text-secondary);">We use the collected information for the following purposes:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4" style="color: var(--text-secondary);">
+                    <li>To provide and maintain our accounting, taxation, and business consultancy services.</li>
+                    <li>To process GST filings, income tax returns, TDS returns, and other regulatory compliance submissions on your behalf.</li>
+                    <li>To maintain accurate books of accounts and financial records using Tally Prime or other accounting software.</li>
+                    <li>To communicate with you regarding service updates, appointments, compliance deadlines, and important notifications.</li>
+                    <li>To improve our website, services, and customer experience.</li>
+                    <li>To comply with legal obligations under Indian tax laws, including the Income Tax Act, 1961, the Central Goods and Services Tax Act, 2017, and other applicable regulations.</li>
+                </ul>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">4. Data Sharing and Disclosure</h2>
+                <p class="mb-3" style="color: var(--text-secondary);">We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4" style="color: var(--text-secondary);">
+                    <li><strong>Government Authorities:</strong> When required for tax filings, GST returns, regulatory compliance, or as mandated by law under Indian jurisdiction.</li>
+                    <li><strong>Service Providers:</strong> With trusted third-party vendors who assist in operating our website and providing services, subject to confidentiality agreements.</li>
+                    <li><strong>Legal Requirements:</strong> When disclosure is required by law, court order, or governmental regulation.</li>
+                    <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets, with prior notice to you.</li>
+                </ul>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">5. Data Security</h2>
+                <p style="color: var(--text-secondary);">We implement appropriate technical and organizational security measures to protect your personal and financial data against unauthorized access, alteration, disclosure, or destruction. These measures include encryption, secure servers, access controls, and regular security assessments. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">6. Data Retention</h2>
+                <p style="color: var(--text-secondary);">We retain your personal and financial data only for as long as necessary to fulfill the purposes for which it was collected, including to satisfy legal, accounting, or reporting requirements. Under Indian law, financial records and tax-related documents may be retained for a minimum period of 6 years from the end of the relevant financial year, or as required by applicable statutes.</p>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">7. Your Rights</h2>
+                <p class="mb-3" style="color: var(--text-secondary);">You have the right to:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4" style="color: var(--text-secondary);">
+                    <li>Access the personal information we hold about you.</li>
+                    <li>Request correction of inaccurate or incomplete data.</li>
+                    <li>Request deletion of your personal data, subject to legal retention requirements.</li>
+                    <li>Withdraw consent for data processing at any time.</li>
+                    <li>Lodge a complaint with the relevant data protection authority.</li>
+                </ul>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">8. Cookies</h2>
+                <p style="color: var(--text-secondary);">Our website may use cookies and similar tracking technologies to enhance your experience. You can choose to disable cookies through your browser settings. Disabling cookies may affect the functionality of certain features on our website.</p>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">9. Changes to This Policy</h2>
+                <p style="color: var(--text-secondary);">We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically for any updates.</p>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-2xl font-display font-bold mb-4" style="color: var(--text-primary);">10. Contact Us</h2>
+                <p style="color: var(--text-secondary);">If you have any questions or concerns about this Privacy Policy, please contact us:</p>
+                <div class="mt-4 p-6 rounded-2xl" style="background: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                    <p class="font-semibold mb-2" style="color: var(--text-primary);">Tunzua Consultancy</p>
+                    <p style="color: var(--text-secondary);">53, Dawn School Road, Lailam Veng</p>
+                    <p style="color: var(--text-secondary);">Phone: <a href="tel:+918731831178" class="hover:underline" style="color: var(--accent-blue);">+91 8731831178</a></p>
+                    <p style="color: var(--text-secondary);">Email: <a href="mailto:info@tunzua.com" class="hover:underline" style="color: var(--accent-blue);">info@tunzua.com</a></p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color);">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm" style="color: var(--text-muted);">&copy; 2025 Tunzua Consultancy. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="privacy.html" class="text-sm transition-colors hover:text-blue-500" style="color: var(--text-muted);">Privacy Policy</a>
+                <a href="terms.html" class="text-sm transition-colors hover:text-blue-500" style="color: var(--text-muted);">Terms of Service</a>
+                <a href="index.html" class="text-sm transition-colors hover:text-blue-500" style="color: var(--text-muted);">Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+            }
+
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+
+            function updateIcons() {
+                const dark = document.documentElement.classList.contains('dark');
+                if (dark) {
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                } else {
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                }
+            }
+
+            updateIcons();
+
+            themeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+                const dark = document.documentElement.classList.contains('dark');
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+                updateIcons();
+            });
+        })();
+    </script>
+</body>
+</html>

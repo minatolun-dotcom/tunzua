@@ -1,0 +1,21 @@
+/* Supplemental Tailwind utilities used by privacy.html / terms.html that are
+   missing from the generated tailwind.min.css build. Values follow the
+   Tailwind v3 default theme (16px base, 0.25rem spacing scale). */
+
+/* Restore preflight-style link styling (Tailwind CDN used to provide this) */
+a { text-decoration: none; }
+
+.max-w-4xl { max-width: 56rem; }
+.ml-4 { margin-left: 1rem; }
+.mt-3 { margin-top: 0.75rem; }
+.pt-28 { padding-top: 7rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
+.space-y-8 > :not([hidden]) ~ :not([hidden]) { margin-top: 2rem; }
+.list-disc { list-style-type: disc; }
+.list-inside { list-style-position: inside; }
+.hover\:underline:hover { text-decoration-line: underline; }
+
+/* SVG icon (replaces Font Awesome CDN) */
+.fa-svg { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; fill: currentColor; flex-shrink: 0; }
+.fa-svg.hidden { display: none !important; }

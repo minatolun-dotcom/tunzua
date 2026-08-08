@@ -1,0 +1,12 @@
+# Credentials / secrets
+github-credentials
+.env
+.env.*
+
+# Node / tooling
+node_modules/
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
