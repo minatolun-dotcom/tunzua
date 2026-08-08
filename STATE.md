@@ -92,7 +92,9 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 - Fixed heading order on `index.html`: process steps, About "Our Mission/Our Vision", and Contact card titles bumped from `h4` to `h3` (headings now descend correctly; zero violations)
 - Made cookie-banner link descriptive: "Learn more" → "Read our privacy policy" (SEO + a11y)
 - Extended `scripts/smoke-test.sh` to cover `assets/css/fonts.css`, font files, and the `fonts.googleapis`/`fonts.gstatic` CDN check
-- Re-audited locally after fixes: home **87 perf / 100 a11y / 100 BP / 100 SEO** (up from 80/94/100/92); live re-audit after deploy pending
+- Re-audited against the live site after fixes: **FCP 1.2-1.8s (was 2.8s), LCP 2.3-2.6s (was 4.3s), CLS 0, a11y 100, BP 100, SEO 100**; performance score 77-91 depending on run (TBT is run-variable; the pre-fix baseline was 80)
+- Added `h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}` to `tailwind.min.css` (missing preflight heading reset) so the h4->h3 heading fix is visually neutral
+- Added `<link rel="preload">` for both critical fonts (Inter 400 + Space Grotesk 700) so font swaps complete near first paint; verified live: fonts load, rupee symbol renders, theme toggle works, zero console errors, deployed HTML byte-identical to repo
 - Set up git: initialized repository, configured GitHub identity + credential store, initial commit pushed to `github.com/minatolun-dotcom/tunzua` (`main`); `github-credentials` file excluded via `.gitignore`
 - Added `scripts/smoke-test.sh` + GitHub Actions CI (`.github/workflows/ci.yml`) that validate pages/assets/icons on every push
 - Moved `github-credentials` out of the repo to `~/.config/tunzua/github-credentials` (chmod 600)
