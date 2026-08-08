@@ -86,6 +86,16 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 ## Change Log
 
+### August 8, 2026 — Financial Snapshot removed, stats corrected, form confirmed live
+
+Owner review: the hero's "Financial Snapshot" ledger (Revenue ₹86.4L, Net Profit ₹35.2L, etc.) contained fabricated figures and shouldn't be displayed; "Businesses Served" was overstated.
+1. **Ledger panel removed** — deleted the entire `Financial Snapshot` markup (FY 2025–26, 5 ledger rows, tags) and its CSS (`.ledger*`, `.up`/`.down`); the hero is now a single editorial column (`.hero-grid` → `display: block; max-width: 780px`). The Tally band's tag strip (Renewals/AMC/Customization/Migration/Training) was preserved via inline flex styles (it had reused the `.ledger`/`.ledger-tags` classes).
+2. **Businesses Served corrected 1,000+ → 100+** (`data-target="100"`); 15+ years and 99% satisfaction kept. Counter test is data-driven, so the xbrowser suite passes unchanged.
+3. **4 now-unused sprite symbols removed** (`chart-line`, `file-invoice`, `coins`, `shield-halved` — all only used by the ledger; `file-invoice-dollar` kept, still used in Services). Div balance verified (final 0), no orphaned `<use>` refs.
+4. **FormSubmit confirmed live**: re-submitted the form; response changed from `"needs Activation"` to **`{"success":"true"}`** — the activation email was clicked and the endpoint now delivers submissions to `info@tunzua.com`. Zero console errors.
+
+Verified: hero renders clean in both themes (no overflow, counters animate to 100/15/99), smoke test green.
+
 ### August 8, 2026 — Favicon accent dot + live form activation (items 1 & 3; custom domain deferred)
 
 Per owner direction ("proceed with 1 and 3, lets not do custom domains for now"):

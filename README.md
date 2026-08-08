@@ -37,7 +37,7 @@ This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaSc
 - **Infinite Marquee** - Client logos (under hero) and testimonials auto-scrolling, pause on hover
 
 ### Sections
-1. **Hero** - Editorial serif headline, lede, ledger-panel proof block, stats counters (1,000/15/99)
+1. **Hero** - Editorial serif headline, lede, CTAs, stats counters (100+/15+/99%)
 2. **Clients** - Logo marquee strip pulled up under the hero
 3. **Services** - Numbered service rows (bookkeeping, GST, income tax, Tally, payroll, consulting) with feature lists
 4. **Tally Prime** - Dedicated band with feature checklist
