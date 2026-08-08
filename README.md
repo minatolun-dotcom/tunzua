@@ -33,7 +33,6 @@ This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaSc
 - **Smooth Scroll Navigation** - Anchor-based navigation with smooth scrolling
 - **Mobile Menu** - Hamburger menu with full-screen overlay on mobile devices
 - **Scroll Animations** - Intersection Observer-based reveal animations
-- **Custom Cursor** - Desktop-only custom cursor with hover effects
 - **Magnetic Buttons** - Interactive button hover effects
 - **Infinite Marquee** - Client logos and testimonials auto-scrolling
 
@@ -65,7 +64,7 @@ This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaSc
 | CSS3 | Custom properties, animations, glassmorphism |
 | JavaScript (ES6+) | Interactivity, animations, routing |
 | Tailwind CSS (generated build) | Utility-first CSS framework |
-| Google Fonts | Inter + Space Grotesk |
+| Self-hosted Google Fonts | Inter + Space Grotesk (woff2, `font-display: swap`, no CDN) |
 | Font Awesome 6.5 (local SVG sprite) | Icons (no CDN) |
 
 ---
@@ -126,7 +125,7 @@ php -S localhost:8000
 
 ### Development Notes
 
-- **No build step required** - The site uses Tailwind CSS via CDN for development
+- **No build step required** - Tailwind utilities come from the generated `tailwind.min.css`; new utilities can be added there or as small supplements in the page `<style>` block
 - **No framework dependencies** - Pure vanilla JS with no transpilation needed
 - **CSS Custom Properties** - Theme colors defined in `:root` and `.dark` selectors
 - **Modular JavaScript** - All scripts are inline but organized by feature
@@ -146,22 +145,34 @@ This is a static site that can be deployed to any web hosting service:
 
 ### Continuous Integration
 
-A GitHub Actions workflow (`.github/workflows/ci.yml`) runs `scripts/smoke-test.sh` on every push/PR — it verifies all pages and assets return 200, that no Font Awesome `<i>` tags or CDN references remain, and that every icon `<use>` resolves to an embedded sprite symbol. Run it locally anytime with `bash scripts/smoke-test.sh`.
+The GitHub Actions workflow (`.github/workflows/ci.yml`) runs three jobs on every push/PR:
+
+| Job | Script | Checks |
+|-----|--------|--------|
+| `smoke-test` | `scripts/smoke-test.sh` | All pages/assets return 200; no Font Awesome `<i>` tags or CDN references; every icon `<use>` resolves to an embedded sprite symbol; div balance |
+| `cross-browser` | `scripts/xbrowser.js` | 19 layout/interactivity checks × Chromium, Firefox, **WebKit** (Safari engine) at desktop + mobile — overflow, marquees, theme toggle, counters, back-to-top, mobile menu, zero console errors (`npx playwright-core install --with-deps` provides the browsers incl. WebKit's system libs) |
+| `lighthouse` | `scripts/lighthouse-ci.sh` | Lighthouse audit with score budgets (PERF ≥ 70, A11Y ≥ 95, BP ≥ 95, SEO ≥ 95 — overridable via `LH_*` env vars) — fails the build on regression |
+
+Run them locally anytime: `npm run test:smoke`, `npm run test:xbrowser`, `npm run test:lighthouse` (requires `npm ci` + `npx playwright-core install chromium` first).
 
 ### DNS Configuration
 
-For production deployment at `tunzua.com`:
+⚠️ **Important**: the custom domain `www.tunzua.com` currently serves an **outdated build** of the site (old CDN-based version), not this repo. The canonical tags, `sitemap.xml`, `robots.txt`, and OG image URLs point at `www.tunzua.com`, so until the domain is switched, search engines and social crawlers see the OLD site. The new site is live at the Pages preview: `https://minatolun-dotcom.github.io/tunzua/`.
+
+To point `www.tunzua.com` at this repo (GitHub Pages custom domain):
+
+1. Repo → **Settings → Pages → Custom domain** → enter `www.tunzua.com` → Save (GitHub verifies and issues the certificate)
+2. At your DNS provider, add a `CNAME` record:
 
 ```
-A Record    -> Hosting IP
-CNAME       -> www.tunzua.com -> tunzua.com
+www  CNAME  minatolun-dotcom.github.io
 ```
+
+3. Wait for certificate issuance, then verify `https://www.tunzua.com/` serves this site. (If `tunzua.com` itself should also serve the site, add an `A` record per GitHub's current IPs or a root redirect.)
 
 ### SSL/HTTPS
 
-Ensure SSL certificate is configured for:
-- `tunzua.com`
-- `www.tunzua.com`
+GitHub Pages issues a certificate automatically for the custom domain once the CNAME propagates. No manual certificate setup needed.
 
 ---
 
