@@ -23,6 +23,8 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 | `favicon.svg` | 14K | - | ✅ Active |
 | `tailwind.min.css` | 16K | - | ✅ Generated Tailwind CSS (index page) |
 | `assets/css/legal.css` | 885B | - | ✅ Supplemental utilities (legal pages) |
+| `assets/css/fonts.css` | 6.5K | - | ✅ Self-hosted @font-face rules (Inter + Space Grotesk) |
+| `assets/fonts/` | 16 files | - | ✅ Inter + Space Grotesk woff2 (latin + latin-ext, weights 400-700) |
 | `assets/fa-sprite.svg` | 28K | 150 | ✅ Source sprite for inline icons |
 | `assets/images/logo.png` | 3.8K | - | ✅ Optimized (was 127KB) |
 | `assets/images/client-0.svg` | 32K | - | ✅ Active |
@@ -36,11 +38,11 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 | Dependency | Source | Purpose | Used By |
 |------------|--------|---------|---------|
-| Inter / Space Grotesk | Google Fonts | Body + display fonts | All pages |
+| ~~Inter / Space Grotesk~~ | ~~Google Fonts~~ | ~~Body + display fonts~~ | **Removed** — self-hosted woff2 files in `assets/fonts/` (`assets/css/fonts.css`) |
 | ~~Font Awesome CDN~~ | ~~cdnjs~~ | ~~Icons~~ | **Removed** — replaced with local SVG sprite |
 | ~~Tailwind Play CDN~~ | ~~cdn.tailwindcss.com~~ | ~~Utilities~~ | **Removed** — replaced with local builds |
 
-All runtime dependencies are now local except Google Fonts (preconnected).
+**All runtime dependencies are now fully local — zero third-party requests.**
 
 ---
 
@@ -76,7 +78,7 @@ All runtime dependencies are now local except Google Fonts (preconnected).
 ### Testing
 1. Cross-browser testing
 2. Mobile device testing
-3. Performance audit (Lighthouse)
+3. ~~Performance audit (Lighthouse)~~ **Done Aug 8, 2026** — see change log
 4. Accessibility audit (axe-core)
 
 ---
@@ -84,6 +86,13 @@ All runtime dependencies are now local except Google Fonts (preconnected).
 ## Change Log
 
 ### August 8, 2026
+- Lighthouse audit (13.4.1, mobile/throttled) run against live site: home 80/94/100/92, legal 100 BP + 100 SEO, 95 a11y
+- Self-hosted Google Fonts: downloaded the exact woff2 files (Inter + Space Grotesk, latin + latin-ext, weights 400-700) into `assets/fonts/`, added `assets/css/fonts.css` with `font-display: swap`; removed the render-blocking `fonts.googleapis.com` stylesheet + preconnects from all pages; added a `<link rel="preload">` for the LCP font (Space Grotesk 700)
+- Fixed dark-mode contrast: `--text-muted` was `#475569` (2.4:1 on dark bg — unreadable); lightened to `#94a3b8` (~7:1) in the dark block of all 3 pages
+- Fixed heading order on `index.html`: process steps, About "Our Mission/Our Vision", and Contact card titles bumped from `h4` to `h3` (headings now descend correctly; zero violations)
+- Made cookie-banner link descriptive: "Learn more" → "Read our privacy policy" (SEO + a11y)
+- Extended `scripts/smoke-test.sh` to cover `assets/css/fonts.css`, font files, and the `fonts.googleapis`/`fonts.gstatic` CDN check
+- Re-audited locally after fixes: home **87 perf / 100 a11y / 100 BP / 100 SEO** (up from 80/94/100/92); live re-audit after deploy pending
 - Set up git: initialized repository, configured GitHub identity + credential store, initial commit pushed to `github.com/minatolun-dotcom/tunzua` (`main`); `github-credentials` file excluded via `.gitignore`
 - Added `scripts/smoke-test.sh` + GitHub Actions CI (`.github/workflows/ci.yml`) that validate pages/assets/icons on every push
 - Moved `github-credentials` out of the repo to `~/.config/tunzua/github-credentials` (chmod 600)

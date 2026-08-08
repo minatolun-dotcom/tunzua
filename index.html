@@ -51,10 +51,9 @@
     }
     </script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Brand fonts (self-hosted) -->
+    <link rel="preload" href="assets/fonts/space-grotesk-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/fonts.css">
 
     <!-- Tailwind CSS (generated) -->
     <link rel="stylesheet" href="tailwind.min.css">
@@ -109,7 +108,7 @@
             --bg-tertiary: #151d33;
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
-            --text-muted: #475569;
+            --text-muted: #94a3b8;
             --border-color: #1e293b;
             --card-bg: rgba(15, 23, 42, 0.7);
             --glass-bg: rgba(15, 23, 42, 0.6);
@@ -1403,7 +1402,7 @@
                                 </div>
                             </div>
                             <div class="absolute top-[72px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style="background: var(--gradient-accent);">1</div>
-                            <h4 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Discover</h4>
+                            <h3 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Discover</h3>
                             <p class="text-xs max-w-[140px]" style="color: var(--text-secondary);">Understand your business needs and goals</p>
                         </div>
 
@@ -1415,7 +1414,7 @@
                                 </div>
                             </div>
                             <div class="absolute top-[72px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style="background: var(--gradient-accent);">2</div>
-                            <h4 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Consult</h4>
+                            <h3 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Consult</h3>
                             <p class="text-xs max-w-[140px]" style="color: var(--text-secondary);">Expert guidance and strategic planning</p>
                         </div>
 
@@ -1427,7 +1426,7 @@
                                 </div>
                             </div>
                             <div class="absolute top-[72px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style="background: var(--gradient-accent);">3</div>
-                            <h4 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Setup</h4>
+                            <h3 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Setup</h3>
                             <p class="text-xs max-w-[140px]" style="color: var(--text-secondary);">Configure systems and optimize processes</p>
                         </div>
 
@@ -1439,7 +1438,7 @@
                                 </div>
                             </div>
                             <div class="absolute top-[72px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style="background: var(--gradient-accent);">4</div>
-                            <h4 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Train</h4>
+                            <h3 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Train</h3>
                             <p class="text-xs max-w-[140px]" style="color: var(--text-secondary);">Hands-on team training and onboarding</p>
                         </div>
 
@@ -1451,7 +1450,7 @@
                                 </div>
                             </div>
                             <div class="absolute top-[72px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style="background: var(--gradient-accent);">5</div>
-                            <h4 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Support</h4>
+                            <h3 class="font-display font-bold mt-12 mb-2" style="color: var(--text-primary);">Support</h3>
                             <p class="text-xs max-w-[140px]" style="color: var(--text-secondary);">Ongoing assistance and continuous updates</p>
                         </div>
                     </div>
@@ -1468,7 +1467,7 @@
                         <div class="w-0.5 h-16" style="background: var(--border-color);"></div>
                     </div>
                     <div class="pt-2">
-                        <h4 class="font-display font-bold mb-1" style="color: var(--text-primary);">Discover</h4>
+                        <h3 class="font-display font-bold mb-1" style="color: var(--text-primary);">Discover</h3>
                         <p class="text-sm" style="color: var(--text-secondary);">Understand your business needs and goals</p>
                     </div>
                 </div>
@@ -1481,7 +1480,7 @@
                         <div class="w-0.5 h-16" style="background: var(--border-color);"></div>
                     </div>
                     <div class="pt-2">
-                        <h4 class="font-display font-bold mb-1" style="color: var(--text-primary);">Consult</h4>
+                        <h3 class="font-display font-bold mb-1" style="color: var(--text-primary);">Consult</h3>
                         <p class="text-sm" style="color: var(--text-secondary);">Expert guidance and strategic planning</p>
                     </div>
                 </div>
@@ -1494,7 +1493,7 @@
                         <div class="w-0.5 h-16" style="background: var(--border-color);"></div>
                     </div>
                     <div class="pt-2">
-                        <h4 class="font-display font-bold mb-1" style="color: var(--text-primary);">Setup</h4>
+                        <h3 class="font-display font-bold mb-1" style="color: var(--text-primary);">Setup</h3>
                         <p class="text-sm" style="color: var(--text-secondary);">Configure systems and optimize processes</p>
                     </div>
                 </div>
@@ -1507,7 +1506,7 @@
                         <div class="w-0.5 h-16" style="background: var(--border-color);"></div>
                     </div>
                     <div class="pt-2">
-                        <h4 class="font-display font-bold mb-1" style="color: var(--text-primary);">Train</h4>
+                        <h3 class="font-display font-bold mb-1" style="color: var(--text-primary);">Train</h3>
                         <p class="text-sm" style="color: var(--text-secondary);">Hands-on team training and onboarding</p>
                     </div>
                 </div>
@@ -1519,7 +1518,7 @@
                         </div>
                     </div>
                     <div class="pt-2">
-                        <h4 class="font-display font-bold mb-1" style="color: var(--text-primary);">Support</h4>
+                        <h3 class="font-display font-bold mb-1" style="color: var(--text-primary);">Support</h3>
                         <p class="text-sm" style="color: var(--text-secondary);">Ongoing assistance and continuous updates</p>
                     </div>
                 </div>
@@ -1641,7 +1640,7 @@
                                 <svg class="fa-svg text-xl" style="color: #2563eb;"><use href="#bullseye"></use></svg>
                             </div>
                             <div>
-                                <h4 class="font-bold mb-1" style="color: var(--text-primary);">Our Mission</h4>
+                                <h3 class="font-bold mb-1" style="color: var(--text-primary);">Our Mission</h3>
                                 <p class="text-sm" style="color: var(--text-secondary);">To simplify complex financial processes and help businesses focus on growth while we handle the numbers.</p>
                             </div>
                         </div>
@@ -1650,7 +1649,7 @@
                                 <svg class="fa-svg text-xl" style="color: #06b6d4;"><use href="#eye"></use></svg>
                             </div>
                             <div>
-                                <h4 class="font-bold mb-1" style="color: var(--text-primary);">Our Vision</h4>
+                                <h3 class="font-bold mb-1" style="color: var(--text-primary);">Our Vision</h3>
                                 <p class="text-sm" style="color: var(--text-secondary);">To become India's most trusted financial consultancy, known for accuracy, innovation, and client success.</p>
                             </div>
                         </div>
@@ -1748,7 +1747,7 @@
                     <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6" style="background: rgba(37, 99, 235, 0.1);">
                         <svg class="fa-svg text-2xl" style="color: #2563eb;"><use href="#map-location-dot"></use></svg>
                     </div>
-                    <h4 class="font-display font-bold text-lg mb-2" style="color: var(--text-primary);">Visit Us</h4>
+                    <h3 class="font-display font-bold text-lg mb-2" style="color: var(--text-primary);">Visit Us</h3>
                     <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">53, Dawn School Road,<br>Lailam Veng</p>
                 </div>
 
@@ -1757,7 +1756,7 @@
                     <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6" style="background: rgba(16, 185, 129, 0.1);">
                         <svg class="fa-svg text-2xl" style="color: #10b981;"><use href="#phone"></use></svg>
                     </div>
-                    <h4 class="font-display font-bold text-lg mb-2" style="color: var(--text-primary);">Call Us</h4>
+                    <h3 class="font-display font-bold text-lg mb-2" style="color: var(--text-primary);">Call Us</h3>
                     <p class="text-sm" style="color: var(--text-secondary);">+91 8731831178</p>
                 </a>
 
@@ -1766,7 +1765,7 @@
                     <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6" style="background: rgba(139, 92, 246, 0.1);">
                         <svg class="fa-svg text-2xl" style="color: #8b5cf6;"><use href="#envelope"></use></svg>
                     </div>
-                    <h4 class="font-display font-bold text-lg mb-2" style="color: var(--text-primary);">Email Us</h4>
+                    <h3 class="font-display font-bold text-lg mb-2" style="color: var(--text-primary);">Email Us</h3>
                     <p class="text-sm" style="color: var(--text-secondary);">info@tunzua.com</p>
                 </a>
             </div>
@@ -1889,7 +1888,7 @@
                 <p class="text-sm" style="color: var(--text-secondary);">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
             </div>
             <div class="flex items-center gap-3">
-                <a href="privacy.html" class="text-sm font-medium transition-colors hover:text-blue-500" style="color: var(--text-muted);">Learn more</a>
+                <a href="privacy.html" class="text-sm font-medium transition-colors hover:text-blue-500" style="color: var(--text-muted);">Read our privacy policy</a>
                 <button id="acceptCookies" class="px-6 py-2 rounded-xl font-semibold text-white text-sm btn-ripple transition-all" style="background: var(--gradient-accent);">Accept</button>
             </div>
         </div>
