@@ -73,6 +73,27 @@ if not ok:
     sys.exit(1)
 EOF
 
+# 5. div balance (catches unclosed <div> that silently break layout)
+python3 - "$fail" <<'EOF'
+import re, sys
+ok = True
+for page in ('index.html', 'privacy.html', 'terms.html'):
+    html = open(page, encoding='utf-8').read()
+    clean = re.sub(r'<script.*?</script>|<style.*?</style>|<!--.*?-->', '', html, flags=re.S)
+    stack = 0
+    for m in re.finditer(r'<div\b[^>]*>|</div>', clean):
+        stack += 1 if m.group(0).startswith('<div') else -1
+        if stack < 0:
+            break
+    if stack != 0:
+        print('FAIL: %s div imbalance (stack=%d)' % (page, stack))
+        ok = False
+    else:
+        print('ok  : %s divs balanced' % page)
+if not ok:
+    sys.exit(1)
+EOF
+
 if [ "$fail" -ne 0 ]; then
   echo "SMOKE TEST FAILED"
   exit 1

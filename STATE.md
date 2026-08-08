@@ -86,6 +86,13 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ## Change Log
 
 ### August 8, 2026
+- **Visual/layout bug-fix pass** (found via a comprehensive headless-Chrome diagnostic at desktop + mobile widths — zero console errors, zero failed requests, but several silent layout bugs):
+  - **Testimonials marquee was structurally broken**: the polish pass left 8 unclosed `<div class="marquee-item">` tags, so the browser nested all cards inside the first one (track rendered as a single 660px node instead of 8 sibling cards). Rebuilt the section from the original balanced cards (4 unique + 4 `aria-hidden` duplicates) — track now has 8 siblings at 3040px, animation intact.
+  - **Horizontal page overflow (144px desktop / 39px mobile)**: decorative blobs in the "Why Choose Us" and "About" sections extend past the right edge (`right: -10%/-15%`) without `overflow-hidden` on their sections — added it (matches the other ~15 sections).
+  - **Stray `</div>` in the Contact section** (before the CTA band) — found via a stack-based div-balance walk; removed. The whole document now has perfectly balanced divs (final stack 0, never negative).
+  - **Client logo SVGs rendered at full intrinsic size** (client-0.svg is 1280px wide!) because the `max-h-12` utility was missing from `tailwind.min.css` — added `.max-h-12{max-height:3rem}`; logo chips now render at 171×94px (was ~1366px).
+  - Added a **div-balance check to `scripts/smoke-test.sh`** (catches unclosed `<div>` bugs that break layout silently with zero console errors) — all 3 pages verified balanced.
+  - Verified in headless Chrome: overflowX 0 at 1440px + 390px, both marquees 8 children, logos 8/8 loaded, zero console errors, JS syntax clean. Screenshots: `/tmp/tzdiag/fixed-*.png`
 - **Counters + a11y audit fix**: upgraded the existing stats counter animation to ease-out cubic (rAF + `performance.now`, clamped elapsed), reduced-motion aware (final value set instantly), and `toLocaleString` thousand separators (1,000); fixed a heading-order regression the Lighthouse re-audit caught (the new CTA band h2 was followed by footer h4s, skipping h3) by promoting the footer column headings (Quick Links / Services / Contact) from `h4` to `h3` — visually neutral via the preflight reset; re-audit after deploy confirmed a11y back to 100
 - **Lighthouse re-audit after polish pass**: PERF 85, a11y 98 (heading-order regression, since fixed), BP 100, SEO 100; FCP 0.9s, LCP 2.0s, CLS 0 — the testimonial marquee, dark polish, and parallax did not hurt performance
 - **Polish pass** on `index.html` + `privacy.html`/`terms.html` (CSS/JS-first, zero new deps):
