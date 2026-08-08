@@ -17,6 +17,7 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 - **Client count confirmed**: 4 total clients (Green Hills Agro, Tunnu Eatery, Grace Dental, Tunnu School of Nursing) — no fifth logo needed.
 - **Client logo mapping (owner-confirmed):** `client-0.svg` = Green Hills Agro · `client-1.svg` = Tunnu Eatery · `client-2.svg` = Grace Dental · `client-3.svg` = Tunnu School of Nursing. Marquee order + alt text verified to match this mapping.
 - **WCAG contrast pass:** fixed mobile-menu "Get Started" (`.mobile-menu a` override made it ink-on-ink in both themes — now a proper Inter button, paper-on-ink / inverted in dark), lightened dark-mode `--ink-3` (#857e6c → #908873, pricing/service labels now ≥ 5:1), raised light-mode process step numbers (#8f866c, ≥ 3:1 large-text watermark). Added a **WCAG text-contrast check to `scripts/xbrowser.js`** (48 checks total) that fails on any rendered text below 4.5:1 (normal) / 3:1 (large) in both themes.
+- **Claims audit (owner-confirmed, all accurate):** About timeline (Founded 2008 · Expanded 2012 · Pan-India 10+ cities 2018 · 100+ Clients 2024), hero stats (100+ businesses, 15+ yrs, 99%), "Rated 5.0 on Google", pricing (₹499/₹449/₹399), and testimonial attributions (Google Review / Local Guide · 17 reviews) all verified correct. Timeline copy is consistent with the 100+ figure. About section visual QA passed in both themes (no overflow, zero console errors).
 
 ---
 
