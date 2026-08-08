@@ -86,6 +86,12 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 ## Change Log
 
+### August 8, 2026 — Favicon accent dot + live form activation (items 1 & 3; custom domain deferred)
+
+Per owner direction ("proceed with 1 and 3, lets not do custom domains for now"):
+1. **Favicon navy accent detail** — added a small periwinkle accent dot (`#9db9e8`, the brand accent, matching the logo's existing light tints) in the free bottom-right corner of `favicon.svg` (`<circle class="accent-dot" cx="742" cy="738" r="74"/>` + a `.accent-dot { fill: #9db9e8 }` rule in the SVG `<style>`). Visible in both themes against the navy `#001743` mark; renders at 16/32/48/64/180px (verified via headless Chrome over HTTP — the true browser rasterization path; an earlier `git stash` misfire from a wrong cwd briefly lost the edit — recovered via `git stash pop`, no data lost).
+2. **Contact form end-to-end verified + FormSubmit activated** — submitted the LIVE form (https://minatolun-dotcom.github.io/tunzua/) via headless Chrome: FormSubmit returned HTTP 200 with `{"success":false,"message":"This form needs Activation..."}` — the **one-time activation email was sent to info@tunzua.com** (owner must click "Activate Form"; the test submission is queued and will be delivered after activation). Honeypot stayed empty, zero console errors, form-status showed the success message. Custom domain switch deliberately skipped.
+
 ### August 8, 2026 — Navy rebrand + form backend wired (owner: "brand color is blue, the one in the logo")
 
 Owner pointed out the accent was green (emerald) while the brand color is the **navy blue of the logo** (dominant logo/favicon color `#001743`). Rebranded the entire accent system + wired the contact form to a real backend:

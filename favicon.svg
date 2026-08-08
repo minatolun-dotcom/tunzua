@@ -6,6 +6,8 @@
   @media (prefers-color-scheme: dark) {
     .dark-ring { display: block; }
   }
+  /* Brand accent dot (periwinkle #9db9e8) — matches the site accent + logo's light tints */
+  .accent-dot { fill: #9db9e8; }
 </style>
 <path d="M0 0 C294.03 0 588.06 0 891 0 C891 290.4 891 580.8 891 880 C596.97 880 302.94 880 0 880 C0 589.6 0 299.2 0 0 Z " fill="#001743" transform="translate(0,0)"/>
 <rect class="dark-ring" x="10" y="10" width="871" height="860" rx="176" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="16"/>
@@ -38,4 +40,5 @@
 <path d="M0 0 C2.0625 0.4375 2.0625 0.4375 4 1 C2.49336217 4.01327566 -0.03166411 4.61056618 -3 6 C-1.125 1.125 -1.125 1.125 0 0 Z " fill="#111C42" transform="translate(438,653)"/>
 <path d="M0 0 C0 3.90838866 -1.50567876 5.11594107 -4 8 C-4.66 7.67 -5.32 7.34 -6 7 C-5.34 6.34 -4.68 5.68 -4 5 C-3.855625 4.319375 -3.71125 3.63875 -3.5625 2.9375 C-3.376875 2.298125 -3.19125 1.65875 -3 1 C-2.01 0.67 -1.02 0.34 0 0 Z " fill="#040D29" transform="translate(456,500)"/>
 <path d="M0 0 C0.66 0.33 1.32 0.66 2 1 C-0.36292656 3.52588702 -1.66462511 4.88820837 -5 6 C-3.63016497 2.83884224 -3.0109362 2.0072908 0 0 Z " fill="#061133" transform="translate(613,431)"/>
+<circle class="accent-dot" cx="742" cy="738" r="74"/>
 </svg>
