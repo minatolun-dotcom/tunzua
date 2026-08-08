@@ -141,8 +141,12 @@ This is a static site that can be deployed to any web hosting service:
 
 - **Netlify** - Drag and drop the folder
 - **Vercel** - Connect to Git repository
-- **GitHub Pages** - Push to `gh-pages` branch
+- **GitHub Pages** - This repo can serve directly from `main` (Settings → Pages → *Deploy from a branch* → `main` / root). Preview: `https://minatolun-dotcom.github.io/tunzua/`
 - **Traditional Hosting** - Upload via FTP/SFTP
+
+### Continuous Integration
+
+A GitHub Actions workflow (`.github/workflows/ci.yml`) runs `scripts/smoke-test.sh` on every push/PR — it verifies all pages and assets return 200, that no Font Awesome `<i>` tags or CDN references remain, and that every icon `<use>` resolves to an embedded sprite symbol. Run it locally anytime with `bash scripts/smoke-test.sh`.
 
 ### DNS Configuration
 

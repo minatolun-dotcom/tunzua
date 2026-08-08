@@ -85,6 +85,8 @@ All runtime dependencies are now local except Google Fonts (preconnected).
 
 ### August 8, 2026
 - Set up git: initialized repository, configured GitHub identity + credential store, initial commit pushed to `github.com/minatolun-dotcom/tunzua` (`main`); `github-credentials` file excluded via `.gitignore`
+- Added `scripts/smoke-test.sh` + GitHub Actions CI (`.github/workflows/ci.yml`) that validate pages/assets/icons on every push
+- Moved `github-credentials` out of the repo to `~/.config/tunzua/github-credentials` (chmod 600)
 - Removed Font Awesome CDN from all pages; migrated all `<i>` icon tags to a local SVG sprite (`assets/fa-sprite.svg`), embedded inline per page (~150KB of third-party CSS+fonts removed)
 - Added `arrow-left` symbol to the sprite (mirrored from `arrow-right`)
 - Removed Tailwind Play CDN (`cdn.tailwindcss.com`) from `privacy.html`/`terms.html`; both now use the generated `tailwind.min.css` + new `assets/css/legal.css` supplement (contains the utility classes the legal pages need but the build lacks)
