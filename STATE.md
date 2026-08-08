@@ -86,6 +86,8 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ## Change Log
 
 ### August 8, 2026
+- **Counters + a11y audit fix**: upgraded the existing stats counter animation to ease-out cubic (rAF + `performance.now`, clamped elapsed), reduced-motion aware (final value set instantly), and `toLocaleString` thousand separators (1,000); fixed a heading-order regression the Lighthouse re-audit caught (the new CTA band h2 was followed by footer h4s, skipping h3) by promoting the footer column headings (Quick Links / Services / Contact) from `h4` to `h3` — visually neutral via the preflight reset; re-audit after deploy confirmed a11y back to 100
+- **Lighthouse re-audit after polish pass**: PERF 85, a11y 98 (heading-order regression, since fixed), BP 100, SEO 100; FCP 0.9s, LCP 2.0s, CLS 0 — the testimonial marquee, dark polish, and parallax did not hurt performance
 - **Polish pass** on `index.html` + `privacy.html`/`terms.html` (CSS/JS-first, zero new deps):
   - **Testimonials converted to a marquee**: the static 4-card grid now reuses the `.marquee`/`.marquee-track` system (4 unique reviews × 2 copies, 42s loop, aria-hidden duplicates, hover-pause, gradient edge fade)
   - **Dark theme polish**: richer dark palette (`--bg-primary: #070b18`, `--text-secondary: #a5b4d0`, `#121a33` tertiary) applied identically across all 3 pages; added `.dark .eyebrow::before` glow + `.dark .marquee-item .logo-chip` treatment

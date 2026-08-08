@@ -1851,7 +1851,7 @@
 
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="font-display font-bold mb-4" style="color: var(--text-primary);">Quick Links</h4>
+                    <h3 class="font-display font-bold mb-4" style="color: var(--text-primary);">Quick Links</h3>
                     <ul class="space-y-3">
                         <li><a href="#home" class="text-sm transition-colors hover:text-blue-500" style="color: var(--text-secondary);">Home</a></li>
                         <li><a href="#services" class="text-sm transition-colors hover:text-blue-500" style="color: var(--text-secondary);">Services</a></li>
@@ -1863,7 +1863,7 @@
 
                 <!-- Services -->
                 <div>
-                    <h4 class="font-display font-bold mb-4" style="color: var(--text-primary);">Services</h4>
+                    <h3 class="font-display font-bold mb-4" style="color: var(--text-primary);">Services</h3>
                     <ul class="space-y-3">
                         <li><a href="#services" class="text-sm transition-colors hover:text-blue-500" style="color: var(--text-secondary);">Bookkeeping</a></li>
                         <li><a href="#services" class="text-sm transition-colors hover:text-blue-500" style="color: var(--text-secondary);">GST Filing</a></li>
@@ -1875,7 +1875,7 @@
 
                 <!-- Contact -->
                 <div>
-                    <h4 class="font-display font-bold mb-4" style="color: var(--text-primary);">Contact</h4>
+                    <h3 class="font-display font-bold mb-4" style="color: var(--text-primary);">Contact</h3>
                     <ul class="space-y-3">
                         <li class="flex items-center gap-3 text-sm" style="color: var(--text-secondary);">
                             <svg class="fa-svg" style="color: #2563eb;"><use href="#map-location-dot"></use></svg>
@@ -2036,27 +2036,31 @@
             observer.observe(el);
         });
 
-        // Counter animation
+        // Counter animation (ease-out, reduced-motion aware, thousand separators)
+        const formatNumber = (n) => n.toLocaleString('en-US');
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const counter = entry.target;
-                    const target = parseInt(counter.dataset.target);
+                    const target = parseInt(counter.dataset.target, 10);
+                    counterObserver.unobserve(counter);
+                    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        counter.textContent = formatNumber(target);
+                        return;
+                    }
                     const duration = 2000;
-                    const step = target / (duration / 16);
-                    let current = 0;
-
-                    const updateCounter = () => {
-                        current += step;
-                        if (current < target) {
-                            counter.textContent = Math.floor(current);
+                    const startTime = performance.now();
+                    const updateCounter = (now) => {
+                        const elapsed = Math.min(Math.max((now - startTime) / duration, 0), 1);
+                        const eased = 1 - Math.pow(1 - elapsed, 3); // ease-out cubic
+                        counter.textContent = formatNumber(Math.floor(eased * target));
+                        if (elapsed < 1) {
                             requestAnimationFrame(updateCounter);
                         } else {
-                            counter.textContent = target;
+                            counter.textContent = formatNumber(target);
                         }
                     };
-                    updateCounter();
-                    counterObserver.unobserve(counter);
+                    requestAnimationFrame(updateCounter);
                 }
             });
         }, { threshold: 0.5 });
