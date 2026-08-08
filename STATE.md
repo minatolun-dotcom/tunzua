@@ -86,6 +86,16 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ## Change Log
 
 ### August 8, 2026
+- **Visual elevation pass** on `index.html` (CSS-first, zero new deps):
+  - Client logos converted from a static grid to a seamless auto-scrolling **marquee** (duplicated set, pause-on-hover, gradient edge fades)
+  - Unified **section eyebrows** (gradient dot + uppercase tracking) across all 8 sections (colors were previously inconsistent)
+  - **Button shine sweep** on all primary CTAs (navbar, hero, pricing, cookie, mobile menu)
+  - **Glass cards** get a gradient top-edge reveal on hover; **pricing highlight** card gets glow + scale
+  - **Animated gradient text** (gradient-text now slowly shifts) + `text-wrap: balance` on headings
+  - Hero **scroll cue** (animated mouse wheel indicator, hidden on mobile)
+  - **CTA band** above the footer (gradient panel, white + ghost buttons)
+  - Footer: logo image added to brand column + gradient top accent border
+  - Removed the now-unused spotlight grid CSS and cursor-tracking JS
 - Removed the custom cursor + magnifier lens feature from `index.html` (the mouse-following dot and glow bubble, their CSS incl. `lensSheen`, the two DOM elements, and the JS handlers) — site now uses the native cursor
 - Lighthouse audit (13.4.1, mobile/throttled) run against live site: home 80/94/100/92, legal 100 BP + 100 SEO, 95 a11y
 - Self-hosted Google Fonts: downloaded the exact woff2 files (Inter + Space Grotesk, latin + latin-ext, weights 400-700) into `assets/fonts/`, added `assets/css/fonts.css` with `font-display: swap`; removed the render-blocking `fonts.googleapis.com` stylesheet + preconnects from all pages; added a `<link rel="preload">` for the LCP font (Space Grotesk 700)

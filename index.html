@@ -281,78 +281,6 @@
             .testimonials-grid { grid-template-columns: 1fr; }
         }
 
-        /* Spotlight Grid */
-        .spotlight-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-        }
-        @media (max-width: 768px) {
-            .spotlight-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        }
-        .spotlight-card {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 32px 24px;
-            border-radius: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            min-height: 140px;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: default;
-        }
-        .spotlight-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .spotlight-card:hover::before {
-            opacity: 1;
-        }
-        .spotlight-card::after {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 0;
-            transform: translate(-50%, -50%);
-        }
-        .spotlight-card:hover::after {
-            opacity: 1;
-        }
-        .spotlight-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            border-color: rgba(37, 99, 235, 0.3);
-            box-shadow: 0 20px 60px rgba(37, 99, 235, 0.12), 0 0 30px rgba(37, 99, 235, 0.08);
-        }
-        .spotlight-card img {
-            position: relative;
-            z-index: 1;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-        .spotlight-card:hover img {
-            transform: scale(1.1);
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
-        }
-
         /* Stagger entrance */
         .stagger-item {
             opacity: 0;
@@ -488,7 +416,124 @@
             transform: translateY(-4px);
         }
 
-        /* Button ripple */
+        /* ===== Design elevation pass ===== */
+
+        /* Animated gradient text */
+        .gradient-text {
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Unified section eyebrow */
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        .eyebrow::before {
+            content: ''; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+            background: var(--gradient-accent);
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.55);
+        }
+
+        /* Button shine sweep (::before so it never collides with btn-ripple's ::after) */
+        .btn-shine { position: relative; overflow: hidden; }
+        .btn-shine::before {
+            content: ''; position: absolute; top: 0; bottom: 0; left: -80%; width: 45%;
+            background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+            transform: skewX(-20deg); pointer-events: none;
+            transition: left 0.65s ease;
+        }
+        .btn-shine:hover::before { left: 135%; }
+
+        /* Glass card gradient top-edge reveal (excludes .pricing-highlight, which uses ::before for its badge) */
+        .glass-card { position: relative; }
+        .glass-card:not(.pricing-highlight)::before {
+            content: ''; position: absolute; top: 0; left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 65%; height: 2.5px; border-radius: 9999px;
+            background: var(--gradient-accent);
+            opacity: 0; transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
+        }
+        .glass-card:not(.pricing-highlight):hover::before { transform: translateX(-50%) scaleX(1); opacity: 1; }
+
+        /* Pricing highlight glow */
+        .pricing-highlight {
+            box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.18), 0 18px 50px rgba(37, 99, 235, 0.12);
+        }
+        .pricing-highlight:hover {
+            transform: translateY(-6px) scale(1.015);
+            box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4), 0 24px 70px rgba(37, 99, 235, 0.25);
+        }
+
+        /* Balanced headings */
+        h1, h2 { text-wrap: balance; }
+
+        /* Client logo marquee */
+        .marquee {
+            overflow: hidden; padding: 8px 0;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+        }
+        .marquee-track {
+            display: flex; align-items: center; width: max-content;
+            animation: marquee 30s linear infinite;
+        }
+        .marquee:hover .marquee-track { animation-play-state: paused; }
+        .marquee-item { flex-shrink: 0; padding: 0 20px; }
+        .marquee-item .logo-chip {
+            display: flex; align-items: center; justify-content: center;
+            padding: 22px 42px; border-radius: 16px;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .marquee-item:hover .logo-chip {
+            transform: translateY(-3px);
+            border-color: rgba(37, 99, 235, 0.35);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.12);
+        }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Scroll cue */
+        .scroll-cue {
+            position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 7px;
+            color: var(--text-muted);
+            font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+            z-index: 5;
+        }
+        .scroll-cue .mouse {
+            width: 22px; height: 34px; border: 2px solid var(--text-muted); border-radius: 12px;
+            position: relative; opacity: 0.8;
+        }
+        .scroll-cue .mouse::after {
+            content: ''; position: absolute; top: 6px; left: 50%;
+            width: 3px; height: 7px; border-radius: 2px;
+            background: var(--accent-blue);
+            animation: scrollWheel 1.8s ease-in-out infinite;
+        }
+        @keyframes scrollWheel {
+            0% { opacity: 1; transform: translate(-50%, 0); }
+            70% { opacity: 0; transform: translate(-50%, 12px); }
+            100% { opacity: 0; transform: translate(-50%, 0); }
+        }
+        @media (max-width: 768px) { .scroll-cue { display: none; } }
+
+        /* Footer gradient top accent */
+        footer { position: relative; }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: var(--gradient-accent);
+        }
+
     </style>
 </head>
 <body>
@@ -656,7 +701,7 @@
         <a href="#clients" class="text-2xl font-semibold py-4 px-6 block" onclick="closeMobile()">Clients</a>
         <a href="#about" class="text-2xl font-semibold py-4 px-6 block" onclick="closeMobile()">About</a>
         <a href="#contact" class="text-2xl font-semibold py-4 px-6 block" onclick="closeMobile()">Contact</a>
-        <a href="#contact" class="px-8 py-3 rounded-xl font-semibold text-white block text-center mt-4" style="background: var(--gradient-accent);" onclick="closeMobile()">Get Started</a>
+        <a href="#contact" class="btn-shine px-8 py-3 rounded-xl font-semibold text-white block text-center mt-4" style="background: var(--gradient-accent);" onclick="closeMobile()">Get Started</a>
     </div>
 
     <!-- Landing Page Content -->
@@ -687,7 +732,7 @@
                 <svg class="fa-svg text-blue-400 text-sm hidden" id="moonIcon"><use href="#moon"></use></svg>
             </button>
 
-            <a href="#contact" class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white text-sm btn-ripple magnetic-btn" style="background: var(--gradient-accent); transition: all 0.3s;">
+            <a href="#contact" class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white text-sm btn-ripple magnetic-btn btn-shine" style="background: var(--gradient-accent); transition: all 0.3s;">
                 <span>Get Started</span>
                 <svg class="fa-svg text-xs"><use href="#arrow-right"></use></svg>
             </a>
@@ -741,7 +786,7 @@
                     </p>
 
                     <div class="flex flex-wrap items-center gap-4 mb-10">
-                        <a href="#contact" class="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-white text-base btn-ripple magnetic-btn transition-all duration-300" style="background: var(--gradient-accent); box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);">
+                        <a href="#contact" class="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-white text-base btn-ripple magnetic-btn btn-shine transition-all duration-300" style="background: var(--gradient-accent); box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);">
                             <span>Get Started</span>
                             <svg class="fa-svg transition-transform duration-300 group-hover:translate-x-1"><use href="#arrow-right"></use></svg>
                         </a>
@@ -861,6 +906,12 @@
                 </div>
             </div>
         </div>
+
+        <!-- Scroll cue -->
+        <a href="#services" class="scroll-cue" aria-label="Scroll to services">
+            <span class="mouse" aria-hidden="true"></span>
+            <span>Scroll</span>
+        </a>
     </section>
 
     <!-- Trust Indicators -->
@@ -902,7 +953,7 @@
             <!-- Header -->
             <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
                 <div class="max-w-xl reveal-left">
-                    <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: var(--accent-navy);">Our Services</p>
+                    <p class="eyebrow mb-4">Our Services</p>
                     <h2 class="font-display text-4xl md:text-5xl font-bold leading-tight" style="color: var(--text-primary);">Everything Your <br><span class="gradient-text">Business Needs</span></h2>
                 </div>
                 <p class="text-base max-w-md reveal-right" style="color: var(--text-secondary);">Comprehensive financial solutions tailored to streamline your operations and accelerate growth.</p>
@@ -1065,7 +1116,7 @@
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: #06b6d4;">Why Choose Us</p>
+                <p class="eyebrow mb-4">Why Choose Us</p>
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">Built for Modern Businesses</h2>
             </div>
 
@@ -1270,7 +1321,7 @@
     <section id="pricing" class="section-overlap relative py-24" style="background: var(--bg-secondary);">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: #2563eb;">Pricing</p>
+                <p class="eyebrow mb-4">Pricing</p>
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">Tailored for Your Business</h2>
                 <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-secondary);">Every business is unique. We customize our services and pricing to match your exact requirements.</p>
             </div>
@@ -1305,7 +1356,7 @@
                         <li class="flex items-center gap-3 text-sm" style="color: var(--text-secondary);"><svg class="fa-svg text-emerald-500"><use href="#check"></use></svg> Tax Planning & Advisory</li>
                         <li class="flex items-center gap-3 text-sm" style="color: var(--text-secondary);"><svg class="fa-svg text-emerald-500"><use href="#check"></use></svg> Compliance Management</li>
                     </ul>
-                    <a href="#contact" class="block text-center py-3 rounded-xl font-semibold text-sm text-white btn-ripple transition-all duration-300" style="background: var(--gradient-accent);">Get Quote</a>
+                    <a href="#contact" class="block text-center py-3 rounded-xl font-semibold text-sm text-white btn-ripple btn-shine transition-all duration-300" style="background: var(--gradient-accent);">Get Quote</a>
                 </div>
 
                 <!-- Full Suite -->
@@ -1336,7 +1387,7 @@
     <section class="section-overlap relative py-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: #2563eb;">Our Process</p>
+                <p class="eyebrow mb-4">Our Process</p>
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">How We Work</h2>
             </div>
 
@@ -1484,7 +1535,7 @@
     <section class="section-overlap relative py-24" style="background: var(--bg-secondary);">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: #f59e0b;">Testimonials</p>
+                <p class="eyebrow mb-4">Testimonials</p>
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">What Our Clients Say</h2>
             </div>
         </div>
@@ -1552,27 +1603,21 @@
     <section id="clients" class="section-overlap relative py-24">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: #2563eb;">Our Clients</p>
+                <p class="eyebrow mb-4">Our Clients</p>
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">Trusted by Leading Brands</h2>
             </div>
         </div>
 
-        <div class="spotlight-grid" id="spotlightGrid">
-            <div class="spotlight-card stagger-item">
-                <div class="spotlight-glow" style="position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.18) 0%,transparent 70%);pointer-events:none;opacity:0;transition:opacity 0.3s ease;transform:translate(-50%,-50%);z-index:0;"></div>
-                <img src="assets/images/client-0.svg" alt="Green Hills Agro" loading="lazy" class="max-h-16 max-w-full object-contain">
-            </div>
-            <div class="spotlight-card stagger-item">
-                <div class="spotlight-glow" style="position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.18) 0%,transparent 70%);pointer-events:none;opacity:0;transition:opacity 0.3s ease;transform:translate(-50%,-50%);z-index:0;"></div>
-                <img src="assets/images/client-1.svg" alt="Tunnu Eatery" loading="lazy" class="max-h-16 max-w-full object-contain">
-            </div>
-            <div class="spotlight-card stagger-item">
-                <div class="spotlight-glow" style="position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.18) 0%,transparent 70%);pointer-events:none;opacity:0;transition:opacity 0.3s ease;transform:translate(-50%,-50%);z-index:0;"></div>
-                <img src="assets/images/client-3.svg" alt="Tunnu School of Nursing" loading="lazy" class="max-h-16 max-w-full object-contain">
-            </div>
-            <div class="spotlight-card stagger-item">
-                <div class="spotlight-glow" style="position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.18) 0%,transparent 70%);pointer-events:none;opacity:0;transition:opacity 0.3s ease;transform:translate(-50%,-50%);z-index:0;"></div>
-                <img src="assets/images/client-2.svg" alt="Grace Dental" loading="lazy" class="max-h-16 max-w-full object-contain">
+                <div class="marquee">
+            <div class="marquee-track">
+                <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-0.svg" alt="Green Hills Agro" loading="lazy" class="max-h-12 max-w-full object-contain"></div></div>
+                <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-1.svg" alt="Tunnu Eatery" loading="lazy" class="max-h-12 max-w-full object-contain"></div></div>
+                <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-2.svg" alt="Grace Dental" loading="lazy" class="max-h-12 max-w-full object-contain"></div></div>
+                <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-3.svg" alt="Tunnu School of Nursing" loading="lazy" class="max-h-12 max-w-full object-contain"></div></div>
+                <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-0.svg" alt="" loading="lazy" class="max-h-12 max-w-full object-contain"></div></div>
+                <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-1.svg" alt="" loading="lazy" class="max-h-12 max-w-full object-contain"></div></div>
+                <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-2.svg" alt="" loading="lazy" class="max-h-12 max-w-full object-contain"></div></div>
+                <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-3.svg" alt="" loading="lazy" class="max-h-12 max-w-full object-contain"></div></div>
             </div>
         </div>
     </section>
@@ -1584,7 +1629,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="reveal-left">
-                    <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: #2563eb;">About Tunzua</p>
+                    <p class="eyebrow mb-4">About Tunzua</p>
                     <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">Your Trusted Financial Partner</h2>
                     <p class="text-lg leading-relaxed mb-8" style="color: var(--text-secondary);">With over 15 years of experience, Tunzua Consultancy has been empowering businesses across India with comprehensive accounting, taxation, and financial consulting solutions.</p>
 
@@ -1691,7 +1736,7 @@
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: #06b6d4;">Contact Us</p>
+                <p class="eyebrow mb-4">Contact Us</p>
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">Let's Talk Business</h2>
             </div>
 
@@ -1753,6 +1798,30 @@
         </div>
     </section>
 
+    <!-- CTA Band -->
+    <section class="relative py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="relative overflow-hidden rounded-3xl px-8 py-14 md:px-16 text-center reveal" style="background: var(--gradient-primary);">
+                <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-25" style="background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);"></div>
+                <div class="absolute -bottom-28 -left-20 w-80 h-80 rounded-full opacity-15" style="background: radial-gradient(circle, rgba(6,182,212,0.9) 0%, transparent 70%);"></div>
+                <div class="relative z-10">
+                    <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">Ready to Grow Your Business?</h2>
+                    <p class="max-w-xl mx-auto mb-8 text-base" style="color: rgba(255,255,255,0.85);">Get a free consultation — we'll review your books, filing needs, and growth plan with zero obligation.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#contact" class="btn-shine inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-white btn-ripple transition-all duration-300" style="background: #ffffff; color: #0a1a3a; box-shadow: 0 12px 30px rgba(0,0,0,0.25);">
+                            Get Started
+                            <svg class="fa-svg"><use href="#arrow-right"></use></svg>
+                        </a>
+                        <a href="tel:+918731831178" class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-white btn-ripple transition-all duration-300" style="border: 1px solid rgba(255,255,255,0.35);">
+                            <svg class="fa-svg"><use href="#phone"></use></svg>
+                            Call Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="relative py-16" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color);">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -1760,6 +1829,7 @@
                 <!-- Brand -->
                 <div class="md:col-span-1">
                     <div class="flex items-center gap-2 mb-4">
+                        <img src="assets/images/logo.png" alt="Tunzua Consultancy logo" loading="lazy" class="h-11 w-auto object-contain" style="border-radius: 10px; border: 1px solid var(--border-color); padding: 2px; background: var(--card-bg);">
                         <span class="font-display font-bold text-lg" style="color: var(--text-primary);">Tunzua Consultancy</span>
                     </div>
                     <p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary);">Professional accounting, taxation, and business consulting solutions for modern businesses.</p>
@@ -1843,7 +1913,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <a href="privacy.html" class="text-sm font-medium transition-colors hover:text-blue-500" style="color: var(--text-muted);">Read our privacy policy</a>
-                <button id="acceptCookies" class="px-6 py-2 rounded-xl font-semibold text-white text-sm btn-ripple transition-all" style="background: var(--gradient-accent);">Accept</button>
+                <button id="acceptCookies" class="btn-shine px-6 py-2 rounded-xl font-semibold text-white text-sm btn-ripple transition-all" style="background: var(--gradient-accent);">Accept</button>
             </div>
         </div>
     </div>
@@ -2030,40 +2100,7 @@
             });
         }
 
-        // Spotlight Grid - cursor tracking
-        const spotlightGrid = document.getElementById('spotlightGrid');
-        if (spotlightGrid) {
-            const spotlightCards = spotlightGrid.querySelectorAll('.spotlight-card');
 
-            spotlightGrid.addEventListener('mousemove', (e) => {
-                const rect = spotlightGrid.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left;
-                const mouseY = e.clientY - rect.top;
-
-                spotlightCards.forEach(card => {
-                    const cardRect = card.getBoundingClientRect();
-                    const cardCenterX = cardRect.left - rect.left + cardRect.width / 2;
-                    const cardCenterY = cardRect.top - rect.top + cardRect.height / 2;
-                    const dist = Math.hypot(mouseX - cardCenterX, mouseY - cardCenterY);
-                    const maxDist = 300;
-                    const intensity = Math.max(0, 1 - dist / maxDist);
-
-                    const glow = card.querySelector('.spotlight-glow');
-                    if (glow) {
-                        glow.style.opacity = intensity * 0.6;
-                        glow.style.left = (mouseX - cardRect.left + rect.left) + 'px';
-                        glow.style.top = (mouseY - cardRect.top + rect.top) + 'px';
-                    }
-                });
-            });
-
-            spotlightGrid.addEventListener('mouseleave', () => {
-                spotlightCards.forEach(card => {
-                    const glow = card.querySelector('.spotlight-glow');
-                    if (glow) glow.style.opacity = 0;
-                });
-            });
-        }
 
         // Stagger entrance for spotlight cards and testimonials
         const staggerObserver = new IntersectionObserver((entries) => {
@@ -2078,7 +2115,6 @@
             });
         }, { threshold: 0.2 });
 
-        if (spotlightGrid) staggerObserver.observe(spotlightGrid);
 
         const testimonialsGrid = document.querySelector('.testimonials-grid');
         if (testimonialsGrid) staggerObserver.observe(testimonialsGrid);
