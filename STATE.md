@@ -86,6 +86,16 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 ## Change Log
 
+### August 8, 2026 — Dark-mode + layout polish pass (owner-reported)
+
+Four issues reported by the owner after viewing the live redesign, all fixed and verified:
+1. **Dark-mode icon visibility** — root cause: the redesign's `<style>` block was missing the `.fa-svg` base rule (`fill: currentColor`), so every icon rendered with the SVG default **black fill** and vanished on the dark ink background. Added `.fa-svg { width: 1em; height: 1em; fill: currentColor; ... }` — icons now inherit their contextual color (emerald accents, ink nav icons, stars) and are fully visible in both themes. Also: client logos `client-1.svg` (`#034ea1` navy) and `client-3.svg` (`#236d64` teal) were near-invisible on dark — added `.dark .marquee-item img { filter: brightness(1.45) contrast(0.95) }`; and the ghost process-step numbers (`color: var(--paper-3)`) were invisible in dark — now `.dark .proc-step .n { color: var(--ink-3) }`.
+2. **Theme toggle showed two icons** — the JS toggles a `hidden` class, but no `.hidden { display: none !important }` rule existed in index.html, so both sun and moon were always visible. Added the rule; exactly one icon shows and swaps on toggle (strengthened the xbrowser theme-toggle check to assert computed `display`, so this can't regress silently).
+3. **Client-logo marquee left a gap on the right** — the track was only 892px wide vs the 1440px container (small logos), so the right side was empty and the loop visibly jumped. Fixed with `min-width: 200%; justify-content: space-around` on `.marquee-track` — the track now fills 2× the container and the `-50%` animation tiles seamlessly at any viewport width (testimonials marquee unaffected: its content already exceeds 2× width).
+4. **"How we work" step spacing** — text sat flush against the left vertical rule with 26px before the right rule. Rebalanced `.proc-step` padding to symmetric `34px 24px 14px 24px`.
+
+Verified: 44/44 xbrowser checks (Chromium + Firefox), smoke test, Lighthouse **PERF 88 | A11Y 100 | BP 100 | SEO 100**, marquee fills width + logos visible in both themes (screenshots), zero console errors.
+
 ### August 8, 2026 — FAQ accordion, contact form, Service/FAQ schema
 
 - **FAQ section added** (between Pricing and Testimonials, `05 — FAQ`, renumbered 05→08): 6 service-relevant questions in an accessible accordion — `<button aria-expanded/aria-controls>` + `role="region"`, single-open behavior, first item open by default, smooth `grid-template-rows: 0fr→1fr` height animation, CSS plus/rotate indicator (no new sprite icons), Fraunces question type.

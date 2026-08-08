@@ -97,10 +97,15 @@ async function auditBrowser(pw, bname, launcher) {
     dark: document.documentElement.classList.contains('dark'),
     stored: localStorage.getItem('theme'),
     sunHidden: document.getElementById('sunIcon').classList.contains('hidden'),
-    moonHidden: document.getElementById('moonIcon').classList.contains('hidden')
+    moonHidden: document.getElementById('moonIcon').classList.contains('hidden'),
+    sunVis: getComputedStyle(document.getElementById('sunIcon')).display !== 'none',
+    moonVis: getComputedStyle(document.getElementById('moonIcon')).display !== 'none'
   }));
+  // exactly one icon must be visibly rendered (the hidden class must be backed by CSS)
   report(bname + ' theme toggle flips + persists',
-    theme.dark !== darkBefore && theme.stored === (theme.dark ? 'dark' : 'light') && theme.sunHidden === theme.dark && theme.moonHidden === !theme.dark,
+    theme.dark !== darkBefore && theme.stored === (theme.dark ? 'dark' : 'light') &&
+    theme.sunHidden === theme.dark && theme.moonHidden === !theme.dark &&
+    theme.sunVis === !theme.dark && theme.moonVis === theme.dark,
     'dark ' + darkBefore + '->' + theme.dark + ' stored=' + theme.stored);
   await page.click('#themeToggle');
   await page.waitForTimeout(300);
