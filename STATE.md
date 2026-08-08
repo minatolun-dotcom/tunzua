@@ -15,6 +15,7 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 - **Hero content center-aligned**: with the Financial Snapshot ledger gone, the hero is now a single centered column — eyebrow (left line decoration dropped), headline, sub, CTAs, and the 3-stat row all center on the axis (verified in light + dark, no overflow).
 - **Stats corrected earlier**: Businesses Served = 100+ (was 1,000+), 15+ years, 99% satisfaction.
 - **Client count confirmed**: 4 total clients (Green Hills Agro, Tunnu Eatery, Grace Dental, Tunnu School of Nursing) — no fifth logo needed.
+- **Client logo mapping (owner-confirmed):** `client-0.svg` = Green Hills Agro · `client-1.svg` = Tunnu Eatery · `client-2.svg` = Grace Dental · `client-3.svg` = Tunnu School of Nursing. Marquee order + alt text verified to match this mapping.
 
 ---
 
