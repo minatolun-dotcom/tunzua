@@ -88,7 +88,8 @@ All runtime dependencies are now local except Google Fonts (preconnected).
 - Added `scripts/smoke-test.sh` + GitHub Actions CI (`.github/workflows/ci.yml`) that validate pages/assets/icons on every push
 - Moved `github-credentials` out of the repo to `~/.config/tunzua/github-credentials` (chmod 600)
 - CI smoke test verified passing on GitHub Actions (run for commit `3a154c7`)
-- GitHub Pages not yet enabled — the fine-grained PAT lacks the Pages/Administration permission, so it must be enabled in repo settings (Settings → Pages → *Deploy from a branch* → `main` / root). Live URL will be `https://minatolun-dotcom.github.io/tunzua/`
+- GitHub Pages enabled by owner (Settings → Pages → *Deploy from a branch* → `main` / root). Live at `https://minatolun-dotcom.github.io/tunzua/` — verified with headless Chrome: all pages/assets 200, deployed `index.html` byte-identical to repo, icons/theme/mobile-menu/cookie-banner working
+- Added `.nojekyll` so GitHub Pages serves the static files as-is (no Jekyll processing)
 - Removed Font Awesome CDN from all pages; migrated all `<i>` icon tags to a local SVG sprite (`assets/fa-sprite.svg`), embedded inline per page (~150KB of third-party CSS+fonts removed)
 - Added `arrow-left` symbol to the sprite (mirrored from `arrow-right`)
 - Removed Tailwind Play CDN (`cdn.tailwindcss.com`) from `privacy.html`/`terms.html`; both now use the generated `tailwind.min.css` + new `assets/css/legal.css` supplement (contains the utility classes the legal pages need but the build lacks)
