@@ -86,6 +86,15 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 ## Change Log
 
+### August 8, 2026 — Client-logo marquee showed only 2 of 4 logos (owner report)
+
+Root cause was two-fold, both making logos collapse to 0×0:
+1. **`client-1.svg` + `client-3.svg` had no `width`/`height` attributes** (only `viewBox`), so the browser couldn't compute intrinsic size — under `.marquee-item img { max-height: 44px; width: auto }` they rendered 0×0 (client-0/2 had explicit dimensions and worked). Fixed by adding matching `width`/`height` to both files (`1617×894`, `972×1052` — same aspect as their viewBox).
+2. **`loading="lazy"` on marquee imgs** is unreliable inside an *animated* track (items drift out of the viewport as it scrolls, so the lazy trigger may never fire — Firefox showed the 4 duplicates at 0×0 even after scroll). Removed `loading="lazy"` from all 8 client-logo imgs (they sit just below the hero; the 4 small SVGs cost nothing) and added `aria-hidden="true"` on the duplicate imgs.
+3. **New regression check** in `scripts/xbrowser.js` (44 → **46 checks**): asserts `#clients` shows 4 unique srcs × 2 copies all with non-zero rendered size — would have caught this immediately.
+
+Verified: 46/46 xbrowser (Chromium + Firefox), smoke test green, marquee visually full-width in both themes.
+
 ### August 8, 2026 — Financial Snapshot removed, stats corrected, form confirmed live
 
 Owner review: the hero's "Financial Snapshot" ledger (Revenue ₹86.4L, Net Profit ₹35.2L, etc.) contained fabricated figures and shouldn't be displayed; "Businesses Served" was overstated.

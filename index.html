@@ -816,14 +816,15 @@
             </div>
             <div class="marquee">
                 <div class="marquee-track" style="animation-duration: 30s;">
-                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-0.svg" alt="Green Hills Agro" loading="lazy"></div></div>
-                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-1.svg" alt="Tunnu Eatery" loading="lazy"></div></div>
-                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-2.svg" alt="Grace Dental" loading="lazy"></div></div>
-                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-3.svg" alt="Tunnu School of Nursing" loading="lazy"></div></div>
-                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-0.svg" alt="" loading="lazy"></div></div>
-                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-1.svg" alt="" loading="lazy"></div></div>
-                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-2.svg" alt="" loading="lazy"></div></div>
-                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-3.svg" alt="" loading="lazy"></div></div>
+                    <!-- eager (no lazy): the track animates, so lazy-loading lets logos flicker/never load as they drift in/out of view -->
+                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-0.svg" alt="Green Hills Agro"></div></div>
+                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-1.svg" alt="Tunnu Eatery"></div></div>
+                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-2.svg" alt="Grace Dental"></div></div>
+                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-3.svg" alt="Tunnu School of Nursing"></div></div>
+                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-0.svg" alt="" aria-hidden="true"></div></div>
+                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-1.svg" alt="" aria-hidden="true"></div></div>
+                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-2.svg" alt="" aria-hidden="true"></div></div>
+                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-3.svg" alt="" aria-hidden="true"></div></div>
                 </div>
             </div>
         </section>

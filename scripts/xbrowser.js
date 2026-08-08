@@ -89,6 +89,24 @@ async function auditBrowser(pw, bname, launcher) {
     layout.anims.length === 2 && layout.anims.every(a => a === 'marquee') && layout.items.every(n => n === 8),
     'anims=' + layout.anims + ' items=' + layout.items);
 
+  // ---- client logos actually render (non-zero size, distinct) ----
+  // (scroll into view first so the lazy-loaded duplicates below the fold load)
+  await scrollTo(page, 900, 8);
+  await page.waitForTimeout(1200);
+  const clientLogos = await page.evaluate(() => {
+    const srcs = [...document.querySelectorAll('#clients img')].map(im => im.getAttribute('src'));
+    const sizes = [...document.querySelectorAll('#clients img')].map(im => {
+      const r = im.getBoundingClientRect();
+      return Math.round(r.width) + 'x' + Math.round(r.height);
+    });
+    const unique = [...new Set(srcs)].length;
+    const nonzero = sizes.filter(s => !s.startsWith('0x') && !s.endsWith('x0'));
+    return { unique, sizes, nonzeroCount: nonzero.length, total: sizes.length };
+  });
+  report(bname + ' all client logos render non-zero (4 unique x 2)',
+    clientLogos.unique === 4 && clientLogos.nonzeroCount === clientLogos.total,
+    'unique=' + clientLogos.unique + ' sizes=' + clientLogos.sizes.join(','));
+
   // ---- theme toggle ----
   const darkBefore = await page.evaluate(() => document.documentElement.classList.contains('dark'));
   await page.click('#themeToggle');
