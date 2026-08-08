@@ -128,6 +128,84 @@ async function auditBrowser(pw, bname, launcher) {
   await page.click('#themeToggle');
   await page.waitForTimeout(300);
 
+  // ---- WCAG text contrast audit (light + dark) ----
+  // Flags any rendered text whose contrast vs its effective background is below
+  // 4.5:1 (normal) / 3:1 (large) — catches invisible buttons like the mobile-menu
+  // "Get Started" (ink-on-ink) and dark-mode label regressions.
+  const contrastVio = [];
+  for (const t of ['light', 'dark']) {
+    await page.evaluate(th => { localStorage.setItem('theme', th); }, t);
+    await page.reload({ waitUntil: 'networkidle0', timeout: 45000 });
+    await page.waitForTimeout(600);
+    const vio = await page.evaluate(() => {
+      const parseColor = s => {
+        const m = s.match(/rgba?\(([^)]+)\)/);
+        if (!m) return null;
+        const p = m[1].split(',').map(v => parseFloat(v.trim()));
+        return [p[0], p[1], p[2], p.length > 3 ? p[3] : 1];
+      };
+      const lum = c => {
+        const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+        return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]);
+      };
+      const ratio = (a, b) => {
+        const l1 = lum(a), l2 = lum(b);
+        return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+      };
+      const htmlBg = getComputedStyle(document.documentElement).backgroundColor;
+      const effBg = el => {
+        let col = null, node = el;
+        while (node) {
+          const m = getComputedStyle(node).backgroundColor.match(/rgba?\(([^)]+)\)/);
+          if (m) {
+            const p = m[1].split(',').map(v => parseFloat(v.trim()));
+            const a = p.length > 3 ? p[3] : 1;
+            if (a > 0.02) {
+              const rgb = [p[0], p[1], p[2], a];
+              col = col ? [rgb[0] * a + col[0] * (1 - a), rgb[1] * a + col[1] * (1 - a), rgb[2] * a + col[2] * (1 - a), 1] : rgb;
+              if (col[3] >= 0.99) return col;
+            }
+          }
+          node = node.parentElement;
+        }
+        const m = htmlBg.match(/rgba?\(([^)]+)\)/);
+        return m ? m[1].split(',').map(v => parseFloat(v.trim())) : [255, 255, 255, 1];
+      };
+      const bad = [];
+      const seen = new Set();
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        const text = node.textContent;
+        if (!text.trim()) continue;
+        const el = node.parentElement;
+        const cs = getComputedStyle(el);
+        if (cs.display === 'none' || cs.visibility === 'hidden' || parseFloat(cs.opacity) < 0.05) continue;
+        const r = el.getBoundingClientRect();
+        if (r.width < 4 || r.height < 4) continue;
+        const fs = parseFloat(cs.fontSize);
+        const large = fs >= 24 || (fs >= 18.66 && parseInt(cs.fontWeight, 10) >= 700);
+        const min = large ? 3 : 4.5;
+        const fg = parseColor(cs.color);
+        if (!fg) continue;
+        if (ratio(fg, effBg(el)) < min) {
+          const key = (typeof el.className === 'string' ? el.className : '') + '|' + text.trim().slice(0, 24);
+          if (seen.has(key)) continue;
+          seen.add(key);
+          bad.push((el.tagName + '.' + (typeof el.className === 'string' ? el.className : '')).slice(0, 40) + ':' + text.trim().slice(0, 16));
+        }
+      }
+      return bad.slice(0, 6);
+    });
+    contrastVio.push(...vio.map(v => t + ' ' + v));
+  }
+  report(bname + ' WCAG text contrast (light+dark)', contrastVio.length === 0,
+    contrastVio.length ? contrastVio.join(' | ').slice(0, 240) : 'clean');
+  // restore light theme for the remaining checks
+  await page.evaluate(() => { localStorage.setItem('theme', 'light'); });
+  await page.reload({ waitUntil: 'networkidle0', timeout: 45000 });
+  await page.waitForTimeout(500);
+
   // ---- hamburger hidden on desktop ----
   const hbgDesk = await page.evaluate(() => {
     const h = document.getElementById('hamburger');
