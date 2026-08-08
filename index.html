@@ -172,7 +172,7 @@
     <style>
         /* ============================================================
            Tunzua — Swiss/Editorial design system (2026 rebuild)
-           Paper · Ink · Emerald. Fraunces serif + Inter grotesque.
+           Paper · Ink · Navy. Fraunces serif + Inter grotesque.
            Strict 1px hairlines, numbered sections, oversized type.
            ============================================================ */
 
@@ -186,12 +186,12 @@
             --ink: #1a1713;
             --ink-2: #57513f;
             --ink-3: #6d6554;
-            --accent: #1e5b3d;
-            --accent-2: #2e7d52;
+            --accent: #10306e;
+            --accent-2: #0b3d91;
             --accent-ink: #ffffff;
             --hairline: #d8d0bc;
             --hairline-soft: #e4decd;
-            --sel: rgba(30, 91, 61, 0.18);
+            --sel: rgba(16, 48, 110, 0.18);
             --err: #8f3427;
         }
 
@@ -203,12 +203,12 @@
             --ink: #ede8dc;
             --ink-2: #b3ac9b;
             --ink-3: #857e6c;
-            --accent: #7fc9a4;
-            --accent-2: #9addbb;
-            --accent-ink: #0f2c1d;
+            --accent: #9db9e8;
+            --accent-2: #b3c9f0;
+            --accent-ink: #0b1e46;
             --hairline: #322c20;
             --hairline-soft: #262119;
-            --sel: rgba(127, 201, 164, 0.22);
+            --sel: rgba(157, 185, 232, 0.22);
             --err: #e08a7a;
         }
 
@@ -1620,9 +1620,10 @@
         });
 
         // ---------- Contact form ----------
-        // Set FORM_ENDPOINT to a form-backend URL (e.g. 'https://formspree.io/f/XXXX')
-        // to send submissions directly; when empty, the form opens a pre-filled email.
-        const FORM_ENDPOINT = '';
+        // Contact form backend: FormSubmit.co AJAX endpoint (free, no account,
+        // one-time activation email on first submission; built-in spam filters).
+        // Leave empty to fall back to the pre-filled mailto link below.
+        const FORM_ENDPOINT = 'https://formsubmit.co/ajax/info@tunzua.com';
         const contactForm = document.getElementById('contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', (e) => {
@@ -1646,10 +1647,21 @@
                 });
 
                 const data = Object.fromEntries(new FormData(contactForm));
+                // Pass the local honeypot value to FormSubmit's native _honey field
+                // so bot submissions are dropped server-side too.
+                data._honey = data._gotcha || '';
                 btn.disabled = true;
                 btn.textContent = 'Sending…';
 
                 const done = () => { btn.disabled = false; btn.textContent = 'Send message'; };
+
+                // Pre-filled email fallback (used when no backend is set, and
+                // automatically as a rescue when the backend fetch fails).
+                const openMailto = (d) => {
+                    const subject = encodeURIComponent('Website enquiry — ' + (d.service || 'General'));
+                    const body = encodeURIComponent('Name: ' + d.name + '\nEmail: ' + d.email + '\nPhone: ' + (d.phone || '—') + '\nService: ' + (d.service || '—') + '\n\n' + d.message);
+                    window.location.href = 'mailto:info@tunzua.com?subject=' + subject + '&body=' + body;
+                };
 
                 if (FORM_ENDPOINT) {
                     fetch(FORM_ENDPOINT, {
@@ -1662,13 +1674,13 @@
                         status.className = 'form-status ok';
                         contactForm.reset();
                     }).catch(() => {
-                        status.textContent = 'Something went wrong. Please email us at info@tunzua.com or use WhatsApp.';
-                        status.className = 'form-status err';
+                        // Backend unreachable — rescue with the pre-filled email.
+                        openMailto(data);
+                        status.textContent = 'The online form is unreachable right now — opening your email app with the message pre-filled instead. Just press send.';
+                        status.className = 'form-status ok';
                     }).finally(done);
                 } else {
-                    const subject = encodeURIComponent('Website enquiry — ' + (data.service || 'General'));
-                    const body = encodeURIComponent('Name: ' + data.name + '\nEmail: ' + data.email + '\nPhone: ' + (data.phone || '—') + '\nService: ' + (data.service || '—') + '\n\n' + data.message);
-                    window.location.href = 'mailto:info@tunzua.com?subject=' + subject + '&body=' + body;
+                    openMailto(data);
                     status.textContent = 'Opening your email app with the message pre-filled — just press send.';
                     status.className = 'form-status ok';
                     done();

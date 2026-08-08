@@ -28,7 +28,7 @@ This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaSc
 ## Features
 
 ### Core Features
-- **Swiss/Editorial design system** - warm paper + deep ink palette, single emerald accent, Fraunces serif display, hairline rules, numbered sections — no gradients, no glass, no CDN
+- **Swiss/Editorial design system** - warm paper + deep ink palette, single navy accent (from the brand logo), Fraunces serif display, hairline rules, numbered sections — no gradients, no glass, no CDN
 - **Responsive Design** - Fully responsive across all device sizes (mobile, tablet, desktop)
 - **Dark/Light Mode** - Light-first, full dark skin with system-preference detection and localStorage persistence
 - **Smooth Scroll Navigation** - Anchor-based navigation with smooth scrolling
@@ -46,7 +46,7 @@ This is a single-page application (SPA) built with vanilla HTML, CSS, and JavaSc
 7. **FAQ** - Accessible accordion (single-open, ARIA) with common service questions
 8. **Testimonials** - Auto-scrolling client reviews (marquee)
 9. **About** - Mission, vision, timeline milestones, values
-10. **Contact** - Visit/Call/Email/WhatsApp cards + **contact form** (validated, honeypot spam trap, pluggable backend endpoint with pre-filled-email fallback)
+10. **Contact** - Visit/Call/Email/WhatsApp cards + **contact form** (validated, honeypot spam trap, FormSubmit.co endpoint with pre-filled-email fallback)
 11. **CTA band + Footer** - Editorial footer with socials and legal links
 
 ### Additional Pages
@@ -79,7 +79,7 @@ tunzua/
 ├── robots.txt              # Crawler rules
 ├── sitemap.xml             # XML sitemap
 ├── favicon.svg             # Site favicon (dark-mode ring)
-├── apple-touch-icon.png    # iOS home-screen icon (emerald brand mark)
+├── apple-touch-icon.png    # iOS home-screen icon (navy brand mark)
 ├── README.md               # This documentation
 ├── STATE.md                # Project state tracking
 └── assets/
@@ -250,7 +250,7 @@ Single `@graph` JSON-LD block containing: **LocalBusiness** (with `hasOfferCatal
 1. Add Google Analytics/Plausible
 2. ~~Implement structured data for services (Service, FAQ types)~~ **Done Aug 8, 2026** — Service + FAQPage in the JSON-LD `@graph`
 3. Replace the self-reported `aggregateRating` schema with real review markup
-4. Wire the contact form to a form backend (Formspree/Web3Forms) — set `FORM_ENDPOINT` in `index.html`
+4. ~~Wire the contact form to a form backend~~ **Done Aug 8, 2026** — `FORM_ENDPOINT` set to FormSubmit.co AJAX endpoint (`info@tunzua.com`); zero-account, one-time activation email on first submission, built-in spam filters + local honeypot (`_gotcha`/`_honey`). Falls back to a pre-filled `mailto:` if the fetch fails.
 
 ---
 
@@ -278,7 +278,7 @@ Single `@graph` JSON-LD block containing: **LocalBusiness** (with `hasOfferCatal
 | `--ink` | `#1a1713` | Headings / primary text |
 | `--ink-2` | `#57513f` | Body text |
 | `--ink-3` | `#6d6554` | Muted text (AA ≥ 4.5:1) |
-| `--accent` | `#1e5b3d` | Emerald accent |
+| `--accent` | `#10306e` | Navy accent (brand logo `#001743` family) |
 | `--hairline` | `#d8d0bc` | 1px rules / borders |
 
 ### Dark Mode
@@ -290,7 +290,7 @@ Single `@graph` JSON-LD block containing: **LocalBusiness** (with `hasOfferCatal
 | `--ink` | `#ede8dc` | Headings / primary text |
 | `--ink-2` | `#b3ac9b` | Body text |
 | `--ink-3` | `#857e6c` | Muted text |
-| `--accent` | `#7fc9a4` | Emerald accent |
+| `--accent` | `#9db9e8` | Periwinkle accent (light navy, mirrors favicon tints) |
 | `--hairline` | `#322c20` | 1px rules / borders |
 
 ---

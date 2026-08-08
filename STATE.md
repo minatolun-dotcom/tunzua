@@ -17,11 +17,11 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 | `index.html` | 106K | ~2,300 | ✅ Active — **Swiss/Editorial redesign** (inline icon sprite, no Tailwind) |
 | `privacy.html` | 14K | ~330 | ✅ Active (new editorial skin) |
 | `terms.html` | 16K | ~360 | ✅ Active (new editorial skin) |
-| `og-image.png` | 39K | - | ✅ Active social share banner (new brand palette) |
+| `og-image.png` | 106K | - | ✅ Active social share banner (navy brand palette) |
 | `robots.txt` | 68B | - | ✅ Active |
 | `sitemap.xml` | 598B | - | ✅ Active |
 | `favicon.svg` | 15K | - | ✅ Active (dark-mode ring) |
-| `apple-touch-icon.png` | 7K | - | ✅ Active (emerald brand mark) |
+| `apple-touch-icon.png` | 2K | - | ✅ Active (navy brand mark) |
 | ~~`tailwind.min.css`~~ | - | - | **Removed** — redesign uses hand-written CSS only |
 | `assets/css/legal.css` | 7.3K | - | ✅ New editorial stylesheet (legal pages, no Tailwind) |
 | `assets/css/fonts.css` | 8.5K | - | ✅ Self-hosted @font-face rules (Inter + Space Grotesk + **Fraunces**) |
@@ -85,6 +85,20 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ---
 
 ## Change Log
+
+### August 8, 2026 — Navy rebrand + form backend wired (owner: "brand color is blue, the one in the logo")
+
+Owner pointed out the accent was green (emerald) while the brand color is the **navy blue of the logo** (dominant logo/favicon color `#001743`). Rebranded the entire accent system + wired the contact form to a real backend:
+
+1. **Palette swapped emerald → navy** (design is fully token-driven; only 7 token lines changed):
+   - Light: `--accent #1e5b3d → #10306e` (deep navy, 11.2:1 on paper), `--accent-2 #2e7d52 → #0b3d91`, `--sel rgba(30,91,61,.18) → rgba(16,48,110,.18)` — `--accent-ink` stays white (12.6:1 on accent).
+   - Dark: `--accent #7fc9a4 → #9db9e8` (periwinkle, mirrors the favicon's light tints; 9.3:1 on ink), `--accent-2 #9addbb → #b3c9f0`, `--accent-ink #0f2c1d → #0b1e46` (8.2:1 on accent), `--sel rgba(127,201,164,.22) → rgba(157,185,232,.22)`.
+   - All contrasts verified ≥ 4.5:1 AA via luminance calc (light + dark surfaces, incl. hover states). No markup or layout changes needed — the design system consumed the tokens everywhere.
+2. **Contact form wired to FormSubmit.co** (was pluggable-but-unset, mailto fallback only): `FORM_ENDPOINT = 'https://formsubmit.co/ajax/info@tunzua.com'` — free, zero-account, JSON POST (the existing fetch code already matched the API shape); the local `_gotcha` honeypot value is now also passed as FormSubmit's native `_honey` field for server-side spam dropping; `mailto:` pre-fill remains as the fetch-failure fallback. Note: first real submission triggers FormSubmit's one-time activation email to `info@tunzua.com`.
+3. **Brand assets regenerated in navy**: `og-image.png` (1200×630, 106KB) — ink background, navy glow, hairline rules, Fraunces title, logo + wordmark, tunzua.com badge (rendered via headless Chrome at 2× using the site's own fonts, then LANCZOS-downscaled + 256-color optimized); `apple-touch-icon.png` (180×180, 2KB) — navy rounded square + paper ring + logo glyph.
+4. Docs updated (README palette tables + form-backend status; STATE.md).
+
+Verified: 44/44 xbrowser checks (Chromium + Firefox), smoke test, Lighthouse **PERF 88 | A11Y 100 | BP 100 | SEO 100**, all token references clean (no emerald left), images render correctly.
 
 ### August 8, 2026 — Dark-mode + layout polish pass (owner-reported)
 
