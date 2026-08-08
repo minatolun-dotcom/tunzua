@@ -86,6 +86,11 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ## Change Log
 
 ### August 8, 2026
+- **Polish pass** on `index.html` + `privacy.html`/`terms.html` (CSS/JS-first, zero new deps):
+  - **Testimonials converted to a marquee**: the static 4-card grid now reuses the `.marquee`/`.marquee-track` system (4 unique reviews × 2 copies, 42s loop, aria-hidden duplicates, hover-pause, gradient edge fade)
+  - **Dark theme polish**: richer dark palette (`--bg-primary: #070b18`, `--text-secondary: #a5b4d0`, `#121a33` tertiary) applied identically across all 3 pages; added `.dark .eyebrow::before` glow + `.dark .marquee-item .logo-chip` treatment
+  - **Scroll-linked parallax**: the 9 decorative blobs now drift with scroll via `data-parallax` speeds in the rAF-throttled, passive `handleScroll` (replaces the old `blobMove` keyframes, which were removed along with dead `animation-delay` inline styles); parallax is skipped for `prefers-reduced-motion` users (verified in headless Chrome)
+  - Cleaned up: removed the stagger/spotlight observer block (dangling `staggerObserver.observe(testimonialsGrid)` reference removed) and the `testimonials-grid` CSS; fixed 6 malformed `data-parallax` attributes that had been inserted inside `style=""`
 - **Visual elevation pass** on `index.html` (CSS-first, zero new deps):
   - Client logos converted from a static grid to a seamless auto-scrolling **marquee** (duplicated set, pause-on-hover, gradient edge fades)
   - Unified **section eyebrows** (gradient dot + uppercase tracking) across all 8 sections (colors were previously inconsistent)

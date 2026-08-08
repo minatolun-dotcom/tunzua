@@ -104,16 +104,16 @@
         }
 
         .dark {
-            --bg-primary: #0a0a1a;
-            --bg-secondary: #0f1729;
-            --bg-tertiary: #151d33;
+            --bg-primary: #070b18;
+            --bg-secondary: #0c1226;
+            --bg-tertiary: #121a33;
             --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
+            --text-secondary: #a5b4d0;
             --text-muted: #94a3b8;
-            --border-color: #1e293b;
-            --card-bg: rgba(15, 23, 42, 0.7);
-            --glass-bg: rgba(15, 23, 42, 0.6);
-            --glass-border: rgba(30, 41, 59, 0.5);
+            --border-color: #233052;
+            --card-bg: rgba(19, 27, 51, 0.75);
+            --glass-bg: rgba(13, 19, 38, 0.65);
+            --glass-border: rgba(56, 72, 120, 0.45);
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
             --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
@@ -255,41 +255,7 @@
 
         /* Blob */
         .blob {
-            position: absolute; border-radius: 50%; filter: blur(80px);
-            animation: blobMove 15s ease-in-out infinite;
-        }
-        @keyframes blobMove {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(30px, -50px) scale(1.1); }
-            50% { transform: translate(-20px, 30px) scale(0.9); }
-            75% { transform: translate(40px, 20px) scale(1.05); }
-        }
-
-        /* Testimonial Cards Row */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        @media (max-width: 1024px) {
-            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 640px) {
-            .testimonials-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Stagger entrance */
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .stagger-item.visible {
-            opacity: 1;
-            transform: translateY(0);
+            position: absolute; border-radius: 50%; filter: blur(80px); will-change: transform;
         }
         .btn-ripple { position: relative; overflow: hidden; }
         .btn-ripple::after {
@@ -370,7 +336,7 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
-            .reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-item { opacity: 1; transform: none; }
+            .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 1; transform: none; }
         }
 
         /* Section overlap effect */
@@ -533,6 +499,10 @@
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
             background: var(--gradient-accent);
         }
+
+        /* Dark mode polish */
+        .dark .eyebrow::before { box-shadow: 0 0 14px rgba(96, 165, 250, 0.75); }
+        .dark .marquee-item .logo-chip { background: rgba(15, 23, 42, 0.5); border-color: rgba(59, 77, 128, 0.35); }
 
     </style>
 </head>
@@ -749,9 +719,9 @@
         <div class="grid-pattern absolute inset-0"></div>
 
         <!-- Blobs -->
-        <div class="blob w-[500px] h-[500px]" style="background: radial-gradient(circle, rgba(10, 26, 58, 0.12) 0%, transparent 70%); top: -15%; left: -10%;"></div>
-        <div class="blob w-[400px] h-[400px]" style="background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%); bottom: 5%; right: -5%; animation-delay: 5s;"></div>
-        <div class="blob w-[300px] h-[300px]" style="background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 70%); top: 40%; left: 50%; animation-delay: 10s;"></div>
+        <div class="blob w-[500px] h-[500px]" data-parallax="-0.05" style="background: radial-gradient(circle, rgba(10, 26, 58, 0.12) 0%, transparent 70%); top: -15%; left: -10%;"></div>
+        <div class="blob w-[400px] h-[400px]" data-parallax="0.08" style="background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%); bottom: 5%; right: -5%;"></div>
+        <div class="blob w-[300px] h-[300px]" data-parallax="-0.03" style="background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 70%); top: 40%; left: 50%;"></div>
 
         <!-- Floating accounting icons -->
         <div class="absolute top-32 left-10 text-3xl opacity-[0.04] float" style="color: #2563eb;"><svg class="fa-svg"><use href="#calculator"></use></svg></div>
@@ -946,8 +916,8 @@
 
     <!-- Services Section -->
     <section id="services" class="section-overlap relative py-24 overflow-hidden">
-        <div class="blob w-96 h-96" style="background: rgba(10, 26, 58, 0.04); top: -10%; right: -15%;"></div>
-        <div class="blob w-64 h-64" style="background: rgba(37, 99, 235, 0.05); bottom: 10%; left: -8%; animation-delay: 7s;"></div>
+        <div class="blob w-96 h-96" data-parallax="0.06" style="background: rgba(10, 26, 58, 0.04); top: -10%; right: -15%;"></div>
+        <div class="blob w-64 h-64" data-parallax="-0.04" style="background: rgba(37, 99, 235, 0.05); bottom: 10%; left: -8%;"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <!-- Header -->
@@ -1112,7 +1082,7 @@
 
     <!-- Why Choose Us -->
     <section class="section-overlap relative py-24" style="background: var(--bg-secondary);">
-        <div class="blob w-96 h-96" style="background: rgba(6, 182, 212, 0.05); bottom: 0; left: -15%;"></div>
+        <div class="blob w-96 h-96" data-parallax="0.05" style="background: rgba(6, 182, 212, 0.05); bottom: 0; left: -15%;"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
@@ -1196,7 +1166,7 @@
 
     <!-- Tally Prime Section -->
     <section id="tally" class="section-overlap relative py-24 overflow-hidden">
-        <div class="blob w-80 h-80" style="background: rgba(37, 99, 235, 0.06); top: 10%; left: -10%;"></div>
+        <div class="blob w-80 h-80" data-parallax="-0.05" style="background: rgba(37, 99, 235, 0.06); top: 10%; left: -10%;"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
@@ -1540,8 +1510,9 @@
             </div>
         </div>
 
-        <div class="testimonials-grid">
-            <div class="glass-card p-8 stagger-item">
+        <div class="marquee">
+            <div class="marquee-track" style="animation-duration: 42s;">
+<div class="marquee-item"><div class="glass-card p-8" style="width: 340px;">
                 <div class="flex items-center gap-1 mb-4">
                     <svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg>
                 </div>
@@ -1552,10 +1523,7 @@
                         <p class="font-bold text-sm" style="color: var(--text-primary);">Lientlangruol</p>
                         <p class="text-xs" style="color: var(--text-muted);">Local Guide · 17 reviews</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="glass-card p-8 stagger-item">
+                </div></div><div class="marquee-item"><div class="glass-card p-8" style="width: 340px;">
                 <div class="flex items-center gap-1 mb-4">
                     <svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg>
                 </div>
@@ -1566,10 +1534,7 @@
                         <p class="font-bold text-sm" style="color: var(--text-primary);">Hoihching Thomte</p>
                         <p class="text-xs" style="color: var(--text-muted);">Google Review</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="glass-card p-8 stagger-item">
+                </div></div><div class="marquee-item"><div class="glass-card p-8" style="width: 340px;">
                 <div class="flex items-center gap-1 mb-4">
                     <svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg>
                 </div>
@@ -1580,10 +1545,7 @@
                         <p class="font-bold text-sm" style="color: var(--text-primary);">Minzzy Singson</p>
                         <p class="text-xs" style="color: var(--text-muted);">Google Review</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="glass-card p-8 stagger-item">
+                </div></div><div class="marquee-item"><div class="glass-card p-8" style="width: 340px;">
                 <div class="flex items-center gap-1 mb-4">
                     <svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg>
                 </div>
@@ -1594,7 +1556,52 @@
                         <p class="font-bold text-sm" style="color: var(--text-primary);">Micky Guite</p>
                         <p class="text-xs" style="color: var(--text-muted);">Google Review</p>
                     </div>
+                </div></div>
+<div class="marquee-item" aria-hidden="true"><div class="glass-card p-8" style="width: 340px;">
+                <div class="flex items-center gap-1 mb-4">
+                    <svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg>
                 </div>
+                <p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary);">"The consultant were very nice and open minded, may God bless them in their future endeavors."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background: var(--gradient-accent);">LL</div>
+                    <div>
+                        <p class="font-bold text-sm" style="color: var(--text-primary);">Lientlangruol</p>
+                        <p class="text-xs" style="color: var(--text-muted);">Local Guide · 17 reviews</p>
+                    </div>
+                </div></div><div class="marquee-item" aria-hidden="true"><div class="glass-card p-8" style="width: 340px;">
+                <div class="flex items-center gap-1 mb-4">
+                    <svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg>
+                </div>
+                <p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary);">"Excellent client/customer service." <span class="text-xs" style="color: var(--text-muted);">— Positive: Professionalism</span></p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background: linear-gradient(135deg, #10b981, #059669);">HT</div>
+                    <div>
+                        <p class="font-bold text-sm" style="color: var(--text-primary);">Hoihching Thomte</p>
+                        <p class="text-xs" style="color: var(--text-muted);">Google Review</p>
+                    </div>
+                </div></div><div class="marquee-item" aria-hidden="true"><div class="glass-card p-8" style="width: 340px;">
+                <div class="flex items-center gap-1 mb-4">
+                    <svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg>
+                </div>
+                <p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary);">"Highly recommended services. Very professional team with excellent knowledge of accounting and Tally solutions."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">MS</div>
+                    <div>
+                        <p class="font-bold text-sm" style="color: var(--text-primary);">Minzzy Singson</p>
+                        <p class="text-xs" style="color: var(--text-muted);">Google Review</p>
+                    </div>
+                </div></div><div class="marquee-item" aria-hidden="true"><div class="glass-card p-8" style="width: 340px;">
+                <div class="flex items-center gap-1 mb-4">
+                    <svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg><svg class="fa-svg text-yellow-400"><use href="#star"></use></svg>
+                </div>
+                <p class="text-sm leading-relaxed mb-6" style="color: var(--text-secondary);">"Trusted and reliable consultancy firm. Great experience with their Tally Prime setup and support."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background: linear-gradient(135deg, #f59e0b, #d97706);">MG</div>
+                    <div>
+                        <p class="font-bold text-sm" style="color: var(--text-primary);">Micky Guite</p>
+                        <p class="text-xs" style="color: var(--text-muted);">Google Review</p>
+                    </div>
+                </div></div>
             </div>
         </div>
     </section>
@@ -1624,7 +1631,7 @@
 
     <!-- About Section -->
     <section id="about" class="section-overlap relative py-24" style="background: var(--bg-secondary);">
-        <div class="blob w-80 h-80" style="background: rgba(37, 99, 235, 0.06); top: 20%; right: -10%;"></div>
+        <div class="blob w-80 h-80" data-parallax="0.06" style="background: rgba(37, 99, 235, 0.06); top: 20%; right: -10%;"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -1732,7 +1739,7 @@
 
     <!-- Contact Section -->
     <section id="contact" class="section-overlap relative py-24 overflow-hidden">
-        <div class="blob w-96 h-96" style="background: rgba(37, 99, 235, 0.06); bottom: -20%; left: -10%;"></div>
+        <div class="blob w-96 h-96" data-parallax="0.07" style="background: rgba(37, 99, 235, 0.06); bottom: -20%; left: -10%;"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
@@ -1962,21 +1969,34 @@
         const scrollProgress = document.getElementById('scrollProgress');
 
         var blobs = document.querySelectorAll('.blob');
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var scrollTicking = false;
 
-        window.addEventListener('scroll', function() {
-            var scrollY = window.scrollY;
-            navbar.classList.toggle('scrolled', scrollY > 50);
-            backToTop.classList.toggle('opacity-0', scrollY < 500);
-            backToTop.classList.toggle('pointer-events-none', scrollY < 500);
+        function handleScroll() {
+            if (scrollTicking) return;
+            scrollTicking = true;
+            requestAnimationFrame(function () {
+                var scrollY = window.scrollY;
+                navbar.classList.toggle('scrolled', scrollY > 50);
+                backToTop.classList.toggle('opacity-0', scrollY < 500);
+                backToTop.classList.toggle('pointer-events-none', scrollY < 500);
 
-            // Scroll progress (cache docHeight periodically)
-            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            scrollProgress.style.width = (scrollY / docHeight) * 100 + '%';
+                scrollProgress.style.width = (scrollY / docHeight) * 100 + '%';
 
-            // Blob parallax
-            for (var b = 0; b < blobs.length; b++) {
-                blobs[b].style.transform = 'translateY(' + (scrollY * 0.05 * (b + 1)) + 'px)';
-            }
+                // Subtle scroll-linked parallax on decorative blobs (skipped for reduced-motion)
+                if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    for (var b = 0; b < blobs.length; b++) {
+                        var speed = blobs[b].getAttribute('data-parallax');
+                        var offset = speed === null ? 0.05 * (b + 1) : parseFloat(speed);
+                        blobs[b].style.transform = 'translate3d(0,' + (scrollY * offset) + 'px,0)';
+                    }
+                }
+                scrollTicking = false;
+            });
+        }
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', function () {
+            docHeight = document.documentElement.scrollHeight - window.innerHeight;
         });
 
         backToTop.addEventListener('click', () => {
@@ -2100,24 +2120,6 @@
             });
         }
 
-
-
-        // Stagger entrance for spotlight cards and testimonials
-        const staggerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const items = entry.target.querySelectorAll('.stagger-item');
-                    items.forEach((item, i) => {
-                        setTimeout(() => item.classList.add('visible'), i * 150);
-                    });
-                    staggerObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.2 });
-
-
-        const testimonialsGrid = document.querySelector('.testimonials-grid');
-        if (testimonialsGrid) staggerObserver.observe(testimonialsGrid);
     </script>
 </body>
 </html>
