@@ -661,6 +661,62 @@
 
         /* Scroll margin for anchor nav */
         [id] { scroll-margin-top: 84px; }
+
+        /* ---------- Paper grain (editorial print texture, both themes) ---------- */
+        body::before {
+            content: ''; position: fixed; inset: 0; z-index: 2147483000;
+            pointer-events: none; opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+        }
+
+        /* ---------- Ghost section numerals (decorative, CSS-generated) ---------- */
+        .section { position: relative; overflow: hidden; }
+        .section::before {
+            content: attr(data-ghost);
+            position: absolute; top: 96px; right: -18px; z-index: 0;
+            font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144;
+            font-size: clamp(130px, 19vw, 290px); line-height: 1; font-weight: 500;
+            color: transparent; -webkit-text-stroke: 1px var(--hairline);
+            pointer-events: none; user-select: none;
+        }
+        .section > * { position: relative; z-index: 1; }
+        @media (max-width: 820px) {
+            .section::before { opacity: 0.55; font-size: clamp(88px, 22vw, 140px); top: 64px; right: -6px; }
+        }
+
+        /* ---------- Hero visual: concentric hairline rings + brand diamond ---------- */
+        .hero::before {
+            content: ''; position: absolute; left: 50%; top: 50%; z-index: 0;
+            width: min(780px, 94vw); aspect-ratio: 1;
+            transform: translate(-50%, -50%);
+            border: 1px solid var(--hairline); border-radius: 50%;
+            pointer-events: none; opacity: 0.55;
+        }
+        .hero::after {
+            content: ''; position: absolute; left: 50%; top: 50%; z-index: 0;
+            width: min(560px, 72vw); aspect-ratio: 1;
+            transform: translate(-50%, -50%);
+            border: 1px dashed var(--hairline); border-radius: 50%;
+            pointer-events: none; opacity: 0.4;
+        }
+        .hero-mark {
+            position: absolute; left: 50%; top: 50%; z-index: 0;
+            width: 14px; height: 14px; transform: translate(-50%, -50%) rotate(45deg);
+            background: var(--accent); opacity: 0.85; pointer-events: none;
+        }
+        .hero-grid { position: relative; z-index: 1; }
+        @media (max-width: 820px) { .hero-mark { opacity: 0.6; } }
+
+        /* ---------- Hover polish: card lift, CTA arrows ---------- */
+        .price-card { transition: transform 0.3s ease, border-color 0.3s ease; }
+        .price-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+        .hero-ctas .btn::after { content: '→'; margin-left: 2px; transition: transform 0.25s ease; }
+        .hero-ctas .btn:hover::after { transform: translateX(4px); }
+        .insight-link svg { transition: transform 0.25s ease; }
+        .insight-link:hover svg { transform: translateX(3px); }
+
+        /* ---------- Testimonial avatar: brand accent ---------- */
+        .quote-who .avatar { background: var(--accent); color: var(--accent-ink); }
     </style>
 </head>
 <body>
@@ -849,6 +905,7 @@
         <!-- ============ HERO ============ -->
         <section id="home" class="hero">
             <div class="wrap">
+                <span class="hero-mark" aria-hidden="true"></span>
                 <div class="hero-grid">
                     <div class="reveal-left">
                         <span class="eyebrow">Accounting · Taxation · Tally Prime</span>
@@ -899,7 +956,7 @@
         </section>
 
         <!-- ============ SERVICES ============ -->
-        <section id="services" class="section">
+        <section id="services" class="section" data-ghost="01">
             <div class="wrap">
                 <div class="section-head split">
                     <div>
@@ -1014,7 +1071,7 @@
         </section>
 
         <!-- ============ PROCESS ============ -->
-        <section class="section">
+        <section class="section" data-ghost="02">
             <div class="wrap">
                 <div class="section-head">
                     <span class="section-index reveal">02 — Process</span>
@@ -1051,7 +1108,7 @@
         </section>
 
         <!-- ============ TALLY PRIME ============ -->
-        <section id="tally" class="section" style="background: var(--paper-2);">
+        <section id="tally" class="section" data-ghost="03" style="background: var(--paper-2);">
             <div class="wrap">
                 <div class="section-head split">
                     <div>
@@ -1108,7 +1165,7 @@
         </section>
 
         <!-- ============ PRICING ============ -->
-        <section id="pricing" class="section">
+        <section id="pricing" class="section" data-ghost="04">
             <div class="wrap">
                 <div class="section-head split">
                     <div>
@@ -1160,7 +1217,7 @@
         </section>
 
         <!-- ============ FAQ ============ -->
-        <section id="faq" class="section" style="background: var(--paper-2);">
+        <section id="faq" class="section" data-ghost="05" style="background: var(--paper-2);">
             <div class="wrap">
                 <div class="section-head split">
                     <div>
@@ -1229,7 +1286,7 @@
         </section>
 
         <!-- ============ TESTIMONIALS ============ -->
-        <section class="section testimonial-marquee">
+        <section class="section testimonial-marquee" data-ghost="06">
             <div class="wrap">
                 <div class="section-head">
                     <span class="section-index reveal">06 — Testimonials</span>
@@ -1323,7 +1380,7 @@
         </section>
 
         <!-- ============ ABOUT ============ -->
-        <section id="about" class="section" style="background: var(--paper-2);">
+        <section id="about" class="section" data-ghost="07" style="background: var(--paper-2);">
             <div class="wrap">
                 <div class="section-head">
                     <span class="section-index reveal">07 — About</span>
@@ -1368,7 +1425,7 @@
         </section>
 
         <!-- ============ INSIGHTS ============ -->
-        <section id="insights" class="section">
+        <section id="insights" class="section" data-ghost="08">
             <div class="wrap">
                 <div class="section-head split">
                     <div>
@@ -1398,7 +1455,7 @@
         </section>
 
         <!-- ============ CONTACT ============ -->
-        <section id="contact" class="section">
+        <section id="contact" class="section" data-ghost="09">
             <div class="wrap">
                 <div class="section-head split">
                     <div>
@@ -1760,8 +1817,30 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
+                    const el = entry.target;
+                    // Staggered cascade: when several reveal elements share a
+                    // parent (service rows, process steps, pricing cards,
+                    // insight cards, FAQ items), reveal them in sequence.
+                    const parent = el.parentElement;
+                    if (parent) {
+                        const sibs = Array.prototype.filter.call(
+                            parent.children,
+                            c => c.classList.contains('reveal') || c.classList.contains('reveal-left') ||
+                                 c.classList.contains('reveal-right') || c.classList.contains('reveal-scale')
+                        );
+                        const i = sibs.indexOf(el);
+                        const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        if (sibs.length > 1 && i > 0 && !reduced) {
+                            el.style.transitionDelay = Math.min(i * 70, 420) + 'ms';
+                            el.addEventListener('transitionend', function handler(e) {
+                                if (e.propertyName !== 'opacity') return;
+                                el.style.transitionDelay = '';
+                                el.removeEventListener('transitionend', handler);
+                            });
+                        }
+                    }
+                    el.classList.add('active');
+                    observer.unobserve(el);
                 }
             });
         }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });

@@ -55,6 +55,21 @@
 .post-body h2:first-child { margin-top: 0; }
 .post-body p { color: var(--ink-2); font-size: 0.97rem; line-height: 1.78; }
 .post-body p + p { margin-top: 14px; }
+
+/* Editorial drop cap on the lead paragraph */
+.post-body > .post-lead::first-letter {
+    font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 72;
+    font-size: 3.6em; font-weight: 520; line-height: 0.85;
+    float: left; padding: 6px 12px 0 0; color: var(--accent);
+}
+
+/* Editorial pull-quote */
+.pull-quote {
+    font-family: 'Fraunces', serif; font-size: 1.42rem; font-weight: 480;
+    font-style: italic; line-height: 1.5; color: var(--ink);
+    margin: 34px 0; padding: 8px 0 8px 24px;
+    border-left: 2px solid var(--accent);
+}
 .post-body strong { color: var(--ink); font-weight: 600; }
 
 .due-table { width: 100%; border-collapse: collapse; margin: 24px 0 8px; font-size: 0.9rem; }
