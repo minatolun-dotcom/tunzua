@@ -30,6 +30,9 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 |------|------|-------|--------|
 | `index.html` | 106K | ~2,300 | ✅ Active — **Swiss/Editorial redesign** (inline icon sprite, no Tailwind) |
 | `404.html` | 6K | ~210 | ✅ Active — branded not-found page (GitHub Pages custom 404, noindex) |
+| `blog.html` | 9K | ~190 | ✅ Active — Insights index (2 posts) |
+| `blog/` | 2 files | - | ✅ Active — GST due dates + Tally vs manual posts |
+| `assets/css/blog.css` | 3K | - | ✅ New blog stylesheet (extends legal.css) |
 | `privacy.html` | 14K | ~330 | ✅ Active (new editorial skin) |
 | `terms.html` | 16K | ~360 | ✅ Active (new editorial skin) |
 | `og-image.png` | 106K | - | ✅ Active social share banner (navy brand palette) |
@@ -100,6 +103,17 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ---
 
 ## Change Log
+
+### August 9, 2026 — Analytics, schema enrichment, blog section (owner: "proceed with all")
+
+Four items from the improvement list shipped together:
+
+1. **Plausible Analytics added** (cookie-less, privacy-friendly) — one deferred snippet (`data-domain="tunzua.com"`) on all 5 content pages (index, privacy, terms, blog + 2 posts). Zero impact on Lighthouse (PERF 86 / A11Y 100 / BP 100 / SEO 100, all budgets met). **Owner still needs to:** create a Plausible account and add `tunzua.com` as a site — the snippet auto-works once the domain is registered.
+2. **LocalBusiness JSON-LD enriched** — added `areaServed` (Churachandpur / Manipur / Mizoram / India), `paymentAccepted` (Bank transfer, UPI, Cheque, Cash), `currenciesAccepted` (INR) to the existing `@graph`. `openingHours` deliberately omitted (needs owner's real office hours — don't publish guessed hours to Google).
+3. **Blog / Insights section** (new): `blog.html` index + 2 starter posts in `blog/` — `gst-return-due-dates-2026-27.html` (GSTR-1/GSTR-3B/QRMP/GSTR-9 calendar, Group 2 note for Manipur/Mizoram → QRMP GSTR-3B due the 24th, late-fee/interest consequences, ITR + TDS cross-reference, disclaimer) and `tally-vs-manual-bookkeeping.html` (when manual is fine, Tally benefits, cost question, AMC/services tie-in, disclaimer). Pages reuse the legal-page chrome (`legal.css`) + new shared `assets/css/blog.css` (post cards, due-date table, note/CTA boxes), each post has BlogPosting JSON-LD, canonical, OG/Twitter, both themes, `../` relative paths (works under any subpath). Due dates verified via web research (GSTR-1 11th / QRMP 13th, GSTR-3B 20th / 22nd Group 1 / 24th Group 2, GSTR-9 & 9C 31 Dec 2026, ITR 31 Aug / 31 Oct 2026, tax audit 3CB/3CD 30 Sep 2026, TDS quarters 31 Jul/Oct/Jan/May).
+4. **Wiring**: footer "Insights" link on index + legal pages; `sitemap.xml` now lists blog.html (0.8) + both posts (0.7) with lastmod 2026-08-09. Index nav untouched (footer + sitemap + GSC submission handle discovery).
+
+Validated: 20/20 blog checks (render, links resolve 200, JSON-LD, theme toggle, Firefox mobile), 48/48 xbrowser regression, div balance clean on all 3 new pages, smoke green, visual review in both themes. Blog content is **drafted content — owner should review/edit before promoting** (especially the compliance figures).
 
 ### August 9, 2026 — Branded 404, sticky mobile Call/WhatsApp bar, perf pass (PERF 85 → 92)
 

@@ -1,0 +1,93 @@
+/* Tunzua Consultancy — Swiss/Editorial design system (blog).
+   Extends assets/css/legal.css: post-list cards (index), article prose,
+   due-date table, callout + CTA boxes. Same tokens, hairlines, type. */
+
+/* ---------- Blog index (post list) ---------- */
+.blog-list { padding: 44px 0 16px; }
+
+.post-card { padding: 42px 0; border-bottom: 1px solid var(--hairline); }
+.post-card:first-of-type { border-top: 1px solid var(--hairline); }
+.post-card:last-of-type { border-bottom: 1px solid var(--hairline); }
+
+.post-meta {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px;
+}
+.post-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--accent); }
+
+.post-card h2 {
+    font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 40;
+    font-size: clamp(1.4rem, 2.6vw, 1.75rem); font-weight: 560;
+    letter-spacing: -0.01em; line-height: 1.22; color: var(--ink);
+}
+.post-card h2 a { transition: color 0.2s ease; }
+.post-card h2 a:hover { color: var(--accent); }
+
+.post-card p { color: var(--ink-2); font-size: 0.96rem; line-height: 1.72; margin-top: 12px; max-width: 660px; }
+
+.post-link {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+    font-size: 0.74rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent);
+}
+.post-link svg { width: 13px; height: 13px; transition: transform 0.2s ease; }
+.post-card:hover .post-link svg { transform: translateX(4px); }
+
+/* ---------- Article ---------- */
+.back-link {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-3); transition: color 0.2s ease;
+}
+.back-link:hover { color: var(--accent); }
+.back-link svg { width: 13px; height: 13px; }
+
+.post-lead { margin-top: 22px; font-size: 1.05rem; line-height: 1.7; color: var(--ink-2); }
+
+.post-body { padding: 48px 0; }
+.post-body + .post-body { border-top: 1px solid var(--hairline); }
+.post-body h2 {
+    font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 40;
+    font-size: 1.45rem; font-weight: 560; letter-spacing: -0.01em;
+    color: var(--ink); margin: 34px 0 16px;
+}
+.post-body h2:first-child { margin-top: 0; }
+.post-body p { color: var(--ink-2); font-size: 0.97rem; line-height: 1.78; }
+.post-body p + p { margin-top: 14px; }
+.post-body strong { color: var(--ink); font-weight: 600; }
+
+.due-table { width: 100%; border-collapse: collapse; margin: 24px 0 8px; font-size: 0.9rem; }
+.due-table th, .due-table td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+.due-table th {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-3);
+}
+.due-table td { color: var(--ink-2); line-height: 1.55; }
+.due-table td:last-child { color: var(--ink); font-weight: 600; }
+.due-table tr:last-child td { border-bottom: none; }
+
+.note-box, .cta-box {
+    margin-top: 30px; padding: 26px 30px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 2px;
+}
+.note-box p { color: var(--ink-2); font-size: 0.92rem; line-height: 1.7; }
+.note-box strong { color: var(--ink); font-weight: 600; }
+
+.cta-box { background: var(--paper-2); margin-bottom: 8px; }
+.cta-box h3 {
+    font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 40;
+    font-size: 1.3rem; font-weight: 560; letter-spacing: -0.01em; color: var(--ink);
+}
+.cta-box p { color: var(--ink-2); font-size: 0.94rem; line-height: 1.7; margin-top: 10px; }
+.cta-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+    .blog-list { padding: 32px 0 8px; }
+    .post-card { padding: 32px 0; }
+    .post-body { padding: 38px 0; }
+    .due-table { font-size: 0.82rem; }
+    .due-table th, .due-table td { padding: 11px 8px; }
+    .note-box, .cta-box { padding: 22px 20px; }
+}
