@@ -1,6 +1,6 @@
 # Project State
 
-**Last Updated:** August 8, 2026
+**Last Updated:** August 9, 2026
 
 ---
 
@@ -29,6 +29,7 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 | File | Size | Lines | Status |
 |------|------|-------|--------|
 | `index.html` | 106K | ~2,300 | ✅ Active — **Swiss/Editorial redesign** (inline icon sprite, no Tailwind) |
+| `404.html` | 6K | ~210 | ✅ Active — branded not-found page (GitHub Pages custom 404, noindex) |
 | `privacy.html` | 14K | ~330 | ✅ Active (new editorial skin) |
 | `terms.html` | 16K | ~360 | ✅ Active (new editorial skin) |
 | `og-image.png` | 106K | - | ✅ Active social share banner (navy brand palette) |
@@ -99,6 +100,16 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ---
 
 ## Change Log
+
+### August 9, 2026 — Branded 404, sticky mobile Call/WhatsApp bar, perf pass (PERF 85 → 92)
+
+Three owner-approved improvements ("proceed with 404 + mobile CTA + perf"):
+
+1. **Branded `404.html`** — GitHub Pages was serving its generic "404: There isn't a GitHub Pages site here" page. New page mirrors the design system exactly (same tokens/fonts/theme script, paper→ink both themes), centered editorial layout: logo + oversized Fraunces "404" (accent, `aria-hidden`, decorative) + h1 "That page doesn't balance." with a visually-hidden "404 — Page not found." span for screen readers (the 404 status is never visually conveyed to SR otherwise), Back to home + Contact us buttons, and a slim footer strip (phone / email / address / Privacy / Terms / ©). `noindex, nofollow`, no canonical (correct for 404s), relative paths so it works under any subpath.
+2. **Sticky mobile Call/WhatsApp bar** (`index.html`) — fixed bottom bar, `≤900px` only (aligned to the navbar's hamburger breakpoint — landscape phones at 844px previously got the hamburger nav but no CTA). Two full-width tap targets: **Call Now** (`tel:+918731831178`, accent bg) + **WhatsApp** (`wa.me/918731831178`, ink bg), both on-brand in light/dark with AA contrast. Details: `body { padding-bottom: calc(56px + env(safe-area-inset-bottom)) }` so the footer is never covered; slides down (`translateY(110%)`) while the cookie banner is visible via a `body.cookie-open` class toggled in the existing cookie JS; z-index 45 sits below the cookie banner (50) and backToTop; backToTop lifted above the bar on mobile (`bottom: calc(28px + 56px + env(...))`, verified 84px vs bar top ~48px); `prefers-reduced-motion` disables the transition. Verified: 10/10 targeted checks (visibility at 390/844/1440px, cookie interplay, backToTop geometry, body padding) + Firefox spot-checks.
+3. **Performance pass** — `content-visibility: auto; contain-intrinsic-size: auto 900px` on `main section:not(#home)` (all fixed-position elements live outside `<main>`, so layout containment is safe — audited) + `fetchpriority="high"` on the Fraunces preload (the LCP font, used by the hero display heading). **Lighthouse PERF 85 → 92**, FCP 2.4s → 1.7s, LCP 3.9s → 3.3s, CLS 0.001, all budgets met; 48/48 xbrowser regression pass.
+
+Reviewer-flagged fixes applied before ship: backToTop/CTA overlap, breakpoint mismatch (820→900px), safe-area calc consistency, dead `.eyebrow`/`.btn svg` CSS removed from 404, 404 SR status text. Domain switch also fully completed this session: `https://tunzua.com` live with a valid Let's Encrypt cert (issued Aug 9, expires Nov 7), `www` 301→apex, GitHub Pages `cname: tunzua.com` + `https_enforced`, apex DNS on GitHub IPs.
 
 ### August 8, 2026 — Client-logo marquee showed only 2 of 4 logos (owner report)
 
