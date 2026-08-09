@@ -61,6 +61,11 @@ FEEDS = [
         "filter": "tax",
     },
     {
+        "name": "TaxGuru — Tax & GST news",
+        "url": "https://www.taxguru.in/feed/",
+        "filter": "tax",
+    },
+    {
         "name": "Economic Times — Tax",
         "url": "https://economictimes.indiatimes.com/wealth/tax/rssfeeds/13358845.cms",
         "filter": "tax",
@@ -71,6 +76,11 @@ FEEDS = [
         "filter": "tax",
     },
 ]
+
+# Cap blog.html digest cards and feed.xml items at this many latest entries.
+# Keeps the index and feed from growing unbounded after months of digests;
+# older digest pages stay live (sitemap still lists them).
+MAX_LIST_ITEMS = 30
 
 # Terms that make an item tax/accounting relevant (title or link, case-insensitive).
 TAX_TERMS = [
@@ -92,6 +102,7 @@ JOB_TERMS = [
 SOURCE_LABELS = {
     "Taxscan — Income Tax": "Taxscan",
     "Taxscan — Top stories": "Taxscan",
+    "TaxGuru — Tax & GST news": "TaxGuru",
     "Economic Times — Tax": "Economic Times",
     "Moneycontrol — Business": "Moneycontrol",
 }
@@ -190,6 +201,56 @@ def rss_date(dt):
     return dt.strftime("%a, %d %b %Y 00:00:00 +0000")
 
 
+def send_digest_email(items, date_label, day_iso):
+    """Best-effort: email a digest summary to the firm via FormSubmit.
+
+    Never raises — the digest must publish even if emailing fails.
+    Returns True on success.
+    """
+    target = os.environ.get("DIGEST_EMAIL_TO", "info@tunzua.com")
+    lines = [
+        f"Tax news digest for {date_label} — {len(items)} stories:",
+        "",
+    ]
+    for it in items[:12]:
+        src = SOURCE_LABELS.get(it["source"], it["source"])
+        lines.append(f"• {it['title']}")
+        lines.append(f"  ({src}) {it['link']}")
+        lines.append("")
+    lines.append(f"Read it online: https://tunzua.com/blog/tax-news-digest-{day_iso}.html")
+    lines.append("")
+    lines.append("— Sent automatically by the Tunzua daily digest.")
+    payload = {
+        "email": "digest@tunzua.com",
+        "subject": f"Tax news digest — {date_label}",
+        "message": "\n".join(lines),
+        "_captcha": "false",
+        "_honey": "",
+    }
+    data = json.dumps(payload).encode()
+    req = urllib.request.Request(
+        f"https://formsubmit.co/ajax/{target}",
+        data=data,
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": USER_AGENT,
+            "Referer": "https://tunzua.com/",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            body = resp.read().decode()
+            print(f"[email] FormSubmit HTTP {resp.status}: {body[:120]}")
+            # FormSubmit returns {"success":"true",...} — success is a quoted
+            # string, so match that exact shape (or just the key).
+            return resp.status == 200 and '"success":"true"' in body
+    except Exception as exc:
+        print(f"[email] failed (non-fatal): {exc}", file=sys.stderr)
+        return False
+
+
 def read(path):
     with open(path, encoding="utf-8") as f:
         return f.read()
@@ -216,6 +277,17 @@ def update_blog_index(items, date_label, day_iso):
     if marker not in content:
         raise RuntimeError("blog.html: <section class=\"blog-list\"> marker not found")
     content = content.replace(marker, marker + card, 1)
+    # Trim: cap only the auto-generated digest cards. Hand-written evergreen
+    # posts (due dates, payroll, records…) must NEVER be trimmed — they are the
+    # site's permanent SEO content. Digest cards are identified by the
+    # tax-news-digest- slug in their href.
+    digest_blocks = [
+        b for b in re.findall(r"<article class=\"post-card\">.*?</article>\n", content, flags=re.S)
+        if "tax-news-digest-" in b
+    ]
+    if len(digest_blocks) > MAX_LIST_ITEMS:
+        for old in digest_blocks[MAX_LIST_ITEMS:]:
+            content = content.replace(old, "", 1)
     write(path, content)
 
 
@@ -238,6 +310,11 @@ def update_feed(items, date_label, day_iso):
     if marker not in content:
         raise RuntimeError("feed.xml: atom:link marker not found")
     content = content.replace(marker, marker + item, 1)
+    # Trim: keep only the newest MAX_LIST_ITEMS feed items.
+    items_blocks = re.findall(r"    <item>.*?</item>\n", content, flags=re.S)
+    if len(items_blocks) > MAX_LIST_ITEMS:
+        for old in items_blocks[MAX_LIST_ITEMS:]:
+            content = content.replace(old, "", 1)
     write(path, content)
 
 
@@ -257,6 +334,13 @@ def update_sitemap(day_iso):
     if marker not in content:
         raise RuntimeError("sitemap.xml: </urlset> marker not found")
     content = content.replace(marker, entry + marker, 1)
+    # Trim: keep only the newest MAX_LIST_ITEMS digest URLs in the sitemap.
+    # (Digest entries are appended at the end, so excess ones sit just before
+    # the evergreen pages — remove the oldest digest <url> blocks.)
+    digest_urls = re.findall(r"  <url>\n    <loc>https://tunzua.com/blog/tax-news-digest-[^<]+</loc>.*?</url>\n", content, flags=re.S)
+    if len(digest_urls) > MAX_LIST_ITEMS:
+        for old in digest_urls[: len(digest_urls) - MAX_LIST_ITEMS]:
+            content = content.replace(old, "", 1)
     write(path, content)
 
 
@@ -460,6 +544,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="print what would happen, write nothing")
     parser.add_argument("--max-items", type=int, default=MAX_ITEMS, help="cap digest size")
+    parser.add_argument("--email", action="store_true", help="email the digest summary to the firm (best-effort)")
     args = parser.parse_args()
 
     now = datetime.now(timezone.utc)
@@ -542,6 +627,8 @@ def main():
     save_state(state)
     print(f"Wrote {post_path}")
     print("Updated blog.html, feed.xml, sitemap.xml, .digest-state.json")
+    if args.email:
+        send_digest_email(new_items, date_label, day_iso)
     return 0
 
 

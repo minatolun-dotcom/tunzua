@@ -18,6 +18,7 @@
     --hairline: #d8d0bc;
     --hairline-soft: #e4decd;
     --sel: rgba(16, 48, 110, 0.18);
+    --err: #8f3427;
 }
 
 .dark {
@@ -34,6 +35,7 @@
     --hairline: #322c20;
     --hairline-soft: #262119;
     --sel: rgba(157, 185, 232, 0.22);
+    --err: #e08a7a;
 }
 
 .dark { color-scheme: dark; }

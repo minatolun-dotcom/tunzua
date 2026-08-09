@@ -16,13 +16,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate digest
+      - name: Generate digest (and email the summary to the firm)
+        env:
+          # Optional override: set a DIGEST_EMAIL_TO secret to change the
+          # recipient; defaults to info@tunzua.com inside the script.
+          DIGEST_EMAIL_TO: ${{ secrets.DIGEST_EMAIL_TO }}
         run: |
           set -o pipefail
-          python3 scripts/generate-digest.py 2>&1 | tee /tmp/digest.log
+          python3 scripts/generate-digest.py --email 2>&1 | tee /tmp/digest.log
         # The generator returns 0 even on quiet days (nothing to publish);
         # it returns 2 only if every feed failed (nothing sensible to do).
         # pipefail surfaces a generator crash instead of tee's exit code.
+        # --email is best-effort (never blocks publishing).
 
       - name: Commit and push if a digest was published
         run: |

@@ -105,6 +105,18 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 ## Change Log
 
+### August 9, 2026 — Digest v2: TaxGuru feed, 30-item caps, email delivery + subscribe box (owner: "proceed with all")
+
+Four follow-up items shipped on the daily digest:
+
+1. **New feed — TaxGuru** (`https://www.taxguru.in/feed/`, verified 100 fresh dated items live; HC rulings/GST refunds/ITAT cases). Digest now draws from Taxscan (income-tax + top stories) + TaxGuru; ET/Moneycontrol remain wired as best-effort (ET empty on probes, Moneycontrol stale — both dropped by the freshness filter). Live sandbox run: 12 stories (5 Taxscan + 7 TaxGuru), email delivered `{"success":"true"}`.
+2. **30-item caps everywhere** — `MAX_LIST_ITEMS = 30`: blog.html keeps only the newest 30 **digest** cards (the 6 hand-written evergreen posts — due dates, payroll, records, Tally — are never trimmed, they're the permanent SEO content), feed.xml keeps the newest 30 items, sitemap.xml keeps the newest 30 digest URLs (evergreen pages always remain). Verified by pushing 35 simulated digests: 30 digest cards + 6 evergreens = 36, feed 30, sitemap 30 digests, XML valid throughout.
+3. **Email delivery** — `send_digest_email()` POSTs a summary (headlines + source links + permalink) to FormSubmit.co/ajax/info@tunzua.com. Best-effort (never blocks publishing), gated behind `--email` (workflow passes it), success detection matches FormSubmit's real `{"success":"true"}` shape (quoted string — the boolean check the reviewer flagged would have never matched). `DIGEST_EMAIL_TO` env override wired via `secrets.DIGEST_EMAIL_TO`.
+4. **Subscribe box on blog.html** — "Get the daily digest by email" section between the hero and the post list: email input + Subscribe button, honeypot, client-side email validation, FormSubmit AJAX POST, `role="status"` live message, `--err` token added to legal.css (light `#8f3427` / dark `#e08a7a`, now used by `.subscribe-status.err` too). Verified in both themes (704px wide, zero overflow, zero console errors).
+5. **Manual trigger attempt** — `workflow_dispatch` via the API returned 403: the credentials token has administration/pages scopes but **not `actions: write`**. The workflow is recognized as `active` on GitHub (confirmed via the workflows API), so the **8 AM IST cron will fire automatically**; a manual test just needs one click (Actions → Daily Tax Digest → Run workflow) or a token with actions:write. First automated run: tomorrow 8:00 AM IST.
+
+Reviewer-flagged fixes applied: cap now trims digest cards only (original version would have dropped the evergreen posts off the index first); email success detection corrected (quoted-string match + HTTP 200); sitemap cap added; `--err` token instead of hardcoded hexes; workflow env wiring for the secret. Validated: 48/48 xbrowser, 22/22 blog suite, smoke green, div balance 0, cap/trim simulation, subscribe box render + FormSubmit email round-trip (activation email for the script source was sent to info@tunzua.com — one click needed for email delivery; publishing is unaffected).
+
 ### August 9, 2026 — Automatic daily tax news digest (owner: "blog automatically updates and posts daily")
 
 Full automation for daily posting, owner-approved design (RSS digest · 8:00 AM IST · skip quiet days):

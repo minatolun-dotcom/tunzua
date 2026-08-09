@@ -110,6 +110,111 @@
     text-underline-offset: 3px;
 }
 
+.subscribe-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding: 28px 0 32px;
+    margin: 0 0 40px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+}
+
+.subscribe-copy {
+    flex: 1 1 320px;
+    max-width: 480px;
+}
+
+.subscribe-copy h2 {
+    font-size: 1.35rem;
+    line-height: 1.35;
+    margin: 0 0 8px;
+    text-wrap: balance;
+}
+
+.subscribe-copy p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 10px;
+    flex: 1 1 340px;
+    max-width: 480px;
+}
+
+.subscribe-form label {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.subscribe-form input[type="email"] {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.subscribe-form input[type="email"]:focus {
+    border-color: var(--accent);
+}
+
+.subscribe-form .btn {
+    white-space: nowrap;
+    padding: 12px 20px;
+}
+
+.subscribe-form .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.subscribe-status {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: 0.9rem;
+    min-height: 1.2em;
+}
+
+.subscribe-status.ok {
+    color: var(--accent);
+}
+
+.subscribe-status.err {
+    color: var(--err);
+}
+
+@media (max-width: 640px) {
+    .subscribe-box {
+        padding: 24px 0 28px;
+    }
+    .subscribe-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .subscribe-form .btn {
+        text-align: center;
+    }
+}
+
 .rss-link {
  color: var(--accent); border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
 .rss-link:hover { border-bottom-color: var(--accent); }
