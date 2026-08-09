@@ -256,8 +256,14 @@
         .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
         .section { padding: 110px 0; border-top: 1px solid var(--hairline); }
 
-        /* Render performance: skip paint/layout for below-fold sections until scrolled near */
-        main section:not(#home) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+        /* Render performance: skip paint/layout for heavy below-fold sections until scrolled near.
+           Anchor-target sections (#home/#clients/#services/#tally/#pricing/#about/#contact) stay
+           rendered so scroll-to-anchor lands on real geometry (WebKit doesn't self-correct
+           against the contain-intrinsic-size estimate). */
+        main section:not(#home):not(#clients):not(#services):not(#tally):not(#pricing):not(#about):not(#contact) {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 900px;
+        }
         .section-head { display: grid; grid-template-columns: 1fr; gap: 22px; margin-bottom: 64px; }
         .section-head.split { grid-template-columns: 1fr 1fr; align-items: end; }
         .section-index {
