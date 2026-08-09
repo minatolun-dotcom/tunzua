@@ -105,6 +105,21 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 ## Change Log
 
+### August 9, 2026 — Design elevation pass (owner: "any visual enhancement?")
+
+Full editorial-design elevation shipped as `9234d21` (all 10 approved directions):
+
+1. **Paper-grain texture** — 5%-opacity feTurbulence noise overlay (`body::before`, fixed, pointer-events none) on index + legal/blog pages; imperceptible as texture but gives the paper background a tactile print feel. No measurable perf cost (Lighthouse budgets met).
+2. **Ghost section numerals** — oversized Fraunces outlines (01–09, `attr(data-ghost)`, `-webkit-text-stroke` hairline) in each section's corner, behind content (`.section > *` raised to z-index 1). Decorative CSS only — invisible to the contrast checker.
+3. **Drop caps + pull-quotes** — `.post-body > .post-lead::first-letter` accent drop cap in blog posts; `.pull-quote` style (Fraunces italic, accent left border) added to the GST and ITR posts.
+4. **Scroll progress bar, ::selection, avatar initials** — already existed; legal pages gained the matching `::selection` (navy tint, both themes).
+5. **Staggered reveals** — reveal observer now cascades sibling elements (70ms steps to 420ms cap) via inline `transition-delay`, cleared on `transitionend`; skipped entirely under `prefers-reduced-motion`.
+6. **Hover polish** — price cards lift 3px with accent border; CTA arrows nudge right; insight-link arrows nudge; nav underline already present.
+7. **Brand details** — testimonial avatars recolored to navy accent + white text.
+8. **Hero visual** — concentric hairline circle + dashed ring + rotated navy diamond (`hero-mark`), centered behind the hero text, scaling via vw; `.hero` already `position: relative` so rings anchor correctly.
+
+Verified: smoke ✅, xbrowser 48/48 (Chromium + Firefox), blog suite 22/22, JS syntax clean, div balance clean, mobile (390px) zero overflow, Lighthouse 83 (within noise band, all budgets met), live deployment byte-identical (md5 match). Review fixes before ship: reduced-motion guard on stagger delays.
+
 ### August 9, 2026 — Digest v2: TaxGuru feed, 30-item caps, email delivery + subscribe box (owner: "proceed with all")
 
 Four follow-up items shipped on the daily digest:
