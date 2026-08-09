@@ -105,6 +105,17 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 
 ## Change Log
 
+### August 9, 2026 — Automatic daily tax news digest (owner: "blog automatically updates and posts daily")
+
+Full automation for daily posting, owner-approved design (RSS digest · 8:00 AM IST · skip quiet days):
+
+1. **`scripts/generate-digest.py`** — Python stdlib-only RSS aggregator (no pip deps on the runner). Fetches verified feeds (Taxscan income-tax + top-stories, Economic Times tax, Moneycontrol business), keeps items from the **last 48h** that are **tax-relevant** (title/link keyword filter; job postings excluded via vacancy/job-scan/hiring terms), dedups by sha1(link) against `blog/.digest-state.json`, and publishes a **"Tax news digest"** post mirroring the site's post template (relative `../` paths, BlogPosting JSON-LD, OG/Twitter, both-theme toggle script, `.digest-list`/`.digest-item`/`.digest-meta` styles added to blog.css). Then prepends a card to `blog.html`, an item to `feed.xml` (same GUID), and a URL to `sitemap.xml` (changefreq daily). **Quiet days (< 3 fresh items) skip publishing entirely** (state only saved on publish, so nothing is lost). Same-day double-run guard: if `blog/tax-news-digest-{date}.html` already exists, exits without touching anything — no duplicate cards/feed items/sitemap URLs. `--dry-run` prints what would happen.
+2. **`.github/workflows/daily-digest.yml`** — cron `30 2 * * *` (**02:30 UTC = 8:00 AM IST**, India has no DST so stable) + `workflow_dispatch` for manual runs; `permissions: contents: write`; commits+pushes via the bot identity **only when `git status` shows changes**; `set -o pipefail` surfaces generator crashes. No infinite loop: the digest workflow triggers on schedule/dispatch only, never on push — the digest commit → CI run (smoke/xbrowser/lighthouse) doesn't re-trigger it. (PyYAML "'on' KeyError" is a YAML-1.1 parse quirk only; GitHub Actions reads YAML 1.2 and accepts the file.)
+3. **Feed reality check (verified live):** Taxscan income-tax + top-stories work and carry fresh dated items; ET tax feed returned 0 items on probes; Moneycontrol business works but items are stale (Apr 2024) — freshness filter drops them; PIB's RSS channel is empty and the Income Tax Dept blocks bots, so those were not wired. In practice the digest is currently Taxscan-driven; the other feeds are best-effort future sources.
+4. **First digest shipped** — `blog/tax-news-digest-2026-08-09.html` (5 stories: ITAT ESOP ruling, DRP objections, ITAT weekly roundup, Aug 2026 compliance calendar, SC seed-income case), already live-wired into blog.html (7 cards), feed.xml (7 items), sitemap.xml (11 URLs). Meta description auto-trims the first headline (~194 chars) for SEO; every headline links to its real source; a note-box explains the digest is a curated roundup, not professional advice.
+
+Validated: generator dry-run + real run against live feeds, idempotency (re-run = "quiet day", no dupes), same-day guard, 22/22 blog suite (updated 6→7 card/item/URL expectations), div balance clean, JSON-LD valid, 48/48 xbrowser regression, smoke green, both-theme renders with zero overflow/console errors. Reviewer-flagged fixes applied: same-day duplicate guard (would have doubled blog/feed/sitemap entries on a double-fired cron), `set -o pipefail` in the workflow (tee was masking python's exit code), dead `slugify()` removed.
+
 ### August 9, 2026 — Four new blog posts (owner: "proceed with all")
 
 Four owner-picked topics drafted and shipped:

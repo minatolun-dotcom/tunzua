@@ -1,0 +1,42 @@
+name: Daily Tax Digest
+
+on:
+  schedule:
+    # 02:30 UTC = 8:00 AM IST — daily morning digest
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate digest
+        run: |
+          set -o pipefail
+          python3 scripts/generate-digest.py 2>&1 | tee /tmp/digest.log
+        # The generator returns 0 even on quiet days (nothing to publish);
+        # it returns 2 only if every feed failed (nothing sensible to do).
+        # pipefail surfaces a generator crash instead of tee's exit code.
+
+      - name: Commit and push if a digest was published
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "Tunzua Digest Bot"
+            git config user.email "digest-bot@tunzua.com"
+            git add -A
+            git commit -m "Publish daily tax news digest ($(date -u +%Y-%m-%d))"
+            git push
+            echo "Pushed digest commit"
+          else
+            echo "No changes — quiet news day or nothing new; skipping push"
+          fi
+
+      - name: Summarize
+        run: |
+          if [ -f /tmp/digest.log ]; then tail -8 /tmp/digest.log; fi
