@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tunzua Consultancy — Insights</title>
+    <link>https://tunzua.com/blog.html</link>
+    <description>Practical compliance, bookkeeping and tax notes for businesses across Manipur and Mizoram.</description>
+    <language>en</language>
+    <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>GST return due dates for FY 2026-27: a simple calendar</title>
+      <link>https://tunzua.com/blog/gst-return-due-dates-2026-27.html</link>
+      <guid>https://tunzua.com/blog/gst-return-due-dates-2026-27.html</guid>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+      <description>GSTR-1, GSTR-3B, QRMP and annual return due dates for FY 2026-27 — including what QRMP means for businesses in Manipur and Mizoram.</description>
+    </item>
+    <item>
+      <title>Tally Prime vs. manual bookkeeping: what small businesses actually need</title>
+      <link>https://tunzua.com/blog/tally-vs-manual-bookkeeping.html</link>
+      <guid>https://tunzua.com/blog/tally-vs-manual-bookkeeping.html</guid>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
+      <description>When a register and a spreadsheet are enough — and when switching to Tally Prime pays for itself in GST-ready reports, fewer errors and faster month-end close.</description>
+    </item>
+  </channel>
+</rss>

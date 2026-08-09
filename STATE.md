@@ -33,6 +33,7 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 | `blog.html` | 9K | ~190 | ✅ Active — Insights index (2 posts) |
 | `blog/` | 2 files | - | ✅ Active — GST due dates + Tally vs manual posts |
 | `assets/css/blog.css` | 3K | - | ✅ New blog stylesheet (extends legal.css) |
+| `feed.xml` | 1.3K | - | ✅ RSS 2.0 feed (2 items, atom self-link) |
 | `privacy.html` | 14K | ~330 | ✅ Active (new editorial skin) |
 | `terms.html` | 16K | ~360 | ✅ Active (new editorial skin) |
 | `og-image.png` | 106K | - | ✅ Active social share banner (navy brand palette) |
@@ -103,6 +104,17 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ---
 
 ## Change Log
+
+### August 9, 2026 — Blog focus: Plausible dropped, homepage Insights section, RSS feed (owner: "leave plausible, focus on the blog")
+
+Pivot per owner: analytics deferred, effort concentrated on the blog.
+
+1. **Plausible removed** — snippet deleted from all 5 pages (index, privacy, terms, blog + 2 posts). Site back to **zero third-party requests**. Owner can re-add later (snippet is one line; documented in this changelog's previous entry).
+2. **Homepage "08 — Insights" section** — new section between About (07) and Contact (renumbered 08 → 09). Editorial `section-head split` (index + Fraunces "Notes from the ledger." + intro + "All insights →" link to blog.html) above a 2-column grid of insight cards (meta: category · read time · date; Fraunces title link; excerpt; "Read article →" accent link with arrow-right sprite icon). Cards use the site's reveal animation; grid collapses to 1 column ≤820px; hairline rules match the design system; verified in both themes + mobile, no overflow, links resolve 200.
+3. **Mobile menu link** — "Insights" added to the hamburger menu (between Contact and Get Started). **Desktop nav deliberately untouched**: measured at 1024px the nav-links and nav-actions already touch (gap=0), so an 8th link would overflow — homepage section + footer + mobile menu + sitemap cover discovery.
+4. **RSS feed** — new `feed.xml` (RSS 2.0, 2 items, atom self-link) + `<link rel="alternate" type="application/rss+xml">` in blog.html head. Valid XML (python parsed).
+
+Validated: 48/48 xbrowser regression, smoke green, div balance clean, insights section checks pass (2 cards, section order about→insights→contact, renumber correct, zero console errors), visual review in both themes. NOTE: the section sits under `content-visibility: auto` (non-anchor section) — off-screen `innerText` is empty until scrolled near, which is expected content-visibility behavior.
 
 ### August 9, 2026 — Analytics, schema enrichment, blog section (owner: "proceed with all")
 
