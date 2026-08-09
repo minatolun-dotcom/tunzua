@@ -30,10 +30,10 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 |------|------|-------|--------|
 | `index.html` | 106K | ~2,300 | ✅ Active — **Swiss/Editorial redesign** (inline icon sprite, no Tailwind) |
 | `404.html` | 6K | ~210 | ✅ Active — branded not-found page (GitHub Pages custom 404, noindex) |
-| `blog.html` | 9K | ~190 | ✅ Active — Insights index (2 posts) |
-| `blog/` | 2 files | - | ✅ Active — GST due dates + Tally vs manual posts |
-| `assets/css/blog.css` | 3K | - | ✅ New blog stylesheet (extends legal.css) |
-| `feed.xml` | 1.3K | - | ✅ RSS 2.0 feed (2 items, atom self-link) |
+| `blog.html` | 9K | ~190 | ✅ Active — Insights index (6 posts) |
+| `blog/` | 6 files | - | ✅ Active — GST due dates, Tally vs manual, ITR dates, GST registration, payroll, records posts |
+| `assets/css/blog.css` | 3K | - | ✅ Blog stylesheet (extends legal.css) |
+| `feed.xml` | 1.3K | - | ✅ RSS 2.0 feed (6 items, atom self-link) |
 | `privacy.html` | 14K | ~330 | ✅ Active (new editorial skin) |
 | `terms.html` | 16K | ~360 | ✅ Active (new editorial skin) |
 | `og-image.png` | 106K | - | ✅ Active social share banner (navy brand palette) |
@@ -104,6 +104,19 @@ The Tunzua Consultancy website is a fully functional static site with all core f
 ---
 
 ## Change Log
+
+### August 9, 2026 — Four new blog posts (owner: "proceed with all")
+
+Four owner-picked topics drafted and shipped:
+
+1. **`blog/income-tax-return-dates-ay-2026-27.html`** — ITR calendar for AY 2026-27 (individuals/HUF 31 Jul 2026, non-audit business 31 Aug 2026, tax-audit 31 Oct 2026, transfer pricing 30 Nov 2026) + penalty notes. Dates cross-checked with the older GST post (consistent).
+2. **`blog/when-does-your-business-need-gst-registration.html`** — registration thresholds table (goods ₹40L general / ₹20L Manipur-Mizoram; services ₹20L/₹10L — post-2025 amendment figures), compulsory registration triggers, voluntary registration pros.
+3. **`blog/payroll-basics-salary-pf-esi-tds.html`** — PF 12%+12% (EPS 8.33% capped at ₹1,250), ESI ₹21,000 wage limit (0.75% + 3.25%), TDS Section 192 (7th of next month, Form 24Q, Form 16 by 15 June), standard deduction ₹75,000, ₹12L rebate; **professional tax** — Manipur levies it, ₹2,500/yr cap, slabs (nil ≤₹50,000, max above ₹1,25,001).
+4. **`blog/five-records-every-business-must-keep.html`** — 5-record checklist + retention periods.
+5. **Wiring**: blog.html index → 6 cards, feed.xml → 6 items (newest-first), sitemap.xml → 10 URLs, homepage Insights section features the 2 deadline posts (ITR + GST registration).
+6. **Factual fix from review**: composition-scheme paragraph cited stale pre-2019 limits (₹40L goods/₹20L services) — corrected to current **₹75L goods in Manipur/Mizoram (₹1.5 crore general) / ₹50L services**. Registration-threshold table was already correct. Professional tax slabs verified.
+
+Validated: 22/22 posts_validate (render, canonical + BlogPosting JSON-LD, back-link/CTA/disclaimer, no overflow, 6 cards, links 200, feed 6 items, sitemap 10 URLs, homepage features, zero console errors), div balance clean on all pages, smoke green, 48/48 xbrowser regression, 10 screenshots (4 posts + index, light + dark) with zero overflow/console errors. Content remains **drafted for owner review** — compliance figures verified via research, but a human pass before heavy promotion is advised.
 
 ### August 9, 2026 — Blog focus: Plausible dropped, homepage Insights section, RSS feed (owner: "leave plausible, focus on the blog")
 
