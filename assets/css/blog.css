@@ -8,7 +8,7 @@
 /* ---------- Blog search ---------- */
 .blog-search {
     position: relative;
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
     margin: 8px 0 0; padding: 0 18px;
     border: 1px solid var(--hairline); background: var(--surface);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -34,7 +34,21 @@
     font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--ink-3); white-space: nowrap;
 }
-.blog-search-empty { margin: 22px 0 0; font-size: 0.95rem; color: var(--ink-2); }
+.blog-search-empty { margin: 6px 0 2px; font-size: 0.95rem; color: var(--ink-2); flex-basis: 100%; }
+
+/* ---------- Topic filter chips ---------- */
+.topic-chips {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin-top: 18px;
+}
+.topic-chip {
+    padding: 7px 16px; border: 1px solid var(--hairline); border-radius: 999px;
+    background: var(--surface); color: var(--ink-2);
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s ease;
+}
+.topic-chip:hover { border-color: var(--accent); color: var(--accent); }
+.topic-chip.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 
 .post-card { padding: 42px 0; border-bottom: 1px solid var(--hairline); }
 .post-card:first-of-type { border-top: 1px solid var(--hairline); }

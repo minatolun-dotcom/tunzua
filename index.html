@@ -361,13 +361,13 @@
 
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#home" onclick="closeMobile()">Home</a>
-        <a href="#services" onclick="closeMobile()">Services</a>
-        <a href="#tally" onclick="closeMobile()">Tally Prime</a>
-        <a href="#pricing" onclick="closeMobile()">Pricing</a>
-        <a href="#clients" onclick="closeMobile()">Clients</a>
-        <a href="#about" onclick="closeMobile()">About</a>
-        <a href="#contact" onclick="closeMobile()">Contact</a>
+        <a href="#home" class="mobile-link" onclick="closeMobile()">Home</a>
+        <a href="#services" class="mobile-link" onclick="closeMobile()">Services</a>
+        <a href="#tally" class="mobile-link" onclick="closeMobile()">Tally Prime</a>
+        <a href="#pricing" class="mobile-link" onclick="closeMobile()">Pricing</a>
+        <a href="#clients" class="mobile-link" onclick="closeMobile()">Clients</a>
+        <a href="#about" class="mobile-link" onclick="closeMobile()">About</a>
+        <a href="#contact" class="mobile-link" onclick="closeMobile()">Contact</a>
         <a href="blog.html" onclick="closeMobile()">Insights</a>
         <a href="#contact" class="btn btn-ink" onclick="closeMobile()">Get Started</a>
     </div>
@@ -1196,6 +1196,7 @@
         const secCounter = document.getElementById('secCounter');
         const secs = document.querySelectorAll('section[data-ghost]');
         const navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+        const mobileLinks = Array.prototype.slice.call(document.querySelectorAll('.mobile-link'));
         const ringFg = document.getElementById('ringFg');
         const heroEl = document.getElementById('home');
         const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1214,9 +1215,9 @@
                 const p = docHeight > 0 ? Math.min(scrollY / docHeight, 1) : 0;
                 scrollProgress.style.width = (p * 100) + '%';
                 if (ringFg) ringFg.style.strokeDashoffset = ((1 - p) * 128.8).toFixed(1);
+                let curLink = null;
                 if (navLinks.length) {
                     const line = window.innerHeight * 0.12;
-                    let curLink = null;
                     for (let i = 0; i < navLinks.length; i++) {
                         const tgt = document.querySelector(navLinks[i].getAttribute('href'));
                         if (!tgt) continue;
@@ -1233,6 +1234,10 @@
                         }
                     }
                     navLinks.forEach(l => l.classList.toggle('active', l === curLink));
+                }
+                if (mobileLinks.length) {
+                    const mHref = curLink ? curLink.getAttribute('href') : null;
+                    mobileLinks.forEach(l => l.classList.toggle('active', mHref ? l.getAttribute('href') === mHref : false));
                 }
                 if (secCounter && secs.length) {
                     let cur = secs[0].dataset.ghost;
@@ -1358,6 +1363,7 @@
             mobileMenu.classList.toggle('active');
             hamburger.setAttribute('aria-expanded', isOpen);
             document.body.style.overflow = isOpen ? 'hidden' : '';
+            if (isOpen) handleScroll();
         }
         function closeMobile() {
             hamburger.classList.remove('active');

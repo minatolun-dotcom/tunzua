@@ -170,6 +170,11 @@
         .mobile-menu.active { right: 0; }
         .mobile-menu a { font-family: 'Fraunces', serif; font-size: 1.7rem; font-weight: 520; color: var(--ink); }
         .mobile-menu a:hover { color: var(--accent); }
+        .mobile-menu a.active { color: var(--accent); position: relative; }
+        .mobile-menu a.active::before {
+            content: '—'; position: absolute; right: calc(100% + 12px); top: 50%;
+            transform: translateY(-50%); pointer-events: none;
+        }
         .mobile-menu a.btn { color: var(--paper); font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; padding: 14px 38px; }
         .mobile-menu a.btn:hover { color: var(--paper); background: var(--accent); border-color: var(--accent); }
         @media (max-width: 900px) {

@@ -117,55 +117,64 @@
                 <p id="blogSearchEmpty" class="blog-search-empty" hidden>No insights match your search.</p>
             </div>
 
+            <div class="topic-chips" role="group" aria-label="Filter insights by topic">
+                <button type="button" class="topic-chip active" data-topic="all" aria-pressed="true">All</button>
+                <button type="button" class="topic-chip" data-topic="gst" aria-pressed="false">GST</button>
+                <button type="button" class="topic-chip" data-topic="income-tax" aria-pressed="false">Income Tax</button>
+                <button type="button" class="topic-chip" data-topic="payroll" aria-pressed="false">Payroll</button>
+                <button type="button" class="topic-chip" data-topic="bookkeeping" aria-pressed="false">Bookkeeping</button>
+                <button type="button" class="topic-chip" data-topic="news" aria-pressed="false">News</button>
+            </div>
+
             <section class="blog-list" data-folio="02">
-                <article class="post-card">
+                <article class="post-card" data-topic="news">
                     <p class="post-meta"><span>Mon, 10 Aug 2026</span><span class="dot"></span><span>News digest</span><span class="dot"></span><span>12 stories</span></p>
                     <h2><a href="blog/tax-news-digest-2026-08-10.html">Tax news digest — Mon, 10 Aug 2026</a></h2>
                     <p>The day's tax and GST stories from Indian news sources, curated and linked at source — tribunal rulings, department updates, due dates and compliance changes.</p>
                     <a class="post-link" href="blog/tax-news-digest-2026-08-10.html">Read digest <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
                 </article>
-                <article class="post-card">
+                <article class="post-card" data-topic="news">
                     <p class="post-meta"><span>Sun, 09 Aug 2026</span><span class="dot"></span><span>News digest</span><span class="dot"></span><span>5 stories</span></p>
                     <h2><a href="blog/tax-news-digest-2026-08-09.html">Tax news digest — Sun, 09 Aug 2026</a></h2>
                     <p>The day's tax and GST stories from Indian news sources, curated and linked at source — tribunal rulings, department updates, due dates and compliance changes.</p>
                     <a class="post-link" href="blog/tax-news-digest-2026-08-09.html">Read digest <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
                 </article>
-                <article class="post-card">
+                <article class="post-card" data-topic="income-tax">
                     <p class="post-meta"><span>9 Aug 2026</span><span class="dot"></span><span>Tax</span><span class="dot"></span><span>5 min read</span></p>
                     <h2><a href="blog/income-tax-return-dates-ay-2026-27.html">Income tax return due dates for AY 2026-27: a simple calendar</a></h2>
                     <p>ITR deadlines for individuals, businesses, tax-audit and transfer-pricing cases — plus the tax audit report (3CB/3CD) that must land a month before.</p>
                     <a class="post-link" href="blog/income-tax-return-dates-ay-2026-27.html">Read article <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
                 </article>
 
-                <article class="post-card">
+                <article class="post-card" data-topic="gst">
                     <p class="post-meta"><span>9 Aug 2026</span><span class="dot"></span><span>GST</span><span class="dot"></span><span>5 min read</span></p>
                     <h2><a href="blog/gst-return-due-dates-2026-27.html">GST return due dates for FY 2026-27: a simple calendar</a></h2>
                     <p>GSTR-1, GSTR-3B, QRMP, annual returns — the dates that matter for the financial year that started in April 2026, including what the QRMP scheme means for businesses in Manipur and Mizoram.</p>
                     <a class="post-link" href="blog/gst-return-due-dates-2026-27.html">Read article <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
                 </article>
 
-                <article class="post-card">
+                <article class="post-card" data-topic="gst">
                     <p class="post-meta"><span>9 Aug 2026</span><span class="dot"></span><span>GST</span><span class="dot"></span><span>5 min read</span></p>
                     <h2><a href="blog/when-does-your-business-need-gst-registration.html">When does your business need GST registration?</a></h2>
                     <p>Registration thresholds for FY 2026-27 — including the lower limits that apply in Manipur and Mizoram, compulsory cases, and the cost of not registering.</p>
                     <a class="post-link" href="blog/when-does-your-business-need-gst-registration.html">Read article <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
                 </article>
 
-                <article class="post-card">
+                <article class="post-card" data-topic="payroll">
                     <p class="post-meta"><span>9 Aug 2026</span><span class="dot"></span><span>Payroll</span><span class="dot"></span><span>6 min read</span></p>
                     <h2><a href="blog/payroll-basics-salary-pf-esi-tds.html">Payroll basics: salary, PF, ESI and TDS explained</a></h2>
                     <p>How PF (12% + 12%), ESI, TDS on salary and professional tax work for Indian employers — with a simple monthly calendar.</p>
                     <a class="post-link" href="blog/payroll-basics-salary-pf-esi-tds.html">Read article <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
                 </article>
 
-                <article class="post-card">
+                <article class="post-card" data-topic="bookkeeping">
                     <p class="post-meta"><span>9 Aug 2026</span><span class="dot"></span><span>Bookkeeping</span><span class="dot"></span><span>4 min read</span></p>
                     <h2><a href="blog/five-records-every-business-must-keep.html">5 records every business must keep (and for how long)</a></h2>
                     <p>Invoices, bank statements, payroll, GST records and statutory documents — the five sets of records that save you when the auditor or lender calls.</p>
                     <a class="post-link" href="blog/five-records-every-business-must-keep.html">Read article <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
                 </article>
 
-                <article class="post-card">
+                <article class="post-card" data-topic="bookkeeping">
                     <p class="post-meta"><span>9 Aug 2026</span><span class="dot"></span><span>Bookkeeping</span><span class="dot"></span><span>4 min read</span></p>
                     <h2><a href="blog/tally-vs-manual-bookkeeping.html">Tally Prime vs. manual bookkeeping: what small businesses actually need</a></h2>
                     <p>When a spreadsheet and a register are enough — and when the switch to Tally Prime pays for itself in GST-ready reports, fewer errors and faster close.</p>
@@ -235,18 +244,29 @@
             var count = document.getElementById('blogSearchCount');
             var empty = document.getElementById('blogSearchEmpty');
             var clear = document.getElementById('blogSearchClear');
+            var chips = Array.prototype.slice.call(document.querySelectorAll('.topic-chip'));
             var total = cards.length;
+            var topic = 'all';
 
             function run() {
                 var q = input.value.trim().toLowerCase();
                 var shown = 0;
                 cards.forEach(function (card) {
-                    var hit = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+                    var t = (card.getAttribute('data-topic') || '').toLowerCase();
+                    var topicHit = topic === 'all' || t.indexOf(topic) !== -1;
+                    var qHit = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+                    var hit = topicHit && qHit;
                     card.style.display = hit ? '' : 'none';
                     if (hit) shown++;
                 });
-                if (count) count.textContent = q ? shown + ' of ' + total : '';
-                if (empty) empty.hidden = !(q && shown === 0);
+                var filtering = q !== '' || topic !== 'all';
+                if (count) count.textContent = filtering ? shown + ' of ' + total : '';
+                if (empty) {
+                    empty.hidden = !(filtering && shown === 0);
+                    if (!empty.hidden) {
+                        empty.textContent = (q && topic !== 'all') ? 'No insights match this topic and search.' : 'No insights match.';
+                    }
+                }
                 if (clear) clear.hidden = !q;
             }
 
@@ -256,6 +276,17 @@
                 input.value = '';
                 input.focus();
                 run();
+            });
+            chips.forEach(function (chip) {
+                chip.addEventListener('click', function () {
+                    topic = chip.getAttribute('data-topic');
+                    chips.forEach(function (c) {
+                        var on = c === chip;
+                        c.classList.toggle('active', on);
+                        c.setAttribute('aria-pressed', on ? 'true' : 'false');
+                    });
+                    run();
+                });
             });
             run();
         })();

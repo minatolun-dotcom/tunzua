@@ -432,10 +432,14 @@ def write(path, content):
 
 def update_blog_index(items, date_label, day_iso):
     """Prepend a digest card to blog.html after the opening <section class="blog-list">."""
+    # NOTE: digest cards are tagged data-topic="news" for the topic filter on
+    # blog.html. Hand-written evergreen posts must carry their own data-topic
+    # (vocabulary: gst | income-tax | payroll | bookkeeping | news) or they will
+    # only appear under "All".
     path = os.path.join(ROOT, "blog.html")
     content = read(path)
     card = (
-        '                <article class="post-card">\n'
+        '                <article class="post-card" data-topic="news">\n'
         f'                    <p class="post-meta"><span>{esc(date_label)}</span><span class="dot"></span><span>News digest</span><span class="dot"></span><span>{len(items)} stories</span></p>\n'
         f'                    <h2><a href="blog/tax-news-digest-{day_iso}.html">Tax news digest — {esc(date_label)}</a></h2>\n'
         f"                    <p>The day's tax and GST stories from Indian news sources, curated and linked at source — tribunal rulings, department updates, due dates and compliance changes.</p>\n"
