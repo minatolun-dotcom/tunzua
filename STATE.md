@@ -2,6 +2,26 @@
 
 **Last Updated:** August 10, 2026
 
+## Aug 10 — Visual refinement pass (hero, crop marks, quotes, rhythm, polish)
+
+- **Hero**: ghost folio "00" via attr(data-ghost) pseudo-element (keeps the WCAG
+contrast walker clean — a literal text node tripped xbrowser), ledger-line brand
+mark replaces the old diamond (46px framed block: bold accent rule over three
+hairline rows), hairline rule above the eyebrow, existing concentric rings kept.
+- **Crop-mark frames**: Swiss corner ticks (.crop, 16px L-marks via layered
+gradients) on the CTA band (paper-tint in light, accent-tint in dark), featured
+price card, and contact grid.
+- **Testimonials**: quote cards now framed (surface bg + hairline border,
+2px radius), marquee items get vertical padding, hover lift + accent border.
+- **Rhythm**: section padding 110→96px (72px mobile), section-head margin 64→56px
+(page ~14k→~13.7k px).
+- **Hover & focus**: global a/button/[tabindex] :focus-visible ring, insight-card
+hover lift + underline sweep, footer link underline sweep, proc-step numeral
+hardcoded #8f866c → var(--ink-3).
+- **Gates**: smoke ✅ · xbrowser 48/48 (Chromium+Firefox) ✅ · JS syntax ✅ ·
+tags balanced ✅ · both themes render clean (zero overflow, zero console errors) ·
+crop ticks pixel-verified at CTA corners.
+
 ## Aug 10 — Blog search box on blog.html
 
 - **Live keyword search**: `#blogSearch` input (role=search, aria-label) sits
