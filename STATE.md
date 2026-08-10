@@ -2,6 +2,17 @@
 
 **Last Updated:** August 10, 2026
 
+## Aug 10 — Blog search box on blog.html
+
+- **Live keyword search**: `#blogSearch` input (role=search, aria-label) sits
+between the subscribe box and the post list; vanilla-JS filter matches titles,
+meta and descriptions on `input`/`search` events; shows "N of M" count
+(aria-live=polite), an empty state ("No insights match your search."), and a
+clear (×) button. Search + times icons added to the local sprite; swiss-style
+focus ring via `color-mix`. Sits BEFORE the `blog-list` marker so the digest
+generator never touches it. Validated in Chromium: GST→6/8, payroll→2,
+gibberish→0+empty state, clear restores 8, zero console errors.
+
 ## Aug 10 — Monthly archives, related posts, GoatCounter plumbing, Search Console doc
 
 - **Monthly archive pages**: generator now rebuilds `blog/monthly/YYYY-MM.html` on

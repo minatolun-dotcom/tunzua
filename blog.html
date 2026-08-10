@@ -54,6 +54,8 @@
 <path d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/>
 </symbol>
     <symbol id="arrow-left" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" transform="translate(448 0) scale(-1 1)"/></symbol>
+    <symbol id="search" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></symbol>
+    <symbol id="times" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></symbol>
     </svg>
 
     <nav class="navbar">
@@ -94,6 +96,14 @@
                 </form>
                 <p class="subscribe-status" id="subscribeStatus" role="status" aria-live="polite"></p>
             </section>
+
+            <div class="blog-search" role="search">
+                <svg class="fa-svg blog-search-icon" aria-hidden="true"><use href="#search"></use></svg>
+                <input type="search" id="blogSearch" class="blog-search-input" placeholder="Search insights — GST, payroll, due dates…" autocomplete="off" aria-label="Search insights">
+                <button type="button" id="blogSearchClear" class="blog-search-clear" aria-label="Clear search" hidden><svg class="fa-svg" aria-hidden="true"><use href="#times"></use></svg></button>
+                <span id="blogSearchCount" class="blog-search-count" aria-live="polite"></span>
+                <p id="blogSearchEmpty" class="blog-search-empty" hidden>No insights match your search.</p>
+            </div>
 
             <section class="blog-list">
                 <article class="post-card">
@@ -202,6 +212,40 @@
                 localStorage.setItem('theme', dark ? 'dark' : 'light');
                 updateIcons();
             });
+        })();
+
+        // Blog search — live keyword filter over the post cards (no page
+        // reload, no dependencies). Matches titles, meta and descriptions.
+        (function () {
+            var input = document.getElementById('blogSearch');
+            if (!input) return;
+            var cards = Array.prototype.slice.call(document.querySelectorAll('.blog-list .post-card'));
+            var count = document.getElementById('blogSearchCount');
+            var empty = document.getElementById('blogSearchEmpty');
+            var clear = document.getElementById('blogSearchClear');
+            var total = cards.length;
+
+            function run() {
+                var q = input.value.trim().toLowerCase();
+                var shown = 0;
+                cards.forEach(function (card) {
+                    var hit = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+                    card.style.display = hit ? '' : 'none';
+                    if (hit) shown++;
+                });
+                if (count) count.textContent = q ? shown + ' of ' + total : '';
+                if (empty) empty.hidden = !(q && shown === 0);
+                if (clear) clear.hidden = !q;
+            }
+
+            input.addEventListener('input', run);
+            input.addEventListener('search', run);
+            if (clear) clear.addEventListener('click', function () {
+                input.value = '';
+                input.focus();
+                run();
+            });
+            run();
         })();
 
         // Daily digest subscribe form — FormSubmit.co AJAX endpoint (same

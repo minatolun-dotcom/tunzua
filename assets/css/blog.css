@@ -5,6 +5,37 @@
 /* ---------- Blog index (post list) ---------- */
 .blog-list { padding: 44px 0 16px; }
 
+/* ---------- Blog search ---------- */
+.blog-search {
+    position: relative;
+    display: flex; align-items: center; gap: 12px;
+    margin: 8px 0 0; padding: 0 18px;
+    border: 1px solid var(--hairline); background: var(--surface);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.blog-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent); }
+.blog-search-icon { width: 15px; height: 15px; color: var(--ink-3); flex-shrink: 0; }
+.blog-search-input {
+    flex: 1; min-width: 0;
+    padding: 15px 0; font: inherit; font-size: 0.97rem; color: var(--ink);
+    background: transparent; border: 0; outline: none;
+}
+.blog-search-input::placeholder { color: var(--ink-3); }
+.blog-search-input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+.blog-search-clear {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; flex-shrink: 0;
+    border: 1px solid var(--hairline); background: transparent; color: var(--ink-3);
+    cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease;
+}
+.blog-search-clear:hover { color: var(--accent); border-color: var(--accent); }
+.blog-search-clear svg { width: 12px; height: 12px; }
+.blog-search-count {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-3); white-space: nowrap;
+}
+.blog-search-empty { margin: 22px 0 0; font-size: 0.95rem; color: var(--ink-2); }
+
 .post-card { padding: 42px 0; border-bottom: 1px solid var(--hairline); }
 .post-card:first-of-type { border-top: 1px solid var(--hairline); }
 .post-card:last-of-type { border-bottom: 1px solid var(--hairline); }
