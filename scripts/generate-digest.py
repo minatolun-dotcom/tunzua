@@ -446,7 +446,7 @@ def update_blog_index(items, date_label, day_iso):
         f'                    <a class="post-link" href="blog/tax-news-digest-{day_iso}.html">Read digest <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>\n'
         "                </article>\n"
     )
-    marker = '            <section class="blog-list" data-folio="02">\n'
+    marker = '            <section class="blog-list" data-folio="02" id="blogList">\n'
     if marker not in content:
         raise RuntimeError("blog.html: <section class=\"blog-list\"> marker not found")
     content = content.replace(marker, marker + card, 1)
@@ -642,7 +642,7 @@ def update_monthly_archive(day_iso):
         total_stories += stories
         label = title.replace("Tax news digest — ", "", 1)
         cards.append(
-            '                <article class="post-card">\n'
+            '                <article class="post-card" data-topic="news">\n'
             f'                    <p class="post-meta"><span>{esc(label)}</span><span class="dot"></span><span>News digest</span><span class="dot"></span><span>{stories} stories</span></p>\n'
             f'                    <h2><a href="../{name}">{esc(title)}</a></h2>\n'
             "                    <p>The day's tax and GST stories from Indian news sources, curated and linked at source — tribunal rulings, department updates, due dates and compliance changes.</p>\n"
@@ -748,6 +748,8 @@ def update_monthly_archive(day_iso):
                 <p class="legal-updated">{len(cards)} digests · {total_stories} stories</p>
             </header>
 
+            <div class="topic-chips monthly-topics" role="group" aria-label="Filter insights by topic"></div>
+
             <section class="blog-list" data-folio="02">
 {cards_html}
             </section>
@@ -837,6 +839,56 @@ def update_monthly_archive(day_iso):
             if (!m || !t) return;
             t.addEventListener('click', function () {{
                 m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            }});
+        }})();
+    </script>
+    <script>
+        (function () {{
+            // Keep trackTopic in sync with the copy in blog.html (same logic).
+            function trackTopic(t) {{
+                try {{ if (window.goatcounter && goatcounter.count) goatcounter.count({{ event: true, path: 'topic/' + t }}); }} catch (e) {{}}
+                try {{
+                    var arr = JSON.parse(localStorage.getItem('tunzua-topic-events') || '[]');
+                    arr.push({{ t: t, at: Date.now() }});
+                    if (arr.length > 200) arr = arr.slice(-200);
+                    localStorage.setItem('tunzua-topic-events', JSON.stringify(arr));
+                }} catch (e) {{}}
+            }}
+            var wrap = document.querySelector('.monthly-topics');
+            if (!wrap) return;
+            var cards = [].slice.call(document.querySelectorAll('.blog-list .post-card'));
+            var order = ['news', 'gst', 'income-tax', 'payroll', 'bookkeeping'];
+            var labels = {{ news: 'News', gst: 'GST', 'income-tax': 'Income Tax', payroll: 'Payroll', bookkeeping: 'Bookkeeping' }};
+            var seen = {{}};
+            cards.forEach(function (c) {{ var t = c.getAttribute('data-topic'); if (t) seen[t] = true; }});
+            var topics = order.filter(function (t) {{ return seen[t]; }});
+            function makeChip(t, label, active) {{
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'topic-chip' + (active ? ' active' : '');
+                b.setAttribute('data-topic', t);
+                b.setAttribute('aria-pressed', active ? 'true' : 'false');
+                b.textContent = label;
+                return b;
+            }}
+            wrap.appendChild(makeChip('all', 'All', true));
+            topics.forEach(function (t) {{ wrap.appendChild(makeChip(t, labels[t] || t, false)); }});
+            var current = 'all';
+            wrap.addEventListener('click', function (e) {{
+                var chip = e.target.closest('.topic-chip');
+                if (!chip || !wrap.contains(chip)) return;
+                current = chip.getAttribute('data-topic');
+                [].slice.call(wrap.children).forEach(function (c) {{
+                    var on = c === chip;
+                    c.classList.toggle('active', on);
+                    c.setAttribute('aria-pressed', on ? 'true' : 'false');
+                }});
+                cards.forEach(function (card) {{
+                    var t = (card.getAttribute('data-topic') || '').toLowerCase();
+                    var hit = current === 'all' || t.indexOf(current) !== -1;
+                    card.style.display = hit ? '' : 'none';
+                }});
+                trackTopic(current);
             }});
         }})();
     </script>

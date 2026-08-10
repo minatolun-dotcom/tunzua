@@ -126,7 +126,9 @@
                 <button type="button" class="topic-chip" data-topic="news" aria-pressed="false">News</button>
             </div>
 
-            <section class="blog-list" data-folio="02">
+            <a class="filter-skip" href="#blogList">Skip to insights list</a>
+
+            <section class="blog-list" data-folio="02" id="blogList">
                 <article class="post-card" data-topic="news">
                     <p class="post-meta"><span>Mon, 10 Aug 2026</span><span class="dot"></span><span>News digest</span><span class="dot"></span><span>12 stories</span></p>
                     <h2><a href="blog/tax-news-digest-2026-08-10.html">Tax news digest — Mon, 10 Aug 2026</a></h2>
@@ -277,6 +279,21 @@
                 input.focus();
                 run();
             });
+            // Lightweight analytics for topic clicks: local ring buffer (lossless,
+            // no backend) + a GoatCounter event whenever the tracker is present.
+            // Keep in sync with the copy in scripts/generate-digest.py (monthly template).
+            function trackTopic(t) {
+                try {
+                    if (window.goatcounter && goatcounter.count) goatcounter.count({ event: true, path: 'topic/' + t });
+                } catch (e) {}
+                try {
+                    var arr = JSON.parse(localStorage.getItem('tunzua-topic-events') || '[]');
+                    arr.push({ t: t, at: Date.now() });
+                    if (arr.length > 200) arr = arr.slice(-200);
+                    localStorage.setItem('tunzua-topic-events', JSON.stringify(arr));
+                } catch (e) {}
+            }
+
             chips.forEach(function (chip) {
                 chip.addEventListener('click', function () {
                     topic = chip.getAttribute('data-topic');
@@ -286,6 +303,7 @@
                         c.setAttribute('aria-pressed', on ? 'true' : 'false');
                     });
                     run();
+                    trackTopic(topic);
                 });
             });
             run();

@@ -36,6 +36,17 @@
 }
 .blog-search-empty { margin: 6px 0 2px; font-size: 0.95rem; color: var(--ink-2); flex-basis: 100%; }
 
+/* ---------- Skip-to-results link (keyboard a11y — revealed on focus) ---------- */
+/* Mirrors .skip-link (fixed, appears below the sticky navbar on focus). */
+.filter-skip {
+    position: fixed; top: -120px; left: 16px; z-index: 2000;
+    padding: 10px 18px; border-radius: 3px;
+    background: var(--accent); color: var(--accent-ink);
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    transition: top 0.2s ease;
+}
+.filter-skip:focus { top: 12px; }
+
 /* ---------- Topic filter chips ---------- */
 .topic-chips {
     display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
