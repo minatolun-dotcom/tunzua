@@ -90,14 +90,14 @@
     <!-- Main Content -->
     <main class="legal-main">
         <div class="wrap legal-wrap">
-            <header class="legal-hero" data-ghost="01">
+            <header class="legal-hero" data-ghost="01" data-folio="01">
                 <a class="back-link" href="../blog.html"><svg class="fa-svg"><use href="#arrow-left"></use></svg>All insights</a>
                 <p class="legal-eyebrow">Bookkeeping — Records</p>
                 <h1 class="legal-title">5 records every business must keep (and for how long)</h1>
                 <p class="legal-updated">Updated 9 August 2026 · 4 min read</p>
             </header>
 
-            <article class="post-body">
+            <article class="post-body" data-folio="02">
                 <p class="post-lead">When the auditor calls, the bank asks for a statement, or the income-tax notice arrives, there is exactly one thing that saves you: your records. Here are the five sets of documents every Indian business should keep, organised, and how long to hold onto them.</p>
 
                 <h2>1. Sales and purchase invoices</h2>
@@ -137,7 +137,7 @@
                     <p><strong>Disclaimer:</strong> This article is general information, not professional advice. Retention periods are set by statute and can vary with your specific facts — confirm with your accountant or advisor.</p>
                 </div>
 
-                <section class="related-posts" aria-label="More insights">
+                <section class="related-posts" aria-label="More insights" data-folio="03">
                     <h2>More insights</h2>
                     <div class="related-grid">
                         <a class="related-card" href="tax-news-digest-2026-08-09.html">
@@ -212,16 +212,24 @@
         (function () {
             var c = document.getElementById('secCounter');
             if (!c) return;
-            var ticking = false, dh = document.documentElement.scrollHeight - window.innerHeight;
+            var secs = document.querySelectorAll('main [data-folio]');
+            if (!secs.length) return;
+            var ticking = false;
             function upd() {
                 ticking = false;
-                var p = dh > 0 ? Math.min(99, Math.round(window.scrollY / dh * 100)) : 0;
-                var s = (p < 10 ? '0' : '') + p;
-                if (c.textContent !== s) c.textContent = s;
+                var cur = secs[0].getAttribute('data-folio');
+                if (window.scrollY >= 2) {
+                    for (var i = secs.length - 1; i >= 0; i--) {
+                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
+                            cur = secs[i].getAttribute('data-folio');
+                            break;
+                        }
+                    }
+                }
+                if (c.textContent !== cur) c.textContent = cur;
             }
             function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
             window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', function () { dh = document.documentElement.scrollHeight - window.innerHeight; });
             upd();
         })();
     </script>

@@ -78,7 +78,7 @@
     <!-- Main Content -->
     <main class="legal-main">
         <div class="wrap legal-wrap">
-            <header class="legal-hero" data-ghost="01">
+            <header class="legal-hero" data-ghost="01" data-folio="01">
                 <p class="legal-eyebrow">Tunzua Consultancy — Insights</p>
                 <h1 class="legal-title">Notes from the ledger.</h1>
                 <p class="legal-updated">Practical compliance, bookkeeping &amp; tax notes for businesses across Manipur and Mizoram. <a class="rss-link" href="feed.xml">Subscribe via RSS</a></p>
@@ -107,7 +107,7 @@
                 <p id="blogSearchEmpty" class="blog-search-empty" hidden>No insights match your search.</p>
             </div>
 
-            <section class="blog-list">
+            <section class="blog-list" data-folio="02">
                 <article class="post-card">
                     <p class="post-meta"><span>Mon, 10 Aug 2026</span><span class="dot"></span><span>News digest</span><span class="dot"></span><span>12 stories</span></p>
                     <h2><a href="blog/tax-news-digest-2026-08-10.html">Tax news digest — Mon, 10 Aug 2026</a></h2>
@@ -299,16 +299,24 @@
         (function () {
             var c = document.getElementById('secCounter');
             if (!c) return;
-            var ticking = false, dh = document.documentElement.scrollHeight - window.innerHeight;
+            var secs = document.querySelectorAll('main [data-folio]');
+            if (!secs.length) return;
+            var ticking = false;
             function upd() {
                 ticking = false;
-                var p = dh > 0 ? Math.min(99, Math.round(window.scrollY / dh * 100)) : 0;
-                var s = (p < 10 ? '0' : '') + p;
-                if (c.textContent !== s) c.textContent = s;
+                var cur = secs[0].getAttribute('data-folio');
+                if (window.scrollY >= 2) {
+                    for (var i = secs.length - 1; i >= 0; i--) {
+                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
+                            cur = secs[i].getAttribute('data-folio');
+                            break;
+                        }
+                    }
+                }
+                if (c.textContent !== cur) c.textContent = cur;
             }
             function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
             window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', function () { dh = document.documentElement.scrollHeight - window.innerHeight; });
             upd();
         })();
     </script>

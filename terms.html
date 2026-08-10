@@ -75,18 +75,18 @@
     <!-- Main Content -->
     <main class="legal-main">
         <div class="wrap legal-wrap">
-            <header class="legal-hero" data-ghost="01">
+            <header class="legal-hero" data-ghost="01" data-folio="01">
                 <p class="legal-eyebrow">Tunzua Consultancy</p>
                 <h1 class="legal-title">Terms of Service</h1>
                 <p class="legal-updated">Last Updated: January 2025</p>
             </header>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="02">
                 <h2>1. Acceptance of Terms</h2>
                 <p>By engaging the services of Tunzua Consultancy ("we," "our," or "us") or accessing our website, you ("Client" or "you") agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not engage our services or access our website.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="03">
                 <h2>2. Scope of Services</h2>
                 <p >Tunzua Consultancy provides professional accounting, taxation, and business consultancy services, including but not limited to:</p>
                 <ul class="legal-list">
@@ -99,7 +99,7 @@
                 </ul>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="04">
                 <h2>3. Client Obligations</h2>
                 <p >As a client, you agree to:</p>
                 <ul class="legal-list">
@@ -111,7 +111,7 @@
                 </ul>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="05">
                 <h2>4. Fees and Payment</h2>
                 <ul class="legal-list">
                     <li>Fees for services shall be as mutually agreed upon in the engagement letter or separate agreement.</li>
@@ -122,12 +122,12 @@
                 </ul>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="06">
                 <h2>5. Confidentiality</h2>
                 <p>We maintain strict confidentiality with respect to all client information, financial data, and business records. We shall not disclose any confidential information to any third party without your prior written consent, except as required by law or regulatory authorities. Both parties agree to protect each other's confidential information with the same degree of care used to protect their own confidential information.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="07">
                 <h2>6. Limitation of Liability</h2>
                 <p >Our services are based on the information and documentation provided by you. We shall not be held liable for:</p>
                 <ul class="legal-list">
@@ -138,12 +138,12 @@
                 <p >Our total aggregate liability for any claim arising out of or relating to these Terms of Service or our services shall not exceed the total fees paid by you for the specific service giving rise to such claim.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="08">
                 <h2>7. Intellectual Property</h2>
                 <p>All work products, reports, templates, and deliverables created by Tunzua Consultancy in the course of providing services shall remain the property of Tunzua Consultancy until full and final payment is received. Upon complete payment, you are granted a non-exclusive, non-transferable license to use the deliverables for the intended purpose for which they were created. You shall not resell, redistribute, or modify our proprietary content without prior written consent.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="09">
                 <h2>8. Termination</h2>
                 <p >Either party may terminate the engagement by providing 30 days' written notice to the other party. Upon termination:</p>
                 <ul class="legal-list">
@@ -154,22 +154,22 @@
                 </ul>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="10">
                 <h2>9. Dispute Resolution</h2>
                 <p>In the event of any dispute arising out of or relating to these Terms of Service, the parties shall first attempt to resolve the dispute through good-faith negotiation. If the dispute cannot be resolved through negotiation within 30 days, the dispute shall be referred to and finally resolved by arbitration in accordance with the provisions of the Arbitration and Conciliation Act, 1996. The arbitration shall be conducted by a sole arbitrator mutually appointed by the parties, and the seat of arbitration shall be in India.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="11">
                 <h2>10. Governing Law</h2>
                 <p>These Terms of Service shall be governed by and construed in accordance with the laws of India. Any disputes arising hereunder shall be subject to the exclusive jurisdiction of the courts in India.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="12">
                 <h2>11. Changes to Terms</h2>
                 <p>We reserve the right to modify these Terms of Service at any time. Any changes will be effective immediately upon posting on our website. Your continued engagement of our services or use of our website following the posting of revised terms constitutes your acceptance of the updated terms. We encourage you to review these terms periodically.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="13">
                 <h2>12. Contact Us</h2>
                 <p>If you have any questions or concerns about these Terms of Service, please contact us:</p>
                 <div class="legal-contact">
@@ -237,16 +237,24 @@
         (function () {
             var c = document.getElementById('secCounter');
             if (!c) return;
-            var ticking = false, dh = document.documentElement.scrollHeight - window.innerHeight;
+            var secs = document.querySelectorAll('main [data-folio]');
+            if (!secs.length) return;
+            var ticking = false;
             function upd() {
                 ticking = false;
-                var p = dh > 0 ? Math.min(99, Math.round(window.scrollY / dh * 100)) : 0;
-                var s = (p < 10 ? '0' : '') + p;
-                if (c.textContent !== s) c.textContent = s;
+                var cur = secs[0].getAttribute('data-folio');
+                if (window.scrollY >= 2) {
+                    for (var i = secs.length - 1; i >= 0; i--) {
+                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
+                            cur = secs[i].getAttribute('data-folio');
+                            break;
+                        }
+                    }
+                }
+                if (c.textContent !== cur) c.textContent = cur;
             }
             function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
             window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', function () { dh = document.documentElement.scrollHeight - window.innerHeight; });
             upd();
         })();
     </script>

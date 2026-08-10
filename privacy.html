@@ -75,18 +75,18 @@
     <!-- Main Content -->
     <main class="legal-main">
         <div class="wrap legal-wrap">
-            <header class="legal-hero" data-ghost="01">
+            <header class="legal-hero" data-ghost="01" data-folio="01">
                 <p class="legal-eyebrow">Tunzua Consultancy</p>
                 <h1 class="legal-title">Privacy Policy</h1>
                 <p class="legal-updated">Last Updated: January 2025</p>
             </header>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="02">
                 <h2>1. Introduction</h2>
                 <p>Tunzua Consultancy ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our accounting, taxation, and business consultancy services. By accessing our website or engaging our services, you agree to the collection and use of information in accordance with this policy.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="03">
                 <h2>2. Information We Collect</h2>
                 <p >We may collect information about you in various ways, including:</p>
                 <ul class="legal-list">
@@ -97,7 +97,7 @@
                 </ul>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="04">
                 <h2>3. How We Use Your Information</h2>
                 <p >We use the collected information for the following purposes:</p>
                 <ul class="legal-list">
@@ -110,7 +110,7 @@
                 </ul>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="05">
                 <h2>4. Data Sharing and Disclosure</h2>
                 <p >We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:</p>
                 <ul class="legal-list">
@@ -121,17 +121,17 @@
                 </ul>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="06">
                 <h2>5. Data Security</h2>
                 <p>We implement appropriate technical and organizational security measures to protect your personal and financial data against unauthorized access, alteration, disclosure, or destruction. These measures include encryption, secure servers, access controls, and regular security assessments. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="07">
                 <h2>6. Data Retention</h2>
                 <p>We retain your personal and financial data only for as long as necessary to fulfill the purposes for which it was collected, including to satisfy legal, accounting, or reporting requirements. Under Indian law, financial records and tax-related documents may be retained for a minimum period of 6 years from the end of the relevant financial year, or as required by applicable statutes.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="08">
                 <h2>7. Your Rights</h2>
                 <p >You have the right to:</p>
                 <ul class="legal-list">
@@ -143,17 +143,17 @@
                 </ul>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="09">
                 <h2>8. Cookies</h2>
                 <p>Our website may use cookies and similar tracking technologies to enhance your experience. You can choose to disable cookies through your browser settings. Disabling cookies may affect the functionality of certain features on our website.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="10">
                 <h2>9. Changes to This Policy</h2>
                 <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically for any updates.</p>
             </section>
 
-            <section class="legal-section">
+            <section class="legal-section" data-folio="11">
                 <h2>10. Contact Us</h2>
                 <p>If you have any questions or concerns about this Privacy Policy, please contact us:</p>
                 <div class="legal-contact">
@@ -221,16 +221,24 @@
         (function () {
             var c = document.getElementById('secCounter');
             if (!c) return;
-            var ticking = false, dh = document.documentElement.scrollHeight - window.innerHeight;
+            var secs = document.querySelectorAll('main [data-folio]');
+            if (!secs.length) return;
+            var ticking = false;
             function upd() {
                 ticking = false;
-                var p = dh > 0 ? Math.min(99, Math.round(window.scrollY / dh * 100)) : 0;
-                var s = (p < 10 ? '0' : '') + p;
-                if (c.textContent !== s) c.textContent = s;
+                var cur = secs[0].getAttribute('data-folio');
+                if (window.scrollY >= 2) {
+                    for (var i = secs.length - 1; i >= 0; i--) {
+                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
+                            cur = secs[i].getAttribute('data-folio');
+                            break;
+                        }
+                    }
+                }
+                if (c.textContent !== cur) c.textContent = cur;
             }
             function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
             window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', function () { dh = document.documentElement.scrollHeight - window.innerHeight; });
             upd();
         })();
     </script>

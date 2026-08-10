@@ -442,7 +442,7 @@ def update_blog_index(items, date_label, day_iso):
         f'                    <a class="post-link" href="blog/tax-news-digest-{day_iso}.html">Read digest <svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>\n'
         "                </article>\n"
     )
-    marker = '            <section class="blog-list">\n'
+    marker = '            <section class="blog-list" data-folio="02">\n'
     if marker not in content:
         raise RuntimeError("blog.html: <section class=\"blog-list\"> marker not found")
     content = content.replace(marker, marker + card, 1)
@@ -565,7 +565,7 @@ def _related_html(posts):
             '                        </a>\n'
         )
     return (
-        '\n                <section class="related-posts" aria-label="More insights">\n'
+        '\n                <section class="related-posts" aria-label="More insights" data-folio="03">\n'
         '                    <h2>More insights</h2>\n'
         '                    <div class="related-grid">\n'
         + "".join(cards)
@@ -726,14 +726,14 @@ def update_monthly_archive(day_iso):
     <!-- Main Content -->
     <main class="legal-main">
         <div class="wrap legal-wrap">
-            <header class="legal-hero" data-ghost="{month_num}">
+            <header class="legal-hero" data-ghost="{month_num}" data-folio="01">
                 <a class="back-link" href="../blog.html"><svg class="fa-svg"><use href="#arrow-left"></use></svg>All insights</a>
                 <p class="legal-eyebrow">Monthly archive</p>
                 <h1 class="legal-title">Tax news digest — {esc(month_label)}</h1>
                 <p class="legal-updated">{len(cards)} digests · {total_stories} stories</p>
             </header>
 
-            <section class="blog-list">
+            <section class="blog-list" data-folio="02">
 {cards_html}
             </section>
         </div>
@@ -794,16 +794,24 @@ def update_monthly_archive(day_iso):
         (function () {{
             var c = document.getElementById('secCounter');
             if (!c) return;
-            var ticking = false, dh = document.documentElement.scrollHeight - window.innerHeight;
+            var secs = document.querySelectorAll('main [data-folio]');
+            if (!secs.length) return;
+            var ticking = false;
             function upd() {{
                 ticking = false;
-                var p = dh > 0 ? Math.min(99, Math.round(window.scrollY / dh * 100)) : 0;
-                var s = (p < 10 ? '0' : '') + p;
-                if (c.textContent !== s) c.textContent = s;
+                var cur = secs[0].getAttribute('data-folio');
+                if (window.scrollY >= 2) {{
+                    for (var i = secs.length - 1; i >= 0; i--) {{
+                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {{
+                            cur = secs[i].getAttribute('data-folio');
+                            break;
+                        }}
+                    }}
+                }}
+                if (c.textContent !== cur) c.textContent = cur;
             }}
             function onScroll() {{ if (!ticking) {{ ticking = true; requestAnimationFrame(upd); }} }}
             window.addEventListener('scroll', onScroll, {{ passive: true }});
-            window.addEventListener('resize', function () {{ dh = document.documentElement.scrollHeight - window.innerHeight; }});
             upd();
         }})();
     </script>
@@ -935,14 +943,14 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     <!-- Main Content -->
     <main class="legal-main">
         <div class="wrap legal-wrap">
-            <header class="legal-hero" data-ghost="01">
+            <header class="legal-hero" data-ghost="01" data-folio="01">
                 <a class="back-link" href="../blog.html"><svg class="fa-svg"><use href="#arrow-left"></use></svg>All insights</a>
                 <p class="legal-eyebrow">Daily digest — Tax &amp; GST news</p>
                 <h1 class="legal-title">Tax news digest — {esc(date_label)}</h1>
                 <p class="legal-updated">{esc(date_long)} · {len(items)} stories{view_suffix}</p>
             </header>
 
-            <article class="post-body">
+            <article class="post-body" data-folio="02">
                 <p class="post-lead">A quick morning roundup of the tax and GST stories making news in India — tribunal rulings, department updates, due dates and compliance changes. Headlines are curated automatically from public sources; every item links to the original story.</p>
 
                 <h2>The day's stories</h2>
@@ -1020,16 +1028,24 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
         (function () {{
             var c = document.getElementById('secCounter');
             if (!c) return;
-            var ticking = false, dh = document.documentElement.scrollHeight - window.innerHeight;
+            var secs = document.querySelectorAll('main [data-folio]');
+            if (!secs.length) return;
+            var ticking = false;
             function upd() {{
                 ticking = false;
-                var p = dh > 0 ? Math.min(99, Math.round(window.scrollY / dh * 100)) : 0;
-                var s = (p < 10 ? '0' : '') + p;
-                if (c.textContent !== s) c.textContent = s;
+                var cur = secs[0].getAttribute('data-folio');
+                if (window.scrollY >= 2) {{
+                    for (var i = secs.length - 1; i >= 0; i--) {{
+                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {{
+                            cur = secs[i].getAttribute('data-folio');
+                            break;
+                        }}
+                    }}
+                }}
+                if (c.textContent !== cur) c.textContent = cur;
             }}
             function onScroll() {{ if (!ticking) {{ ticking = true; requestAnimationFrame(upd); }} }}
             window.addEventListener('scroll', onScroll, {{ passive: true }});
-            window.addEventListener('resize', function () {{ dh = document.documentElement.scrollHeight - window.innerHeight; }});
             upd();
         }})();
     </script>
