@@ -1,0 +1,31 @@
+name: Weekly Tax Recap
+
+on:
+  schedule:
+    # 03:00 UTC = 8:30 AM IST Sunday — right after the Sunday morning digest.
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Email the weekly recap of the week's digest stories
+        env:
+          # Optional override: set a DIGEST_EMAIL_TO secret to change the
+          # recipient; defaults to info@tunzua.com inside the script.
+          DIGEST_EMAIL_TO: ${{ secrets.DIGEST_EMAIL_TO }}
+        run: |
+          set -o pipefail
+          python3 scripts/generate-digest.py --weekly 2>&1 | tee /tmp/weekly.log
+        # --weekly only sends an email; it never writes or publishes anything.
+
+      - name: Summarize
+        run: |
+          if [ -f /tmp/weekly.log ]; then tail -6 /tmp/weekly.log; fi

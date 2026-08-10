@@ -202,6 +202,94 @@ def rss_date(dt):
     return dt.strftime("%a, %d %b %Y 00:00:00 +0000")
 
 
+def post_formsubmit(subject, body, sender="digest@tunzua.com"):
+    """Best-effort: POST a plain-text message to FormSubmit /ajax/.
+
+    Never raises — returns True if accepted (HTTP 200 without explicit
+    \"success\":false).  The recipient defaults to DIGEST_EMAIL_TO env var
+    or info@tunzua.com.
+    """
+    target = os.environ.get("DIGEST_EMAIL_TO", "info@tunzua.com")
+    payload = {
+        "email": sender,
+        "subject": subject,
+        "message": body,
+        "_captcha": "false",
+        "_honey": "",
+    }
+    data = json.dumps(payload).encode()
+    req = urllib.request.Request(
+        f"https://formsubmit.co/ajax/{target}",
+        data=data,
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": USER_AGENT,
+            "Referer": "https://tunzua.com/",
+            "X-Requested-With": "XMLHttpRequest",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            resp_text = resp.read().decode()
+            print(f"[email] FormSubmit HTTP {resp.status}: {body[:120]}")
+            return resp.status == 200 and '"success":"false"' not in resp_text
+    except Exception as exc:
+        print(f"[email] failed (non-fatal): {exc}", file=sys.stderr)
+        return False
+
+
+def send_weekly_recap():
+    """Sunday-only: email a recap of the week's digest stories via FormSubmit.
+
+    Reads feed.xml (newest-first), keeps items from the last 7 days, and
+    emails the firm a concise list. Never raises; writes nothing.
+    Returns True on success.
+    """
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=7)
+    try:
+        tree = ET.parse(os.path.join(ROOT, "feed.xml"))
+    except Exception as exc:
+        print(f"[weekly] could not read feed.xml: {exc}", file=sys.stderr)
+        return False
+    rows = []
+    for item in tree.getroot().iter("item"):
+        title = item.findtext("title") or ""
+        link = item.findtext("link") or ""
+        pub = item.findtext("pubDate") or ""
+        dt = None
+        try:
+            dt = email.utils.parsedate_to_datetime(pub).replace(tzinfo=timezone.utc)
+        except Exception:
+            pass
+        if "digest" not in title.lower():
+            continue
+        if dt is not None and dt < cutoff:
+            continue
+        rows.append((dt, title, link))
+    rows.sort(key=lambda r: (r[0] is None, r[0] or now), reverse=True)
+    if not rows:
+        print("[weekly] no digest stories in the last 7 days — skipping email.")
+        return False
+    lines = [
+        f"Weekly tax & GST recap — {len(rows)} stories from the last 7 days:",
+        "",
+    ]
+    for dt, title, link in rows[:25]:
+        day = dt.strftime("%a, %d %b") if dt else ""
+        lines.append(f"• [{day}] {title}")
+        lines.append(f"  {link}")
+        lines.append("")
+    lines.append("Read all digests: https://tunzua.com/blog.html")
+    lines.append("")
+    lines.append("— Sent automatically by the Tunzua weekly recap.")
+    ok = post_formsubmit("Weekly tax & GST recap", "\n".join(lines), sender="digest@tunzua.com")
+    print(f"[weekly] emailed {len(rows)} stories (ok={ok})")
+    return ok
+
+
 def send_digest_email(items, date_label, day_iso):
     """Best-effort: email a digest summary to the firm via FormSubmit.
 
@@ -221,40 +309,11 @@ def send_digest_email(items, date_label, day_iso):
     lines.append(f"Read it online: https://tunzua.com/blog/tax-news-digest-{day_iso}.html")
     lines.append("")
     lines.append("— Sent automatically by the Tunzua daily digest.")
-    payload = {
-        "email": "digest@tunzua.com",
-        "subject": f"Tax news digest — {date_label}",
-        "message": "\n".join(lines),
-        "_captcha": "false",
-        "_honey": "",
-    }
-    data = json.dumps(payload).encode()
-    req = urllib.request.Request(
-        f"https://formsubmit.co/ajax/{target}",
-        data=data,
-        headers={
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "User-Agent": USER_AGENT,
-            "Referer": "https://tunzua.com/",
-            # FormSubmit's /ajax/ endpoint returns JSON for XHR-style
-            # requests; browsers add this implicitly, urllib does not.
-            "X-Requested-With": "XMLHttpRequest",
-        },
-        method="POST",
+    return post_formsubmit(
+        f"Tax news digest — {date_label}",
+        "\n".join(lines),
+        sender="digest@tunzua.com",
     )
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            body = resp.read().decode()
-            print(f"[email] FormSubmit HTTP {resp.status}: {body[:120]}")
-            # FormSubmit returns {"success":"true",...} on delivery. It can
-            # also return an HTML page (e.g. its anti-bot / first-contact page)
-            # while still queuing the email — so treat any HTTP 200 without an
-            # explicit "success":"false" as accepted for delivery.
-            return resp.status == 200 and '"success":"false"' not in body
-    except Exception as exc:
-        print(f"[email] failed (non-fatal): {exc}", file=sys.stderr)
-        return False
 
 
 def _ensure_ttf(woff2_path, cache_dir):
@@ -403,6 +462,7 @@ def update_feed(items, date_label, day_iso):
     content = read(path)
     pub = datetime.now(timezone.utc)
     descriptions = " ".join(f"{it['title']} ({SOURCE_LABELS.get(it['source'], it['source'])})." for it in items[:3])
+    og_url = f"https://tunzua.com/blog/og/tax-news-digest-{day_iso}.png"
     item = (
         "    <item>\n"
         f"      <title>Tax news digest — {esc(date_label)}</title>\n"
@@ -410,6 +470,10 @@ def update_feed(items, date_label, day_iso):
         f"      <guid>https://tunzua.com/blog/tax-news-digest-{day_iso}.html</guid>\n"
         f"      <pubDate>{rss_date(pub)}</pubDate>\n"
         f"      <description>{esc(descriptions)}</description>\n"
+        # RSS 2.0 enclosure + mrss media:content so feed readers display the OG card
+        f"      <enclosure url=\"{esc(og_url)}\" length=\"60000\" type=\"image/png\"/>\n"
+        f"      <media:content url=\"{esc(og_url)}\" medium=\"image\" type=\"image/png\" width=\"1200\" height=\"630\"/>\n"
+        f"      <media:thumbnail url=\"{esc(og_url)}\" width=\"1200\" height=\"630\"/>\n"
         "    </item>\n"
     )
     marker = '    <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>\n'
@@ -428,9 +492,13 @@ def update_sitemap(day_iso):
     """Insert a digest URL entry into sitemap.xml before the closing </urlset>."""
     path = os.path.join(ROOT, "sitemap.xml")
     content = read(path)
+    og_url = f"https://tunzua.com/blog/og/tax-news-digest-{day_iso}.png"
     entry = (
         "  <url>\n"
         f"    <loc>https://tunzua.com/blog/tax-news-digest-{day_iso}.html</loc>\n"
+        f"    <image:image>\n"
+        f"      <image:loc>{esc(og_url)}</image:loc>\n"
+        f"    </image:image>\n"
         f"    <lastmod>{day_iso}</lastmod>\n"
         "    <changefreq>daily</changefreq>\n"
         "    <priority>0.7</priority>\n"
@@ -652,7 +720,12 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="print what would happen, write nothing")
     parser.add_argument("--max-items", type=int, default=MAX_ITEMS, help="cap digest size")
     parser.add_argument("--email", action="store_true", help="email the digest summary to the firm (best-effort)")
+    parser.add_argument("--weekly", action="store_true", help="email the weekly recap of digest stories (no files written)")
     args = parser.parse_args()
+
+    if args.weekly:
+        send_weekly_recap()
+        return 0
 
     now = datetime.now(timezone.utc)
     cutoff = now - timedelta(hours=FRESHNESS_HOURS)
