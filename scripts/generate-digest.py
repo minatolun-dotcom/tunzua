@@ -30,6 +30,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
@@ -256,6 +257,106 @@ def send_digest_email(items, date_label, day_iso):
         return False
 
 
+def _ensure_ttf(woff2_path, cache_dir):
+    """Convert a woff2 font to ttf (cached) so PIL can load it."""
+    ttf = os.path.join(cache_dir, os.path.basename(woff2_path).replace(".woff2", ".ttf"))
+    if os.path.exists(ttf):
+        return ttf
+    from fontTools.ttLib import TTFont
+    font = TTFont(woff2_path)
+    font.flavor = None  # decompress woff2 -> ttf
+    font.save(ttf)
+    return ttf
+
+
+def make_og_image(items, date_label, day_iso):
+    """Render a branded 1200x630 Open Graph card for the digest post.
+
+    Returns the absolute URL of the per-post image
+    (https://tunzua.com/blog/og/tax-news-digest-<day>.png) or None if the
+    render isn't possible (missing pillow/fonttools/brotli) — callers then
+    fall back to the generic og-image.png. Never raises.
+    """
+    W, H = 1200, 630
+    NAVY = (15, 42, 94)          # deep brand navy
+    CREAM = (237, 232, 220)      # paper ink (dark theme)
+    LIGHT = (157, 185, 232)      # accent light blue
+    MARGIN = 70
+    out_dir = os.path.join(ROOT, "blog", "og")
+    out_path = os.path.join(out_dir, f"tax-news-digest-{day_iso}.png")
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except Exception:
+        print("[og] pillow unavailable — skipping per-post OG image", file=sys.stderr)
+        return None
+    try:
+        cache = os.path.join(tempfile.gettempdir(), "tunzua-og-fonts")
+        os.makedirs(cache, exist_ok=True)
+        fraunces = _ensure_ttf(os.path.join(ROOT, "assets", "fonts", "fraunces-latin.woff2"), cache)
+        inter600 = _ensure_ttf(os.path.join(ROOT, "assets", "fonts", "inter-600-latin.woff2"), cache)
+        inter500 = _ensure_ttf(os.path.join(ROOT, "assets", "fonts", "inter-500-latin.woff2"), cache)
+    except Exception as exc:
+        print(f"[og] font prep failed: {exc}", file=sys.stderr)
+        return None
+    try:
+        img = Image.new("RGB", (W, H), NAVY)
+        d = ImageDraw.Draw(img)
+        f_brand = ImageFont.truetype(inter600, 30)
+        f_title = ImageFont.truetype(fraunces, 88)
+        f_date = ImageFont.truetype(inter500, 32)
+        f_head = ImageFont.truetype(fraunces, 40)
+        f_foot = ImageFont.truetype(inter600, 26)
+    except Exception as exc:
+        print(f"[og] font load failed: {exc}", file=sys.stderr)
+        return None
+
+    # Hairline accent + brand mark
+    d.rectangle([MARGIN, 52, MARGIN + 56, 54], fill=LIGHT)
+    d.text((MARGIN, 74), "TUNZUA CONSULTANCY", font=f_brand, fill=LIGHT)
+    # Title
+    d.text((MARGIN, 148), "Tax news digest", font=f_title, fill=CREAM)
+    # Date + rule
+    d.text((MARGIN + 2, 268), date_label, font=f_date, fill=LIGHT)
+    d.rectangle([MARGIN, 330, MARGIN + 240, 332], fill=LIGHT)
+
+    # Top story headline, wrapped to 3 lines
+    headline = html.unescape(items[0]["title"]) if items else "Your morning tax & GST briefing."
+    # The latin subset TTF lacks U+20B9 (rupee sign) — substitute to avoid tofu.
+    headline = headline.replace("\u20b9", "Rs.")
+    headline = re.sub(r"\s+", " ", headline).strip()
+    max_w = W - 2 * MARGIN
+    words = headline.split(" ")
+    lines, cur = [], ""
+    for w in words:
+        test = (cur + " " + w).strip()
+        if d.textlength(test, font=f_head) <= max_w:
+            cur = test
+        else:
+            if cur:
+                lines.append(cur)
+            cur = w
+    if cur:
+        lines.append(cur)
+    y = 372
+    for ln in lines[:3]:
+        d.text((MARGIN, y), ln, font=f_head, fill=CREAM)
+        y += 56
+
+    # Footer: site + story count
+    d.text((MARGIN, H - 78), "tunzua.com", font=f_foot, fill=LIGHT)
+    if items:
+        d.text((W - MARGIN, H - 78), f"{len(items)} stories", font=f_foot, fill=LIGHT, anchor="ra")
+
+    try:
+        os.makedirs(out_dir, exist_ok=True)
+        img.save(out_path, "PNG")
+    except Exception as exc:
+        print(f"[og] save failed: {exc}", file=sys.stderr)
+        return None
+    print(f"[og] wrote {out_path}")
+    return f"https://tunzua.com/blog/og/tax-news-digest-{day_iso}.png"
+
+
 def read(path):
     with open(path, encoding="utf-8") as f:
         return f.read()
@@ -349,8 +450,9 @@ def update_sitemap(day_iso):
     write(path, content)
 
 
-def build_post_html(items, date_label, day_iso, date_long):
+def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     """Generate the digest post HTML file (mirrors the site's post template)."""
+    og_image = og_image or "https://tunzua.com/og-image.png"
     rows = []
     for it in items:
         rows.append(
@@ -385,13 +487,13 @@ def build_post_html(items, date_label, day_iso, date_long):
     <meta property="og:description" content="{esc(desc)}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://tunzua.com/blog/tax-news-digest-{day_iso}.html">
-    <meta property="og:image" content="https://tunzua.com/og-image.png">
+    <meta property="og:image" content="{og_image}">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tax news digest — {esc(date_label)} | Tunzua Consultancy">
     <meta name="twitter:description" content="{esc(desc)}">
-    <meta name="twitter:image" content="https://tunzua.com/og-image.png">
+    <meta name="twitter:image" content="{og_image}">
 
     <!-- Schema.org: BlogPosting -->
     <script type="application/ld+json">
@@ -615,14 +717,19 @@ def main():
         print(f"  - [{categorize(it['title'])}] {it['title'][:75]} ({SOURCE_LABELS.get(it['source'], it['source'])})")
 
     post_path = os.path.join(ROOT, "blog", f"tax-news-digest-{day_iso}.html")
-    post_html = build_post_html(new_items, date_label, day_iso, date_long)
+    og_url = f"https://tunzua.com/blog/og/tax-news-digest-{day_iso}.png"
 
     if args.dry_run:
+        post_html = build_post_html(new_items, date_label, day_iso, date_long, og_url)
         print(f"[dry-run] would write: {post_path} ({len(post_html)} bytes)")
+        print(f"[dry-run] would write per-post OG image: blog/og/tax-news-digest-{day_iso}.png")
         print("[dry-run] would prepend card to blog.html")
         print("[dry-run] would prepend item to feed.xml")
         print("[dry-run] would add URL to sitemap.xml")
         return 0
+
+    og_image = make_og_image(new_items, date_label, day_iso)
+    post_html = build_post_html(new_items, date_label, day_iso, date_long, og_image)
 
     write(post_path, post_html)
     update_blog_index(new_items, date_label, day_iso)

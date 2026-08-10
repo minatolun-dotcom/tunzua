@@ -1,8 +1,25 @@
 # Project State
 
-**Last Updated:** August 9, 2026
+**Last Updated:** August 10, 2026
 
 ---
+
+## Aug 10 — Per-digest OG cards, health check, footer contrast, audit sweep
+
+- Per-post Open Graph cards: `make_og_image()` in `scripts/generate-digest.py` renders a branded
+  1200×630 navy card (Fraunces/Inter from the site's own woff2, converted via fontTools) with the
+  date and top story headline (₹ substituted with "Rs." — latin subset lacks U+20B9). Digest posts
+  now point `og:image`/`twitter:image` at `blog/og/tax-news-digest-<date>.png`; falls back to the
+  generic `og-image.png` if rendering is unavailable. Generator runs in `--dry-run` without writing
+  the image. Workflow installs pillow/fonttools/brotli.
+- New `.github/workflows/digest-health.yml` — daily 04:00 UTC health check of the live site: core
+  pages + assets 200, feed/sitemap parse, today's digest + its OG image + blog card order (quiet
+  news days tolerated), `workflow_dispatch` for manual runs.
+- Footer text on blog/legal pages (`--ink-3` → `--ink-2`) fixes a dark-mode contrast failure
+  (4.29:1 < 4.5) — blog post Lighthouse A11Y 96 → 100. index.html footer tokens unified to match.
+- Lighthouse sweep: privacy 99/100/100/100, terms 98/100/100/100, blog post 95/100/100/100, index
+  86 (noise band, zero actionable opportunities).
+
 
 ## Current Status: Production Ready ✅
 

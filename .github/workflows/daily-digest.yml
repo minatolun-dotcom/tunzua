@@ -16,6 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install image-render deps (pillow, fonttools, brotli)
+        run: pip install --quiet --break-system-packages pillow fonttools brotli
+
       - name: Generate digest (and email the summary to the firm)
         env:
           # Optional override: set a DIGEST_EMAIL_TO secret to change the

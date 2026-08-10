@@ -1,0 +1,97 @@
+name: Digest Health Check
+
+on:
+  schedule:
+    # 04:00 UTC = 9:30 AM IST — after the 8 AM digest publishes + deploys.
+    # Quiet news days (no digest) are tolerated; core pages must always pass.
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run health checks against the live site
+        run: |
+          set -euo pipefail
+          BASE="https://tunzua.com"
+          today="$(date -u +%Y-%m-%d)"
+          FAILED=0
+          fail() { echo "FAIL: $1"; FAILED=1; }
+          ok() { echo "ok: $1"; }
+
+          # 1. Core pages return 200
+          for p in / /blog.html /privacy.html /terms.html /404.html; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$BASE$p")
+            if [ "$code" = "200" ]; then ok "core $p -> $code"; else fail "core $p -> $code"; fi
+          done
+
+          # 2. Assets reachable (incl. the generic OG image used by every page)
+          for a in /og-image.png /assets/css/legal.css /assets/css/blog.css /assets/css/fonts.css; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$BASE$a")
+            if [ "$code" = "200" ]; then ok "asset $a -> $code"; else fail "asset $a -> $code"; fi
+          done
+
+          # 3. feed.xml parses and has items
+          curl -s --max-time 20 "$BASE/feed.xml" -o /tmp/feed.xml
+          python3 - <<'EOF' || fail "feed.xml unparseable or empty"
+          import sys, xml.dom.minidom
+          try:
+              d = xml.dom.minidom.parse('/tmp/feed.xml')
+          except Exception as e:
+              print('  feed.xml unparseable:', e); sys.exit(1)
+          items = d.getElementsByTagName('item')
+          print('ok: feed.xml parses with', len(items), 'items')
+          if not items:
+              print('  feed has no items'); sys.exit(1)
+          first = items[0].getElementsByTagName('title')[0].firstChild.nodeValue
+          print('ok: first feed item:', first[:70])
+          EOF
+
+          # 4. sitemap.xml parses
+          curl -s --max-time 20 "$BASE/sitemap.xml" -o /tmp/sitemap.xml
+          python3 - <<'EOF' || fail "sitemap.xml unparseable"
+          import sys, xml.dom.minidom
+          try:
+              d = xml.dom.minidom.parse('/tmp/sitemap.xml')
+          except Exception as e:
+              print('  sitemap.xml unparseable:', e); sys.exit(1)
+          print('ok: sitemap.xml parses with', len(d.getElementsByTagName('url')), 'URLs')
+          EOF
+
+          # 5. Today's digest (only if one was published — quiet days are fine)
+          digest="blog/tax-news-digest-$today.html"
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$BASE/$digest")
+          if [ "$code" = "200" ]; then
+            ok "digest $digest -> 200"
+            ogcode=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$BASE/blog/og/tax-news-digest-$today.png")
+            if [ "$ogcode" = "200" ]; then ok "per-post OG image -> $ogcode"; else fail "per-post OG image -> $ogcode"; fi
+            curl -s --max-time 20 "$BASE/blog.html" -o /tmp/blog.html
+            if grep -q "$digest" /tmp/blog.html; then ok "blog.html lists today's digest"; else fail "blog.html missing today's digest"; fi
+            if grep -q "tax-news-digest-$today" /tmp/sitemap.xml; then ok "sitemap lists today's digest"; else fail "sitemap missing today's digest"; fi
+          else
+            echo "skip: no digest today (quiet news day) — $digest -> $code"
+          fi
+
+          # 6. blog.html card order matches the newest digest in feed.xml
+          curl -s --max-time 20 "$BASE/blog.html" -o /tmp/blog.html
+          first_card=$(grep -o 'blog/tax-news-digest-[0-9-]*\.html' /tmp/blog.html | head -1 || true)
+          newest_feed=$(grep -o 'https://tunzua.com/blog/tax-news-digest-[0-9-]*\.html' /tmp/feed.xml | head -1 | sed 's|https://tunzua.com/||' || true)
+          echo "card order: first card '$first_card' vs newest feed '$newest_feed'"
+          if [ -n "$first_card" ] && [ "$first_card" = "$newest_feed" ]; then
+            ok "card order matches newest digest"
+          else
+            fail "card order mismatch"
+          fi
+
+          if [ "$FAILED" = "1" ]; then
+            echo "== Digest health check FAILED =="
+            exit 1
+          fi
+          echo "== Digest health check PASSED =="
