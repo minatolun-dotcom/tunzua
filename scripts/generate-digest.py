@@ -498,6 +498,7 @@ def update_sitemap(day_iso):
         f"    <loc>https://tunzua.com/blog/tax-news-digest-{day_iso}.html</loc>\n"
         f"    <image:image>\n"
         f"      <image:loc>{esc(og_url)}</image:loc>\n"
+        f"      <image:title>Tax news digest — {esc(day_iso)}</image:title>\n"
         f"    </image:image>\n"
         f"    <lastmod>{day_iso}</lastmod>\n"
         "    <changefreq>daily</changefreq>\n"
