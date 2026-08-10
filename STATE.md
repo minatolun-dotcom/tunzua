@@ -2,6 +2,30 @@
 
 **Last Updated:** August 10, 2026
 
+## Aug 10 — Monthly archives, related posts, GoatCounter plumbing, Search Console doc
+
+- **Monthly archive pages**: generator now rebuilds `blog/monthly/YYYY-MM.html` on
+every publish (lists the month's digests, newest first, post-card markup, ghost
+folio = month number). `blog/monthly/2026-08.html` backfilled for the 2 existing
+digests; archive URL added to sitemap.xml; blog.html footer "Monthly archive"
+link auto-updated to the latest month by the generator (reviewer catch).
+- **Design polish (blog.css)**: "More insights" related-posts grid on every post
+(digests first, newest first, then evergreen; generator emits for new digests,
+`/tmp`-style backfill injected into the 7 existing posts), text-wrap balance/
+pretty on headings & prose, ul/ol polish, view-count tabular-nums, 1-col grid
+on mobile.
+- **GoatCounter page-view counter**: `GOATCOUNTER_SITE` env-gated constant in
+the generator — when set, new digest posts get the tracker + count-fetch
+(` · N views` in the hero meta; separator lives inside the span so a failed
+fetch leaves no dangling dot). Inert by default (empty env = no script emitted).
+`scripts/enable-counter.py` backfills ALL existing posts idempotently once the
+user supplies their site code.
+- **docs/search-console.md**: step-by-step Search Console verification (HTML
+file or Cloudflare DNS TXT), sitemap submission, old-property cleanup.
+- **Gates**: py OK · smoke PASSED · XML OK · all pages balanced · JS syntax OK ·
+xbrowser 48/48 · renders clean (archive + digest + evergreen, zero overflow,
+zero console errors).
+
 ---
 
 ## Aug 10 — Per-digest OG cards, health check, footer contrast, audit sweep

@@ -72,6 +72,45 @@
 }
 .post-body strong { color: var(--ink); font-weight: 600; }
 
+/* Reading polish: balanced headings + slightly wider prose measure */
+.post-body h2 { text-wrap: balance; }
+.post-body p { text-wrap: pretty; }
+.post-body ul, .post-body ol { color: var(--ink-2); font-size: 0.97rem; line-height: 1.78; }
+.post-body li + li { margin-top: 8px; }
+.post-body li strong { color: var(--ink); font-weight: 600; }
+
+/* Page-view counter (GoatCounter) — subtle, in the hero meta line */
+.view-count {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+/* ---------- Related posts ("More insights") ---------- */
+.related-posts { margin: 46px 0 8px; padding-top: 30px; border-top: 1px solid var(--hairline); }
+.related-posts h2 {
+    font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 40;
+    font-size: 1.3rem; font-weight: 560; letter-spacing: -0.01em;
+    color: var(--ink); margin: 0 0 20px;
+}
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.related-card {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 18px 20px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 2px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.related-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.related-meta {
+    font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-3);
+}
+.related-title {
+    font-family: 'Fraunces', serif; font-size: 1.02rem; font-weight: 520;
+    line-height: 1.35; color: var(--ink);
+    transition: color 0.2s ease;
+}
+.related-card:hover .related-title { color: var(--accent); }
+
 .due-table { width: 100%; border-collapse: collapse; margin: 24px 0 8px; font-size: 0.9rem; }
 .due-table th, .due-table td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
 .due-table th {
@@ -250,4 +289,5 @@
     .due-table { font-size: 0.82rem; }
     .due-table th, .due-table td { padding: 11px 8px; }
     .note-box, .cta-box { padding: 22px 20px; }
+    .related-grid { grid-template-columns: 1fr; }
 }
