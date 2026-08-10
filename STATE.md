@@ -419,3 +419,8 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
 
 ### August 10, 2026
 - Visual polish pass 2: hero split layout (ledger statement card with crop marks, framed stats: businesses served 100+, years 15+, satisfaction 99%; concentric rings removed), navbar section-number folio (00-09 tracks scroll, Fraunces, hidden under 960px; hero section gained data-ghost=00 as the scroll-spy anchor), crop-mark frames extended to blog subscribe box + post CTA boxes (blog.css), focus-visible rings on blog/legal pages
+
+### August 10, 2026 (later)
+- Visual polish 3: hero parallax drift (ghost numeral + ledger card via --parallax CSS var, rAF-throttled, capped 60px, disabled on mobile + reduced-motion; ghost fades in via ghostIn so the decorative numeral isn't the LCP candidate), Firm-record ledger strip in the About section (5-column statement: Founded 2008 / Pan-India 2018 / Cities 10+ / Satisfaction 99% / Service lines 07, 'True & fair' footer, crop marks), page folio on all inner pages (blog.html, privacy, terms, all posts, monthly archive — Fraunces reading-progress numeral 00-99 in the shared navbar; generator templates updated, monthly archive regenerated from template)
+- Lighthouse re-audit: Accessibility 100, Best Practices 100, SEO 100, Performance 100 (unthrottled: FCP/LCP 0.3s, CLS 0.001); 86 under simulated slow-4G throttle (single-file inline-CSS parse cost — known architecture tradeoff)
+- NOTE for user: hero ledger says Est. 2011 but About timeline/firm-card say Founded 2008 (pre-existing inconsistency, now more visible)

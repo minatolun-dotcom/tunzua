@@ -712,6 +712,7 @@ def update_monthly_archive(day_iso):
                 <img src="../../assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
                 <span class="brand-text">Tunzua<small>Consultancy</small></span>
             </a>
+            <span class="sec-counter" id="secCounter" aria-hidden="true">00</span>
             <div class="nav-actions">
                 <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
                     <svg class="fa-svg" id="sunIcon"><use href="#sun"></use></svg>
@@ -787,6 +788,23 @@ def update_monthly_archive(day_iso):
                 localStorage.setItem('theme', dark ? 'dark' : 'light');
                 updateIcons();
             }});
+        }})();
+    </script>
+    <script>
+        (function () {{
+            var c = document.getElementById('secCounter');
+            if (!c) return;
+            var ticking = false, dh = document.documentElement.scrollHeight - window.innerHeight;
+            function upd() {{
+                ticking = false;
+                var p = dh > 0 ? Math.min(99, Math.round(window.scrollY / dh * 100)) : 0;
+                var s = (p < 10 ? '0' : '') + p;
+                if (c.textContent !== s) c.textContent = s;
+            }}
+            function onScroll() {{ if (!ticking) {{ ticking = true; requestAnimationFrame(upd); }} }}
+            window.addEventListener('scroll', onScroll, {{ passive: true }});
+            window.addEventListener('resize', function () {{ dh = document.documentElement.scrollHeight - window.innerHeight; }});
+            upd();
         }})();
     </script>
 </body>
@@ -903,6 +921,7 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
                 <img src="../assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
                 <span class="brand-text">Tunzua<small>Consultancy</small></span>
             </a>
+            <span class="sec-counter" id="secCounter" aria-hidden="true">00</span>
             <div class="nav-actions">
                 <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
                     <svg class="fa-svg" id="sunIcon"><use href="#sun"></use></svg>
@@ -995,6 +1014,23 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
                 localStorage.setItem('theme', dark ? 'dark' : 'light');
                 updateIcons();
             }});
+        }})();
+    </script>
+    <script>
+        (function () {{
+            var c = document.getElementById('secCounter');
+            if (!c) return;
+            var ticking = false, dh = document.documentElement.scrollHeight - window.innerHeight;
+            function upd() {{
+                ticking = false;
+                var p = dh > 0 ? Math.min(99, Math.round(window.scrollY / dh * 100)) : 0;
+                var s = (p < 10 ? '0' : '') + p;
+                if (c.textContent !== s) c.textContent = s;
+            }}
+            function onScroll() {{ if (!ticking) {{ ticking = true; requestAnimationFrame(upd); }} }}
+            window.addEventListener('scroll', onScroll, {{ passive: true }});
+            window.addEventListener('resize', function () {{ dh = document.documentElement.scrollHeight - window.innerHeight; }});
+            upd();
         }})();
     </script>
 {gc_block}</body>

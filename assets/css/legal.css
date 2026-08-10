@@ -218,6 +218,16 @@ footer { background: var(--paper-2); border-top: 1px solid var(--hairline); }
 .foot-bottom .legal a { font-size: 0.78rem; color: var(--ink-2); transition: color 0.2s ease; }
 .foot-bottom .legal a:hover { color: var(--accent); }
 
+/* ---------- Page folio (reading-progress numeral in the navbar) ---------- */
+.sec-counter {
+    font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em;
+    color: var(--ink-3); line-height: 1; min-width: 24px; text-align: right;
+    padding-left: 16px; border-left: 1px solid var(--hairline);
+    transition: color 0.25s ease;
+}
+@media (max-width: 960px) { .sec-counter { display: none; } }
+
 /* ---------- Focus rings (a11y) ---------- */
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
 input:focus-visible, textarea:focus-visible {
