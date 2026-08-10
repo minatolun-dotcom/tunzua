@@ -206,15 +206,16 @@ footer { background: var(--paper-2); border-top: 1px solid var(--hairline); }
     display: flex; align-items: flex-start; justify-content: space-between; gap: 30px; flex-wrap: wrap;
 }
 .foot-mini p { font-size: 0.9rem; color: var(--ink-2); max-width: 340px; margin-top: 16px; }
+.foot-mini .brand-text small { color: var(--ink-2); }
 
 .foot-bottom {
     border-top: 1px solid var(--hairline);
     padding: 22px 0;
     display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
 }
-.foot-bottom p { font-size: 0.78rem; color: var(--ink-3); }
+.foot-bottom p { font-size: 0.78rem; color: var(--ink-2); }
 .foot-bottom .legal { display: flex; gap: 22px; }
-.foot-bottom .legal a { font-size: 0.78rem; color: var(--ink-3); transition: color 0.2s ease; }
+.foot-bottom .legal a { font-size: 0.78rem; color: var(--ink-2); transition: color 0.2s ease; }
 .foot-bottom .legal a:hover { color: var(--accent); }
 
 /* ---------- Responsive ---------- */

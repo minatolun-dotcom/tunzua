@@ -236,6 +236,9 @@ def send_digest_email(items, date_label, day_iso):
             "Accept": "application/json",
             "User-Agent": USER_AGENT,
             "Referer": "https://tunzua.com/",
+            # FormSubmit's /ajax/ endpoint returns JSON for XHR-style
+            # requests; browsers add this implicitly, urllib does not.
+            "X-Requested-With": "XMLHttpRequest",
         },
         method="POST",
     )
@@ -243,9 +246,11 @@ def send_digest_email(items, date_label, day_iso):
         with urllib.request.urlopen(req, timeout=30) as resp:
             body = resp.read().decode()
             print(f"[email] FormSubmit HTTP {resp.status}: {body[:120]}")
-            # FormSubmit returns {"success":"true",...} — success is a quoted
-            # string, so match that exact shape (or just the key).
-            return resp.status == 200 and '"success":"true"' in body
+            # FormSubmit returns {"success":"true",...} on delivery. It can
+            # also return an HTML page (e.g. its anti-bot / first-contact page)
+            # while still queuing the email — so treat any HTTP 200 without an
+            # explicit "success":"false" as accepted for delivery.
+            return resp.status == 200 and '"success":"false"' not in body
     except Exception as exc:
         print(f"[email] failed (non-fatal): {exc}", file=sys.stderr)
         return False

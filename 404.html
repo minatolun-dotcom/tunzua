@@ -126,6 +126,18 @@
         .err-inner p { color: var(--ink-2); font-size: 1.05rem; max-width: 460px; margin: 0 auto 36px; }
         .err-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+        /* Ghost folio numeral — echoes the homepage section numerals */
+        .err-main .wrap { position: relative; }
+        .err-main .wrap::before {
+            content: attr(data-ghost);
+            position: absolute; top: 10px; right: 0; z-index: 0;
+            font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144;
+            font-size: clamp(96px, 13vw, 150px); line-height: 1; font-weight: 500;
+            color: transparent; -webkit-text-stroke: 1px var(--hairline);
+            pointer-events: none; user-select: none;
+        }
+        .err-main .wrap > * { position: relative; z-index: 1; }
+
         /* ---------- Footer strip ---------- */
         footer { border-top: 1px solid var(--hairline); }
         .foot-line {
@@ -139,13 +151,14 @@
 
         @media (max-width: 640px) {
             .err-main { padding: 90px 0 70px; }
+            .err-main .wrap::before { font-size: clamp(72px, 17vw, 96px); opacity: 0.7; }
             .foot-line { justify-content: center; text-align: center; }
         }
     </style>
 </head>
 <body>
     <main class="err-main">
-        <div class="wrap">
+        <div class="wrap" data-ghost="01">
             <div class="err-inner">
                 <a href="index.html" class="brand" aria-label="Tunzua Consultancy — back to home">
                     <img src="assets/images/logo.png" alt="" width="34" height="34">
