@@ -931,6 +931,7 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
 {items_html}                </ul>
 
                 <div class="cta-box">
+                    <span class="crop" aria-hidden="true"></span>
                     <h3>Need help with any of these?</h3>
                     <p>If a new rule, ruling or deadline affects your business, we'll tell you what it means and what to do about it.</p>
                     <div class="cta-actions">

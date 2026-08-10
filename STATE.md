@@ -416,3 +416,6 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
 - Phone: +91 8731831178
 - Email: info@tunzua.com
 - Website: https://www.tunzua.com
+
+### August 10, 2026
+- Visual polish pass 2: hero split layout (ledger statement card with crop marks, framed stats: businesses served 100+, years 15+, satisfaction 99%; concentric rings removed), navbar section-number folio (00-09 tracks scroll, Fraunces, hidden under 960px; hero section gained data-ghost=00 as the scroll-spy anchor), crop-mark frames extended to blog subscribe box + post CTA boxes (blog.css), focus-visible rings on blog/legal pages
