@@ -454,7 +454,7 @@ def build_post_html(items, date_label, day_iso, date_long):
     <!-- Main Content -->
     <main class="legal-main">
         <div class="wrap legal-wrap">
-            <header class="legal-hero">
+            <header class="legal-hero" data-ghost="01">
                 <a class="back-link" href="../blog.html"><svg class="fa-svg"><use href="#arrow-left"></use></svg>All insights</a>
                 <p class="legal-eyebrow">Daily digest — Tax &amp; GST news</p>
                 <h1 class="legal-title">Tax news digest — {esc(date_label)}</h1>

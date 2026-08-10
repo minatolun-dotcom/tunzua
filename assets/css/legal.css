@@ -148,6 +148,18 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; margin: 0; }
 
 .legal-updated { margin-top: 18px; font-size: 0.82rem; color: var(--ink-3); }
 
+/* Ghost folio numeral — echoes the homepage section numerals */
+.legal-hero { position: relative; }
+.legal-hero::before {
+    content: attr(data-ghost);
+    position: absolute; top: 16px; right: 0; z-index: 0;
+    font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144;
+    font-size: clamp(96px, 13vw, 150px); line-height: 1; font-weight: 500;
+    color: transparent; -webkit-text-stroke: 1px var(--hairline);
+    pointer-events: none; user-select: none;
+}
+.legal-hero > * { position: relative; z-index: 1; }
+
 .legal-section { padding: 44px 0; border-bottom: 1px solid var(--hairline); }
 
 .legal-section h2 {
@@ -211,6 +223,7 @@ footer { background: var(--paper-2); border-top: 1px solid var(--hairline); }
     .navbar-inner { height: 64px; }
     .btn-back { padding: 10px 16px; }
     .legal-hero { padding: 64px 0 36px; }
+    .legal-hero::before { font-size: clamp(72px, 17vw, 96px); top: 10px; opacity: 0.7; }
     .legal-section { padding: 36px 0; }
     .legal-contact { padding: 22px; }
     .foot-mini { padding: 44px 0 28px; }
