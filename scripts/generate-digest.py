@@ -692,8 +692,19 @@ def update_monthly_archive(day_iso):
             }} catch (e) {{}}
         }})();
     </script>
+
+    <!-- Browser chrome matches the paper background -->
+    <meta name="theme-color" content="#f5f2ea">
+    <script>
+        (function () {{
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (!m) return;
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+        }})();
+    </script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <!-- Icon sprite (local) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
@@ -724,7 +735,7 @@ def update_monthly_archive(day_iso):
     </nav>
 
     <!-- Main Content -->
-    <main class="legal-main">
+    <main class="legal-main" id="main-content">
         <div class="wrap legal-wrap">
             <header class="legal-hero" data-ghost="{month_num}" data-folio="01">
                 <a class="back-link" href="../blog.html"><svg class="fa-svg"><use href="#arrow-left"></use></svg>All insights</a>
@@ -813,6 +824,16 @@ def update_monthly_archive(day_iso):
             function onScroll() {{ if (!ticking) {{ ticking = true; requestAnimationFrame(upd); }} }}
             window.addEventListener('scroll', onScroll, {{ passive: true }});
             upd();
+        }})();
+    </script>
+    <script>
+        (function () {{
+            var m = document.querySelector('meta[name="theme-color"]');
+            var t = document.getElementById('themeToggle');
+            if (!m || !t) return;
+            t.addEventListener('click', function () {{
+                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            }});
         }})();
     </script>
 </body>
@@ -909,8 +930,19 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
             }} catch (e) {{}}
         }})();
     </script>
+
+    <!-- Browser chrome matches the paper background -->
+    <meta name="theme-color" content="#f5f2ea">
+    <script>
+        (function () {{
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (!m) return;
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+        }})();
+    </script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <!-- Icon sprite (local) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
@@ -922,6 +954,8 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
 </symbol>
     <symbol id="arrow-left" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" transform="translate(448 0) scale(-1 1)"/></symbol>
     </svg>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <nav class="navbar">
         <div class="wrap navbar-inner">
@@ -941,7 +975,7 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     </nav>
 
     <!-- Main Content -->
-    <main class="legal-main">
+    <main class="legal-main" id="main-content">
         <div class="wrap legal-wrap">
             <header class="legal-hero" data-ghost="01" data-folio="01">
                 <a class="back-link" href="../blog.html"><svg class="fa-svg"><use href="#arrow-left"></use></svg>All insights</a>
@@ -951,6 +985,10 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
             </header>
 
             <article class="post-body" data-folio="02">
+                <nav class="toc" id="toc" aria-label="On this page" hidden>
+                    <span class="toc-label">On this page</span>
+                    <ol></ol>
+                </nav>
                 <p class="post-lead">A quick morning roundup of the tax and GST stories making news in India — tribunal rulings, department updates, due dates and compliance changes. Headlines are curated automatically from public sources; every item links to the original story.</p>
 
                 <h2>The day's stories</h2>
@@ -970,7 +1008,16 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
                 <div class="note-box">
                     <p><strong>How this digest works:</strong> stories are selected automatically from public RSS feeds (Taxscan, Economic Times, Moneycontrol) and published with links to the original source. The digest is a news roundup, not professional advice — always check the linked source for details, and ask us if a change affects your business.</p>
                 </div>
-{related_html}            </article>
+{related_html}
+                <div class="share-row">
+                    <span class="share-label">Share this insight</span>
+                    <div class="share-btns">
+                        <a class="share-btn" data-share="wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+                        <a class="share-btn" data-share="x" href="#" target="_blank" rel="noopener">X</a>
+                        <a class="share-btn" data-share="in" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+            </article>
         </div>
     </main>
 
@@ -1049,7 +1096,80 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
             upd();
         }})();
     </script>
-{gc_block}</body>
+{gc_block}
+    <script>
+        (function () {{
+            var m = document.querySelector('meta[name="theme-color"]');
+            var t = document.getElementById('themeToggle');
+            if (!m || !t) return;
+            t.addEventListener('click', function () {{
+                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            }});
+        }})();
+    </script>
+    <script>
+        (function () {{
+            var sp = document.getElementById('scrollProgress');
+            if (sp) {{
+                var spTicking = false;
+                function updP() {{
+                    spTicking = false;
+                    var dh = document.documentElement.scrollHeight - window.innerHeight;
+                    sp.style.width = (dh > 0 ? Math.min(window.scrollY / dh, 1) * 100 : 0) + '%';
+                }}
+                window.addEventListener('scroll', function () {{ if (!spTicking) {{ spTicking = true; requestAnimationFrame(updP); }} }}, {{ passive: true }});
+                updP();
+            }}
+            var toc = document.getElementById('toc');
+            if (toc) {{
+                var art = document.querySelector('.post-body');
+                var hs = art ? [].slice.call(art.children).filter(function (el) {{ return el.tagName === 'H2' && !el.closest('.related-posts') && !el.closest('.toc'); }}) : [];
+                if (hs.length >= 2) {{
+                    var ol = toc.querySelector('ol');
+                    hs.forEach(function (h, i) {{
+                        if (!h.id) h.id = 'sec-' + (i + 1);
+                        var li = document.createElement('li');
+                        var a = document.createElement('a');
+                        a.href = '#' + h.id;
+                        a.textContent = h.textContent;
+                        li.appendChild(a);
+                        ol.appendChild(li);
+                    }});
+                    toc.hidden = false;
+                    var links = ol.querySelectorAll('a');
+                    var lastId = '';
+                    function spy() {{
+                        var line = window.innerHeight * 0.12, cur = null;
+                        for (var i = 0; i < hs.length; i++) {{
+                            var r = hs[i].getBoundingClientRect();
+                            if (r.top <= line && r.bottom > line) {{ cur = hs[i].id; break; }}
+                        }}
+                        if (!cur) {{
+                            for (var i = 0; i < hs.length; i++) {{
+                                var r = hs[i].getBoundingClientRect();
+                                if (r.top <= line) cur = hs[i].id;
+                            }}
+                        }}
+                        if (cur !== lastId) {{
+                            lastId = cur;
+                            links.forEach(function (a) {{ a.classList.toggle('active', a.getAttribute('href') === '#' + cur); }});
+                        }}
+                    }}
+                    window.addEventListener('scroll', function () {{ requestAnimationFrame(spy); }}, {{ passive: true }});
+                    spy();
+                }}
+            }}
+            var share = {{ wa: document.querySelector('.share-btn[data-share="wa"]'), x: document.querySelector('.share-btn[data-share="x"]'), inb: document.querySelector('.share-btn[data-share="in"]') }};
+            if (share.wa || share.x || share.inb) {{
+                var url = encodeURIComponent(window.location.href);
+                var title = encodeURIComponent(document.title.replace(/\\s*\\|\\s*Tunzua Consultancy$/, ''));
+                if (share.wa) share.wa.href = 'https://wa.me/?text=' + title + '%20' + url;
+                if (share.x) share.x.href = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + url;
+                if (share.inb) share.inb.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+            }}
+        }})();
+    </script>
+</body>
 </html>
 """
     return body

@@ -42,8 +42,19 @@
             } catch (e) {}
         })();
     </script>
+
+    <!-- Browser chrome matches the paper background -->
+    <meta name="theme-color" content="#f5f2ea">
+    <script>
+        (function () {
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (!m) return;
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+        })();
+    </script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <!-- Icon sprite (local) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
@@ -74,7 +85,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="legal-main">
+    <main class="legal-main" id="main-content">
         <div class="wrap legal-wrap">
             <header class="legal-hero" data-ghost="08" data-folio="01">
                 <a class="back-link" href="../blog.html"><svg class="fa-svg"><use href="#arrow-left"></use></svg>All insights</a>
@@ -176,6 +187,16 @@
             function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
             window.addEventListener('scroll', onScroll, { passive: true });
             upd();
+        })();
+    </script>
+    <script>
+        (function () {
+            var m = document.querySelector('meta[name="theme-color"]');
+            var t = document.getElementById('themeToggle');
+            if (!m || !t) return;
+            t.addEventListener('click', function () {
+                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            });
         })();
     </script>
 </body>

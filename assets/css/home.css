@@ -144,6 +144,8 @@
         .nav-link::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.25s ease; }
         .nav-link:hover { color: var(--ink); }
         .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: var(--ink); }
+        .nav-link.active::after { width: 100%; }
         .nav-actions { display: flex; align-items: center; gap: 14px; }
         .theme-btn {
             width: 38px; height: 38px; border-radius: 50%;
@@ -177,6 +179,16 @@
 
         /* Scroll progress */
         .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; z-index: 1002; background: var(--accent); width: 0; transition: width 0.1s linear; }
+
+        /* Skip link (keyboard a11y — revealed on Tab) */
+        .skip-link {
+            position: fixed; top: -120px; left: 16px; z-index: 2000;
+            padding: 11px 18px; border-radius: 3px;
+            background: var(--accent); color: var(--accent-ink);
+            font-size: 0.76rem; font-weight: 600; letter-spacing: 0.14em;
+            text-transform: uppercase; transition: top 0.2s ease;
+        }
+        .skip-link:focus { top: 12px; }
 
         /* ---------- Hero ---------- */
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 150px 0 70px; position: relative; }
@@ -469,6 +481,14 @@
         }
         #backToTop:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
         #backToTop svg { width: 17px; height: 17px; }
+        #backToTop .ring { position: absolute; inset: -1px; width: 48px; height: 48px; pointer-events: none; }
+        #backToTop .ring circle { fill: none; stroke-width: 1.5; }
+        #backToTop .ring-bg { stroke: var(--hairline); }
+        #backToTop .ring-fg {
+            stroke: var(--accent); stroke-linecap: round;
+            transform: rotate(-90deg); transform-origin: 50% 50%;
+            stroke-dasharray: 128.8; stroke-dashoffset: 128.8;
+        }
         #backToTop.opacity-0 { opacity: 0; }
         #backToTop.pointer-events-none { pointer-events: none; }
 
@@ -571,6 +591,7 @@
         .faq-item.open .faq-plus::after { transform: rotate(90deg); opacity: 0; }
         .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.38s cubic-bezier(0.2, 0.6, 0.2, 1); }
         .faq-item.open .faq-a { grid-template-rows: 1fr; }
+        .faq-item.open .faq-q { color: var(--accent); }
         .faq-a > div { overflow: hidden; }
         .faq-a p { padding: 0 4px 28px; color: var(--ink-2); font-size: 0.96rem; line-height: 1.75; max-width: 700px; }
         @media (max-width: 640px) { .faq-q { font-size: 1.02rem; } }
@@ -693,3 +714,22 @@
 
         /* ---------- Testimonial avatar: brand accent ---------- */
         .quote-who .avatar { background: var(--accent); color: var(--accent-ink); }
+
+        /* ---------- Print ---------- */
+        @media print {
+            :root {
+                --paper: #ffffff !important; --paper-2: #ffffff !important; --paper-3: #f2f2f2 !important;
+                --surface: #ffffff !important; --ink: #111111 !important; --ink-2: #333333 !important;
+                --ink-3: #555555 !important; --accent: #10306e !important;
+                --hairline: #bbbbbb !important; --hairline-soft: #cccccc !important;
+            }
+            body { background: #fff !important; }
+            .navbar, .mobile-menu, .mobile-cta, .hamburger, .theme-btn,
+            #backToTop, .scroll-progress, #cookieConsent, .sec-counter,
+            .hero-ghost, .ghost-numeral, .btn, .skip-link { display: none !important; }
+            .hero { min-height: 0 !important; padding: 40px 0 !important; }
+            .hero-ledger, .hero-stats { display: none !important; }
+            .section { padding: 32px 0 !important; }
+            * { animation: none !important; transition: none !important; }
+            @page { margin: 16mm; }
+        }

@@ -175,8 +175,19 @@
     </script>
 
     <link rel="stylesheet" href="assets/css/home.css">
+
+    <!-- Browser chrome matches the paper background (kept in sync with theme) -->
+    <meta name="theme-color" content="#f5f2ea">
+    <script>
+        (function () {
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (!m) return;
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+        })();
+    </script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <!-- Icon sprite (local, replaces Font Awesome CDN) -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
@@ -361,7 +372,7 @@
         <a href="#contact" class="btn btn-ink" onclick="closeMobile()">Get Started</a>
     </div>
 
-    <main>
+    <main id="main-content">
         <!-- ============ HERO ============ -->
         <section id="home" class="hero" data-ghost="00">
             <span class="hero-ghost" data-ghost="00" aria-hidden="true"></span>
@@ -1121,8 +1132,12 @@
         </a>
     </nav>
 
-    <!-- Back to Top -->
+    <!-- Back to Top (with scroll-progress ring) -->
     <button id="backToTop" aria-label="Back to top">
+        <svg class="ring" viewBox="0 0 46 46" aria-hidden="true">
+            <circle class="ring-bg" cx="23" cy="23" r="20.5"></circle>
+            <circle class="ring-fg" id="ringFg" cx="23" cy="23" r="20.5"></circle>
+        </svg>
         <svg class="fa-svg"><use href="#arrow-up"></use></svg>
     </button>
 
@@ -1156,6 +1171,8 @@
                 moonIcon.classList.add('hidden');
                 localStorage.setItem('theme', 'light');
             }
+            var tc = document.querySelector('meta[name="theme-color"]');
+            if (tc) tc.setAttribute('content', dark ? '#15130f' : '#f5f2ea');
         }
 
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1178,6 +1195,8 @@
         const scrollProgress = document.getElementById('scrollProgress');
         const secCounter = document.getElementById('secCounter');
         const secs = document.querySelectorAll('section[data-ghost]');
+        const navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+        const ringFg = document.getElementById('ringFg');
         const heroEl = document.getElementById('home');
         const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let lastDrift = 0;
@@ -1192,7 +1211,29 @@
                 navbar.classList.toggle('scrolled', scrollY > 50);
                 backToTop.classList.toggle('opacity-0', scrollY < 500);
                 backToTop.classList.toggle('pointer-events-none', scrollY < 500);
-                scrollProgress.style.width = (docHeight > 0 ? (scrollY / docHeight) * 100 : 0) + '%';
+                const p = docHeight > 0 ? Math.min(scrollY / docHeight, 1) : 0;
+                scrollProgress.style.width = (p * 100) + '%';
+                if (ringFg) ringFg.style.strokeDashoffset = ((1 - p) * 128.8).toFixed(1);
+                if (navLinks.length) {
+                    const line = window.innerHeight * 0.12;
+                    let curLink = null;
+                    for (let i = 0; i < navLinks.length; i++) {
+                        const tgt = document.querySelector(navLinks[i].getAttribute('href'));
+                        if (!tgt) continue;
+                        const r = tgt.getBoundingClientRect();
+                        if (r.top <= line && r.bottom > line) { curLink = navLinks[i]; break; }
+                    }
+                    if (!curLink) {
+                        let bestTop = -Infinity;
+                        for (let i = 0; i < navLinks.length; i++) {
+                            const tgt = document.querySelector(navLinks[i].getAttribute('href'));
+                            if (!tgt) continue;
+                            const t = tgt.getBoundingClientRect().top;
+                            if (t <= line && t > bestTop) { bestTop = t; curLink = navLinks[i]; }
+                        }
+                    }
+                    navLinks.forEach(l => l.classList.toggle('active', l === curLink));
+                }
                 if (secCounter && secs.length) {
                     let cur = secs[0].dataset.ghost;
                     for (let i = secs.length - 1; i >= 0; i--) {
@@ -1216,6 +1257,7 @@
         window.addEventListener('resize', function () {
             docHeight = document.documentElement.scrollHeight - window.innerHeight;
         });
+        handleScroll();
 
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });

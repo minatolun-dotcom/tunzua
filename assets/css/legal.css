@@ -253,3 +253,29 @@ input:focus-visible, textarea:focus-visible {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ---------- Skip link (keyboard a11y — revealed on Tab) ---------- */
+.skip-link {
+    position: fixed; top: -120px; left: 16px; z-index: 2000;
+    padding: 11px 18px; border-radius: 3px;
+    background: var(--accent); color: var(--accent-ink);
+    font-size: 0.76rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; transition: top 0.2s ease;
+}
+.skip-link:focus { top: 12px; }
+
+/* ---------- Print ---------- */
+@media print {
+    :root {
+        --paper: #ffffff !important; --paper-2: #ffffff !important;
+        --surface: #ffffff !important; --ink: #111111 !important;
+        --ink-2: #333333 !important; --accent: #10306e !important;
+        --hairline: #bbbbbb !important;
+    }
+    body { background: #fff !important; }
+    .navbar, .sec-counter, .theme-btn, .btn-back, .skip-link, .back-link,
+    .legal-hero .ghost-numeral, .hero-ghost { display: none !important; }
+    .legal-main { padding: 20px 0 40px !important; }
+    a[href] { color: #10306e !important; }
+    * { animation: none !important; transition: none !important; }
+}

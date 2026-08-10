@@ -349,3 +349,57 @@ input:focus-visible, textarea:focus-visible {
     .note-box, .cta-box { padding: 22px 20px; }
     .related-grid { grid-template-columns: 1fr; }
 }
+
+/* ---------- Reading progress (posts) — mirrors the homepage top bar ---------- */
+.scroll-progress { position: fixed; top: 0; left: 0; height: 2px; z-index: 1002; background: var(--accent); width: 0; transition: width 0.1s linear; }
+
+/* ---------- Table of contents (auto-built from h2s) ---------- */
+.toc {
+    margin: 0 0 38px; padding: 20px 24px 18px;
+    border: 1px solid var(--hairline); border-left: 3px solid var(--accent);
+    background: var(--surface);
+}
+.toc[hidden] { display: none; }
+.toc-label {
+    display: block; margin-bottom: 12px;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--ink-3);
+}
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 7px 0; }
+.toc a {
+    color: var(--ink-2); font-size: 0.9rem; line-height: 1.5;
+    text-decoration: none; transition: color 0.18s ease;
+}
+.toc a:hover { color: var(--accent); }
+.toc a.active { color: var(--accent); font-weight: 600; }
+
+/* ---------- Share row ---------- */
+.share-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px; flex-wrap: wrap;
+    margin-top: 36px; padding-top: 22px;
+    border-top: 1px solid var(--hairline);
+}
+.share-label {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--ink-3);
+}
+.share-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.share-btn {
+    padding: 8px 16px; border: 1px solid var(--hairline); border-radius: 3px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-2); text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+.share-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Print ---------- */
+@media print {
+    .navbar, .sec-counter, .theme-btn, .btn-back, .skip-link, .back-link,
+    .scroll-progress, .toc, .share-row, .related-posts, .cta-box,
+    .hero-ghost, .ghost-numeral { display: none !important; }
+    .post-body { padding: 24px 0 !important; }
+    a[href] { color: #10306e !important; }
+    * { animation: none !important; transition: none !important; }
+}

@@ -430,3 +430,16 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
 - index.html inline <style> (697 lines / 46.5KB) externalized to assets/css/home.css (exact same bytes; link placed in the same head position after the theme-init script so dark-mode flash prevention is preserved). Real-world Lighthouse stays 100 (FCP/LCP 0.3s); simulated-throttle perf stays 86 (single-file HTML+JS parse cost - CSS externalization was architectural, not a throttle win)
 - Folio unification: inner-page folios now track SECTION NUMBERS (not reading progress) via a dedicated data-folio attribute (legal-hero 01, privacy sections 02-11, terms 02-13, blog list 02, posts body 02 + related 03, monthly list 02; decoupled from decorative data-ghost since the monthly hero's ghost is the month number). Threshold = 40% viewport with scrollY<2px guard so short heroes show 01 at page top. Applied to 12 pages + both generator templates + blog.html prepend marker
 - Before/after screenshots committed under docs/screenshots/ (vs parent commit 87ae96f)
+
+### August 10, 2026 (UI polish batch — 8 items)
+- Skip-to-content link on all 16 pages (homepage, blog, privacy, terms, 404, monthly archive, 8 posts): offscreen until Tab-focus, jumps to <main id="main-content">; .skip-link rules added to home.css + legal.css + the 404 inline style (404 links no shared sheet)
+- theme-color meta on all pages: head snippet sets it from the saved theme pre-paint (no chrome-color flash), end-of-body snippet keeps it in sync on manual toggle (index.html updates inside setTheme instead)
+- Navbar scroll-spy: .nav-link.active underlines the current section. Uses a 'section straddles the 12% viewport line' rule + max-top fallback — needed because #clients sits at doc-pos 900 (right after hero, before #services at 1097), so nav-order and 40%-threshold heuristics both failed (browser-verified all 6 sections)
+- Back-to-top button now draws an SVG progress ring (r=20.5, dasharray 128.8, dashoffset driven in the existing rAF scroll handler)
+- Reading progress bar on the 8 posts (same .scroll-progress pattern as the homepage, own rAF JS)
+- Auto table of contents on posts: built from direct-child h2s (excludes .related-posts + .toc), hidden when <2 headings (digests), own scroll-spy using the same straddle rule; in the generator template + backfilled into the 8 posts
+- Share row on posts (WhatsApp / X / LinkedIn) — hrefs built from location.href + document.title; zero deps
+- Print stylesheets: home.css, legal.css, blog.css, 404.html (flatten to white/ink, hide nav, CTAs, ghost numerals, folio, scroll chrome)
+- FAQ was already smooth (grid-template-rows transition); added .faq-item.open .faq-q accent color as polish
+- Fixed Python f-string SyntaxWarning (\s in share-JS regex now \\s)
+- Gates: smoke PASSED, tags balanced, JS syntax on all 16 pages OK, monthly regenerated from template, browser 26/26 (spy all sections, ring, skip link, theme-color toggle, TOC build+spy, share hrefs, progress, inner pages), xbrowser 48/48, reviewer-clean (404 skip-link CSS gap fixed)
