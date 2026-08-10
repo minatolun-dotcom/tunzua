@@ -456,3 +456,10 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
 - blog.html: focus-revealed Skip to insights list link (mirrors the global .skip-link, fixed below the navbar) jumping to the newly id="blogList" list section
 - REVIEWER FIX: adding id="blogList" broke update_blog_index literal prepend marker (would crash the next digest run) — marker updated to match and verified by simulated insertion; blog.html unchanged by the test
 - Gates: browser 14/14 (skip-link focus + jump, local events, monthly dynamic chips), xbrowser 48/48, smoke PASSED, JS syntax + tag balance OK, reviewer-clean
+
+### August 10, 2026 (follow-ups 2: monthly chips, chip analytics, skip-to-list)
+- Monthly archive: digest cards now carry data-topic="news"; the page builds its topic chips DYNAMICALLY from the topics actually present (All + News today — future-proof for evergreen posts). Same filtering + trackTopic as blog.html; regenerated from the updated template
+- Lightweight chip-click analytics: trackTopic() fires a GoatCounter event (window.goatcounter.count event:true path topic/<t>) when the tracker is present and ALWAYS appends {t, at} to a localStorage ring buffer tunzua-topic-events (capped 200, lossless, no backend). Copies in blog.html + the generator monthly template are kept in sync (comment added)
+- blog.html: focus-revealed Skip to insights list link (mirrors the global .skip-link, fixed below the navbar) jumping to the newly id="blogList" list section
+- REVIEWER FIX: adding id="blogList" broke update_blog_index literal-prepend marker — generator now anchors on the section tag itself (regression-tested)
+- REVIEWER FIX: .filter-skip now position:fixed below the navbar on focus (was absolute at page top:0, hidden under the fixed navbar)
