@@ -458,9 +458,11 @@ def update_blog_index(items, date_label, day_iso):
     # Trim: cap only the auto-generated digest cards. Hand-written evergreen
     # posts (due dates, payroll, records…) must NEVER be trimmed — they are the
     # site's permanent SEO content. Digest cards are identified by the
-    # tax-news-digest- slug in their href.
+    # tax-news-digest- slug in their href. The [^>]* allows the optional
+    # data-topic attribute on cards (regression-tested by
+    # scripts/test-blog-index.py).
     digest_blocks = [
-        b for b in re.findall(r"<article class=\"post-card\">.*?</article>\n", content, flags=re.S)
+        b for b in re.findall(r"<article class=\"post-card\"[^>]*>.*?</article>\n", content, flags=re.S)
         if "tax-news-digest-" in b
     ]
     if len(digest_blocks) > MAX_LIST_ITEMS:
