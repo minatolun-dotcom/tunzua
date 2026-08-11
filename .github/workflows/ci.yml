@@ -36,13 +36,17 @@ jobs:
       - name: Run cross-browser suite (Chromium + Firefox + WebKit)
         run: node scripts/xbrowser.js
 
-      - name: Generator tests (monthly self-registration + blog index)
-        # Renders the monthly archive into a temp dir and proves a novel
-        # data-topic self-registers its chip in a real browser (skips the
-        # browser layer gracefully where playwright/chromium are absent);
-        # also exercises update_blog_index prepend/rollover/trim against
-        # fixture pages in a temp dir (repo untouched).
-        run: python3 scripts/test-monthly-topics.py && python3 scripts/test-blog-index.py
+      - name: Generator tests (5 suites)
+        # All run against temp dirs with fixture files and a monkeypatched
+        # fetch() where network would be needed — the real repo is never
+        # read or written. Monthly self-registration drives the rendered
+        # page in a real browser (skips gracefully when absent).
+        run: |
+          python3 scripts/test-monthly-topics.py && \
+          python3 scripts/test-blog-index.py && \
+          python3 scripts/test-feed-sitemap.py && \
+          python3 scripts/test-pipeline.py && \
+          python3 scripts/test-quiet-day.py
 
   lighthouse:
     runs-on: ubuntu-latest
