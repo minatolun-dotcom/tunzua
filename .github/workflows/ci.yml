@@ -36,6 +36,12 @@ jobs:
       - name: Run cross-browser suite (Chromium + Firefox + WebKit)
         run: node scripts/xbrowser.js
 
+      - name: Generator test (monthly topic self-registration)
+        # Renders the monthly archive into a temp dir and proves a novel
+        # data-topic self-registers its chip in a real browser (skips the
+        # browser layer gracefully where playwright/chromium are absent).
+        run: python3 scripts/test-monthly-topics.py
+
   lighthouse:
     runs-on: ubuntu-latest
     steps:

@@ -6,6 +6,7 @@
   "scripts": {
     "test:smoke": "bash scripts/smoke-test.sh",
     "test:xbrowser": "node scripts/xbrowser.js",
+    "test:generator": "python3 scripts/test-monthly-topics.py",
     "test:lighthouse": "bash scripts/lighthouse-ci.sh"
   },
   "devDependencies": {
