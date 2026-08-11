@@ -1,5 +1,8 @@
 # Tunzua Consultancy Website
 
+![CI](https://github.com/minatolun-dotcom/tunzua/actions/workflows/ci.yml/badge.svg)
+![Daily Digest](https://github.com/minatolun-dotcom/tunzua/actions/workflows/daily-digest.yml/badge.svg)
+
 A modern, responsive single-page website for Tunzua Consultancy - a professional accounting, taxation, and business consulting firm based in Manipur, India.
 
 ## Table of Contents
