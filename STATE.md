@@ -518,3 +518,12 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
   - blog/sole-proprietorship-vs-llp-vs-private-limited — comparison table (liability, cost ₹0/₹5-15k/₹7-25k+, time, tax slabs vs 30% flat vs 22% ≈25.17% effective, audit thresholds, annual compliance), guidance per structure
 - Registered: 3 blog.html cards (data-topic income-tax x2, business), sitemap +3 (20 URLs), feed +3 (15 items); added business:'Business' to topic-chip label maps in blog.html, blog/monthly/2026-08.html, scripts/generate-digest.py; fixed pre-existing card-meta inconsistency (income-tax card now says 'Income Tax' not 'Tax')
 - Verified: JSON-LD/XML valid, tag balance fixed (share-row nested div), browser render (15 cards, Business chip self-registers + filters, TOC 4-5 items, related 3, no horizontal overflow), 6/6 generator suites + smoke pass
+
+### August 11, 2026 (evergreen batch 3: GST returns, business loans, year-end planning)
+- Three more SEO evergreen posts (same chrome generator):
+  - blog/how-to-file-gst-returns-yourself-india — GSTR-1/GSTR-3B filing steps, monthly vs QRMP (₹5cr cutoff), GSTR-2B + Invoice Management System, e-invoicing note, late-fee table (₹50/day with tax, ₹20/day nil, caps ₹2k/₹5k/₹10k, 18% interest), common-mistakes list
+  - blog/business-loans-for-small-businesses-india — lender criteria (CIBIL 700+, GST 6-12 months, bank turnover, vintage), CGTMSE table (₹10cr limit, 75-85% cover, 90% NE incl. Manipur/women/micro/ZED, 0.37-1.20% fee), term vs working capital, documents, rate ranges (PSU 8-9.5%, private 10.5-14%, NBFC 12-26%)
+  - blog/year-end-tax-planning-small-business-india — advance-tax installment table (15%/45%/75%/100% by 15 Jun/Sep/Dec/Mar, ₹10k threshold), 180-day half-depreciation rule, ITC deadline (30 Nov or GSTR-9), stock at lower of cost/NRV, Section 44AD (8% cash/6% digital, ₹2cr)
+- Registered: 3 blog.html cards (data-topic gst/business/income-tax — all in label maps already), sitemap +3 (23 URLs), feed +3 (18 items)
+- assets/css/blog.css: added .post-body a rule (accent color + underline) so the new inline body links match the design system in both themes
+- Verified: JSON-LD/XML valid, tags balanced, browser render (18 cards, chips correct, TOC 5-6, no overflow, inline links styled light+dark), 6/6 generator suites + smoke pass
