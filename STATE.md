@@ -496,3 +496,8 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
 - Reviewer fixes: guarded .find() instead of .index() in post-template (clean FAIL not traceback), sleep gated to attempts 1-2, tail -n2|head -n1 for informative push errors
 - npm test:generator + CI generator step now run all SIX suites
 - Locally: 6/6 suites PASS; smoke PASS; both workflows YAML-valid; push-retry sim 3/3
+
+### August 11, 2026 (follow-up: GoatCounter enabled + views widget)
+- GoatCounter site `tunzua` created by the user; counter enabled site-wide: 9 existing posts backfilled by scripts/enable-counter.py (tracker + view-count span), and the daily-digest workflow now sets GOATCOUNTER_SITE=tunzua so new digests carry it automatically
+- Fixed a double-separator bug: the view-count span was emitted with a static "·" before it AND a "·" placeholder inside the span, rendering "12 stories · · 12 views". The span is now empty and the post-page script owns the leading separator (textContent = ' · ' + count + ' views'); backfilled posts normalized to match
+- blog.html now loads the GoatCounter tracker itself (tracks blog.html views) and has a "views" widget: lazily fetches each card's count from the counter API (gated on the tracker loading, 4 concurrent with queue, en-IN number format) and appends a "· N views" chip to the meta row. Inert (no chips) while GoatCounter's "allow visitor counts" setting is off — the counter API 403s without CORS headers until the user enables it in the GoatCounter dashboard

@@ -429,5 +429,67 @@
             });
         })();
     </script>
+    <script data-goatcounter="https://tunzua.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script>
+        (function () {
+            // Post popularity: lazily fetch each card's GoatCounter view count
+            // and append a "· N views" chip to its meta row. Self-registers for
+            // any new card. Waits for the tracker (window.goatcounter) to load
+            // before fetching, so no fetches fire if count.js is blocked or the
+            // site is unreachable; blog.html itself is also tracked. Note: if
+            // GoatCounter's "allow visitor counts" setting is OFF the counter
+            // API 403s and chips simply never render (fetch fails → caught).
+            function init() {
+                var cards = document.querySelectorAll('.blog-list .post-card');
+                if (!cards.length) return;
+                var HOST = 'https://tunzua.goatcounter.com/counter/';
+                var jobs = [];
+                cards.forEach(function (card) {
+                    var a = card.querySelector('h2 a[href]');
+                    if (!a) return;
+                    var href = a.getAttribute('href');
+                    if (href.indexOf('blog/') !== 0) return; // only /blog/* posts
+                    jobs.push({ card: card, path: '/' + href });
+                });
+                if (!jobs.length) return;
+                var i = 0;
+                function next() {
+                    if (i >= jobs.length) return;
+                    var job = jobs[i++];
+                    fetch(HOST + encodeURIComponent(job.path) + '.json')
+                        .then(function (r) { if (!r.ok) throw new Error('gc ' + r.status); return r.json(); })
+                        .then(function (d) {
+                            var raw = d && (d.count || d.count_unique);
+                            var n = parseInt(String(raw || '0').replace(/,/g, ''), 10);
+                            if (!(n > 0)) return;
+                            var meta = job.card.querySelector('.post-meta');
+                            if (!meta) return;
+                            var chip = document.createElement('span');
+                            chip.className = 'views';
+                            chip.textContent = n.toLocaleString('en-IN') + ' views';
+                            chip.title = 'Page views';
+                            meta.appendChild(chip);
+                        })
+                        .catch(function () { /* GoatCounter off or unreachable — no chip */ })
+                        .then(next);
+                }
+                // Run up to 4 fetches concurrently, queueing the rest.
+                for (var k = 0; k < 4 && k < jobs.length; k++) next();
+            }
+            if (window.goatcounter && window.goatcounter.count) {
+                init();
+            } else {
+                // count.js is async — retry until the tracker is ready (or the
+                // page is idle), then give up quietly if it never arrives.
+                var tries = 0;
+                var timer = setInterval(function () {
+                    if ((window.goatcounter && window.goatcounter.count) || ++tries >= 20) {
+                        clearInterval(timer);
+                        if (window.goatcounter && window.goatcounter.count) init();
+                    }
+                }, 250);
+            }
+        })();
+    </script>
 </body>
 </html>

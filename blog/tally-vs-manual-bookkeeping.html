@@ -105,7 +105,7 @@
                 <a class="back-link" href="../blog.html"><svg class="fa-svg"><use href="#arrow-left"></use></svg>All insights</a>
                 <p class="legal-eyebrow">Bookkeeping — Tally Prime</p>
                 <h1 class="legal-title">Tally Prime vs. manual bookkeeping: what small businesses actually need</h1>
-                <p class="legal-updated">Updated 9 August 2026 · 4 min read</p>
+                <p class="legal-updated">Updated 9 August 2026 · 4 min read<span class="view-count" id="view-count"></span></p>
             </header>
 
             <article class="post-body" data-folio="02">
@@ -328,6 +328,19 @@
                 if (share.x) share.x.href = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + url;
                 if (share.inb) share.inb.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
             }
+        })();
+    </script>
+
+    <script data-goatcounter="https://tunzua.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script>
+        (function () {
+            var el = document.getElementById('view-count');
+            if (!el) return;
+            var p = location.pathname.replace(/\/$/, '');
+            fetch('https://tunzua.goatcounter.com/counter/' + encodeURIComponent(p) + '.json')
+                .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+                .then(function (d) { el.textContent = ' · ' + (d.count || 0) + ' views'; })
+                .catch(function () { el.remove(); });
         })();
     </script>
 </body>

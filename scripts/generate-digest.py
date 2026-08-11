@@ -938,7 +938,10 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     gc_block = _goatcounter_block()
     # The "·" separator lives INSIDE the span so that a failed count fetch
     # (span removed) never leaves a dangling separator in the meta line.
-    view_span = '<span class="view-count" id="view-count"> · </span>' if GOATCOUNTER_SITE else ""
+    # The span is EMPTY: the post-page script owns the leading " · " separator
+    # (it sets textContent = ' · ' + count + ' views'), so the meta line never
+    # shows a double separator even before/without the count fetch.
+    view_span = '<span class="view-count" id="view-count"></span>' if GOATCOUNTER_SITE else ""
     view_suffix = view_span
 
     body = f"""<!DOCTYPE html>

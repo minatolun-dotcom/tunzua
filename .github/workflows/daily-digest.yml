@@ -44,6 +44,10 @@ jobs:
           # Optional override: set a DIGEST_EMAIL_TO secret to change the
           # recipient; defaults to info@tunzua.com inside the script.
           DIGEST_EMAIL_TO: ${{ secrets.DIGEST_EMAIL_TO }}
+          # Page-view counter (GoatCounter). When set, new digest posts carry
+          # the tracker + a live view count; leave empty to disable. Posts
+          # already published were backfilled by scripts/enable-counter.py.
+          GOATCOUNTER_SITE: tunzua
         run: |
           set -o pipefail
           python3 scripts/generate-digest.py --email 2>&1 | tee /tmp/digest.log

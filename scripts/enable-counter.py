@@ -26,7 +26,7 @@ if not gd.GOATCOUNTER_SITE:
     sys.exit(1)
 
 gc_block = gd._goatcounter_block()
-VIEW_SPAN = '<span class="view-count" id="view-count"> · </span>'
+VIEW_SPAN = '<span class="view-count" id="view-count"></span>'
 updated = []
 for name in sorted(os.listdir(os.path.join(ROOT, "blog"))):
     if not name.endswith(".html"):
@@ -35,10 +35,13 @@ for name in sorted(os.listdir(os.path.join(ROOT, "blog"))):
     txt = open(path, encoding="utf-8").read()
     if "view-count" in txt:
         continue  # already enabled
-    # 1) view-count span in the hero meta line (keep the " · " inside the span)
+    # 1) view-count span in the hero meta line. The span is EMPTY — the
+    #    post-page script owns the leading " · " separator (it sets
+    #    textContent = ' · ' + count + ' views'), so no static "·" is added
+    #    here (adding one produced a double separator on backfilled posts).
     new = re.sub(
         r"(<p class=\"legal-updated\">[^<]*?(?:stories|read))([ \u00b7]*)</p>",
-        r"\1 · " + VIEW_SPAN.replace("\\", "\\\\") + "</p>",
+        r"\1" + VIEW_SPAN.replace("\\", "\\\\") + "</p>",
         txt, count=1,
     )
     if new == txt:
