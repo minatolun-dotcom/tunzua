@@ -225,7 +225,7 @@
             if (!wrap) return;
             var cards = [].slice.call(document.querySelectorAll('.blog-list .post-card'));
             var order = ['news', 'gst', 'income-tax', 'payroll', 'bookkeeping'];
-            var labels = { news: 'News', gst: 'GST', 'income-tax': 'Income Tax', payroll: 'Payroll', bookkeeping: 'Bookkeeping', msme: 'MSME' };
+            var labels = { news: 'News', gst: 'GST', 'income-tax': 'Income Tax', payroll: 'Payroll', bookkeeping: 'Bookkeeping', msme: 'MSME', business: 'Business' };
             var seen = {};
             cards.forEach(function (c) { var t = c.getAttribute('data-topic'); if (t) seen[t] = true; });
             // Known topics first (in display order), then any NEW topics found
