@@ -117,14 +117,7 @@
                 <p id="blogSearchEmpty" class="blog-search-empty" hidden>No insights match your search.</p>
             </div>
 
-            <div class="topic-chips" role="group" aria-label="Filter insights by topic">
-                <button type="button" class="topic-chip active" data-topic="all" aria-pressed="true">All</button>
-                <button type="button" class="topic-chip" data-topic="gst" aria-pressed="false">GST</button>
-                <button type="button" class="topic-chip" data-topic="income-tax" aria-pressed="false">Income Tax</button>
-                <button type="button" class="topic-chip" data-topic="payroll" aria-pressed="false">Payroll</button>
-                <button type="button" class="topic-chip" data-topic="bookkeeping" aria-pressed="false">Bookkeeping</button>
-                <button type="button" class="topic-chip" data-topic="news" aria-pressed="false">News</button>
-            </div>
+            <div class="topic-chips" id="topicChips" role="group" aria-label="Filter insights by topic"></div>
 
             <a class="filter-skip" href="#blogList">Skip to insights list</a>
 
@@ -240,18 +233,57 @@
         // Blog search — live keyword filter over the post cards (no page
         // reload, no dependencies). Matches titles, meta and descriptions.
         (function () {
+            // Chips build independently of the search box, so a missing input
+            // never disables the topic filter (mirrors the monthly page).
             var input = document.getElementById('blogSearch');
-            if (!input) return;
             var cards = Array.prototype.slice.call(document.querySelectorAll('.blog-list .post-card'));
             var count = document.getElementById('blogSearchCount');
             var empty = document.getElementById('blogSearchEmpty');
             var clear = document.getElementById('blogSearchClear');
-            var chips = Array.prototype.slice.call(document.querySelectorAll('.topic-chip'));
+            var wrap = document.getElementById('topicChips');
             var total = cards.length;
             var topic = 'all';
+            var chips = [];
+
+            // Chips are built dynamically from the data-topics actually present
+            // on the cards, so a new evergreen topic self-registers without
+            // touching this page (same behaviour as the monthly archive).
+            // Keep in sync with the copy in scripts/generate-digest.py.
+            if (wrap) {
+                var order = ['news', 'gst', 'income-tax', 'payroll', 'bookkeeping'];
+                var labels = { news: 'News', gst: 'GST', 'income-tax': 'Income Tax', payroll: 'Payroll', bookkeeping: 'Bookkeeping' };
+                var seen = {};
+                cards.forEach(function (c) {
+                    var t = c.getAttribute('data-topic');
+                    if (t) seen[t] = true;
+                });
+                // Known topics first (in display order), then any NEW topics
+                // found on the cards — a future evergreen post self-registers
+                // even outside the vocabulary above (fallback label: Title Case).
+                var topics = order.filter(function (t) { return seen[t]; });
+                Object.keys(seen).sort().forEach(function (t) {
+                    if (order.indexOf(t) === -1) topics.push(t);
+                });
+                var labelFor = function (t) {
+                    if (labels[t]) return labels[t];
+                    return t.split('-').map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+                };
+                var makeChip = function (t, label, active) {
+                    var b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'topic-chip' + (active ? ' active' : '');
+                    b.setAttribute('data-topic', t);
+                    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+                    b.textContent = label;
+                    return b;
+                };
+                chips.push(makeChip('all', 'All', true));
+                topics.forEach(function (t) { chips.push(makeChip(t, labelFor(t), false)); });
+                chips.forEach(function (c) { wrap.appendChild(c); });
+            }
 
             function run() {
-                var q = input.value.trim().toLowerCase();
+                var q = input ? input.value.trim().toLowerCase() : '';
                 var shown = 0;
                 cards.forEach(function (card) {
                     var t = (card.getAttribute('data-topic') || '').toLowerCase();
@@ -272,11 +304,13 @@
                 if (clear) clear.hidden = !q;
             }
 
-            input.addEventListener('input', run);
-            input.addEventListener('search', run);
+            if (input) {
+                input.addEventListener('input', run);
+                input.addEventListener('search', run);
+            }
             if (clear) clear.addEventListener('click', function () {
-                input.value = '';
-                input.focus();
+                if (input) input.value = '';
+                if (input) input.focus();
                 run();
             });
             // Lightweight analytics for topic clicks: local ring buffer (lossless,

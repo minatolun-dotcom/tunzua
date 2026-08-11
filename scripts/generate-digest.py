@@ -435,7 +435,9 @@ def update_blog_index(items, date_label, day_iso):
     # NOTE: digest cards are tagged data-topic="news" for the topic filter on
     # blog.html. Hand-written evergreen posts must carry their own data-topic
     # (vocabulary: gst | income-tax | payroll | bookkeeping | news) or they will
-    # only appear under "All".
+    # only appear under "All". The chips themselves are built dynamically from
+    # the data-topics present on the page, so a new topic self-registers with
+    # no further edits (same behaviour as the monthly archive template).
     path = os.path.join(ROOT, "blog.html")
     content = read(path)
     card = (
@@ -844,7 +846,8 @@ def update_monthly_archive(day_iso):
     </script>
     <script>
         (function () {{
-            // Keep trackTopic in sync with the copy in blog.html (same logic).
+            // Keep trackTopic and the dynamic chip builder in sync with the
+            // copies in blog.html (same logic).
             function trackTopic(t) {{
                 try {{ if (window.goatcounter && goatcounter.count) goatcounter.count({{ event: true, path: 'topic/' + t }}); }} catch (e) {{}}
                 try {{
@@ -861,7 +864,15 @@ def update_monthly_archive(day_iso):
             var labels = {{ news: 'News', gst: 'GST', 'income-tax': 'Income Tax', payroll: 'Payroll', bookkeeping: 'Bookkeeping' }};
             var seen = {{}};
             cards.forEach(function (c) {{ var t = c.getAttribute('data-topic'); if (t) seen[t] = true; }});
+            // Known topics first (in display order), then any NEW topics found
+            // on the cards — a future post self-registers even outside the
+            // vocabulary above (fallback label: Title Case).
             var topics = order.filter(function (t) {{ return seen[t]; }});
+            Object.keys(seen).sort().forEach(function (t) {{ if (order.indexOf(t) === -1) topics.push(t); }});
+            var labelFor = function (t) {{
+                if (labels[t]) return labels[t];
+                return t.split('-').map(function (w) {{ return w.charAt(0).toUpperCase() + w.slice(1); }}).join(' ');
+            }};
             function makeChip(t, label, active) {{
                 var b = document.createElement('button');
                 b.type = 'button';
@@ -872,7 +883,7 @@ def update_monthly_archive(day_iso):
                 return b;
             }}
             wrap.appendChild(makeChip('all', 'All', true));
-            topics.forEach(function (t) {{ wrap.appendChild(makeChip(t, labels[t] || t, false)); }});
+            topics.forEach(function (t) {{ wrap.appendChild(makeChip(t, labelFor(t), false)); }});
             var current = 'all';
             wrap.addEventListener('click', function (e) {{
                 var chip = e.target.closest('.topic-chip');

@@ -463,3 +463,9 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
 - blog.html: focus-revealed Skip to insights list link (mirrors the global .skip-link, fixed below the navbar) jumping to the newly id="blogList" list section
 - REVIEWER FIX: adding id="blogList" broke update_blog_index literal-prepend marker — generator now anchors on the section tag itself (regression-tested)
 - REVIEWER FIX: .filter-skip now position:fixed below the navbar on focus (was absolute at page top:0, hidden under the fixed navbar)
+
+### August 11, 2026 (dynamic topic chips on blog.html)
+- blog.html topic chips are now DYNAMIC: the static 6-chip row was replaced with an empty #topicChips container; the filter IIFE builds chips from the data-topics actually present on the cards. Known topics first (display order news, gst, income-tax, payroll, bookkeeping), then ANY novel topics appended alphabetically with a Title-Case fallback label — so a new evergreen post with a new data-topic self-registers its chip with zero page edits (proved in test by injecting a data-topic="audit" card: an "Audit" chip appears and filters correctly)
+- Same self-registration logic added to the monthly archive template (scripts/generate-digest.py update_monthly_archive), which previously also filtered strictly by the fixed order list; monthly page regenerated
+- REVIEWER FIX: the chip builder was coupled to the search input (if (!input) return would have killed chips if the search box changed) — removed the early-return, guarded the input listeners instead; chips now build independently (mirrors the monthly page)
+- Gates: browser 11/11 (self-registration incl. Title-Case label, chips==present topics, GST filter, search+topic compose, clear-keeps-topic, empty state, mobile no-overflow), smoke, JS syntax + tags all 16 pages, xbrowser 48/48, generator py-compiles + monthly renders clean JS
