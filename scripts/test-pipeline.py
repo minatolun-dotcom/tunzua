@@ -25,7 +25,6 @@ Exit codes:
 
 import contextlib
 import email.utils
-import importlib.util
 import io
 import json
 import os
@@ -34,27 +33,9 @@ import sys
 import tempfile
 from datetime import datetime, timedelta, timezone
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from _testutil import check, load_generator, verdict
 MARKER = '            <section class="blog-list" data-folio="02" id="blogList">\n'
 ATOM_MARKER = '    <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>\n'
-
-fails = []
-
-
-def check(name, cond, extra=""):
-    print(("ok  : " if cond else "FAIL: ") + name + ((" | " + extra) if extra else ""))
-    if not cond:
-        fails.append(name)
-
-
-def load_generator():
-    spec = importlib.util.spec_from_file_location(
-        "generate_digest", os.path.join(REPO, "scripts", "generate-digest.py")
-    )
-    gd = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(gd)
-    return gd
-
 
 def make_rss(n_items, hours=2):
     """Real RSS XML with n_items fresh, tax-relevant items."""
@@ -184,13 +165,7 @@ def main():
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
-    if fails:
-        print("== pipeline test FAILED ==")
-        for f in fails:
-            print("  FAIL: " + f)
-        return 1
-    print("== pipeline test PASSED ==")
-    return 0
+    return verdict('pipeline test')
 
 
 if __name__ == "__main__":

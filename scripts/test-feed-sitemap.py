@@ -26,38 +26,19 @@ Exit codes:
     1  a check failed
 """
 
-import importlib.util
 import os
 import re
 import shutil
 import sys
 import tempfile
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from _testutil import check, load_generator, verdict
 # Seed this many items ABOVE the cap so the trim math is explicit.
 SEED_OVER = 3
 
 ATOM_MARKER = '    <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>\n'
 FEED_ITEM_RE = r"    <item>.*?</item>\n"
 SITEMAP_DIGEST_RE = r"  <url>\n    <loc>https://tunzua.com/blog/tax-news-digest-[^<]+</loc>.*?</url>\n"
-
-fails = []
-
-
-def check(name, cond, extra=""):
-    print(("ok  : " if cond else "FAIL: ") + name + ((" | " + extra) if extra else ""))
-    if not cond:
-        fails.append(name)
-
-
-def load_generator():
-    spec = importlib.util.spec_from_file_location(
-        "generate_digest", os.path.join(REPO, "scripts", "generate-digest.py")
-    )
-    gd = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(gd)
-    return gd
-
 
 def feed_item(day_iso):
     url = f"https://tunzua.com/blog/tax-news-digest-{day_iso}.html"
@@ -208,13 +189,7 @@ def main():
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
-    if fails:
-        print("== update_feed / update_sitemap test FAILED ==")
-        for f in fails:
-            print("  FAIL: " + f)
-        return 1
-    print("== update_feed / update_sitemap test PASSED ==")
-    return 0
+    return verdict('update_feed / update_sitemap test')
 
 
 if __name__ == "__main__":

@@ -9,6 +9,12 @@ on:
 permissions:
   contents: write
 
+# Never run two digest jobs at once (e.g. a manual dispatch overlapping the
+# scheduled run) — a collision could race the commit/push and lose a digest.
+concurrency:
+  group: daily-digest
+  cancel-in-progress: false
+
 jobs:
   digest:
     runs-on: ubuntu-latest
@@ -18,6 +24,20 @@ jobs:
 
       - name: Install image-render deps (pillow, fonttools, brotli)
         run: pip install --quiet --break-system-packages pillow fonttools brotli
+
+      - name: Sanity check generator before publishing
+        # If a generator edit is broken, fail BEFORE writing a bad commit —
+        # not after CI catches it on the pushed commit. All suites run offline
+        # against temp dirs (no network, repo untouched); the monthly suite's
+        # browser layer skips gracefully when chromium is absent.
+        run: |
+          set -euo pipefail
+          python3 scripts/test-blog-index.py
+          python3 scripts/test-feed-sitemap.py
+          python3 scripts/test-pipeline.py
+          python3 scripts/test-quiet-day.py
+          python3 scripts/test-post-template.py
+          python3 scripts/test-monthly-topics.py
 
       - name: Generate digest (and email the summary to the firm)
         env:
@@ -39,12 +59,40 @@ jobs:
             git config user.email "digest-bot@tunzua.com"
             git add -A
             git commit -m "Publish daily tax news digest ($(date -u +%Y-%m-%d))"
-            git push
-            echo "Pushed digest commit"
+            # A transient push failure (network blip, rate limit) must not
+            # lose the digest: retry a few times, then verify the remote
+            # actually has our commit before calling it done.
+            for attempt in 1 2 3; do
+              # Push the explicit branch: never depends on the local branch
+              # having upstream-tracking configured (plain `git push` would).
+              if GIT_TERMINAL_PROMPT=0 git push origin main 2>/tmp/push.err; then
+                if git fetch -q origin && git merge-base --is-ancestor HEAD origin/main; then
+                  echo "Pushed digest commit (attempt $attempt)"
+                  break
+                fi
+                echo "Push returned success but origin/main is behind HEAD — retrying" >&2
+              else
+                # tail -n2|head -n1 picks the last non-blank stderr line, so
+                # transient failures are diagnosable (tail -1 can be empty).
+                echo "Push attempt $attempt failed: $(tail -n 2 /tmp/push.err | head -n 1)" >&2
+              fi
+              [ "$attempt" -lt 3 ] && sleep 15
+            done
+            # Final verification: fail loudly if the commit still isn't remote.
+            git fetch -q origin || true
+            if git merge-base --is-ancestor HEAD origin/main; then
+              echo "Digest commit confirmed on origin/main"
+            else
+              echo "ERROR: digest commit was not pushed to origin/main" >&2
+              exit 1
+            fi
           else
             echo "No changes — quiet news day or nothing new; skipping push"
           fi
 
       - name: Summarize
+        # Show the tail of the digest log even when an earlier step failed
+        # (e.g. a push that never confirmed), so the failure is diagnosable.
+        if: always()
         run: |
           if [ -f /tmp/digest.log ]; then tail -8 /tmp/digest.log; fi

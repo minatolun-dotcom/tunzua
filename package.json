@@ -6,7 +6,7 @@
   "scripts": {
     "test:smoke": "bash scripts/smoke-test.sh",
     "test:xbrowser": "node scripts/xbrowser.js",
-    "test:generator": "python3 scripts/test-monthly-topics.py && python3 scripts/test-blog-index.py && python3 scripts/test-feed-sitemap.py && python3 scripts/test-pipeline.py && python3 scripts/test-quiet-day.py",
+    "test:generator": "python3 scripts/test-monthly-topics.py && python3 scripts/test-blog-index.py && python3 scripts/test-feed-sitemap.py && python3 scripts/test-pipeline.py && python3 scripts/test-quiet-day.py && python3 scripts/test-post-template.py",
     "test:lighthouse": "bash scripts/lighthouse-ci.sh"
   },
   "devDependencies": {

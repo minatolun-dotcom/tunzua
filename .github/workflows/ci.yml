@@ -36,7 +36,7 @@ jobs:
       - name: Run cross-browser suite (Chromium + Firefox + WebKit)
         run: node scripts/xbrowser.js
 
-      - name: Generator tests (5 suites)
+      - name: Generator tests (6 suites)
         # All run against temp dirs with fixture files and a monkeypatched
         # fetch() where network would be needed — the real repo is never
         # read or written. Monthly self-registration drives the rendered
@@ -46,7 +46,8 @@ jobs:
           python3 scripts/test-blog-index.py && \
           python3 scripts/test-feed-sitemap.py && \
           python3 scripts/test-pipeline.py && \
-          python3 scripts/test-quiet-day.py
+          python3 scripts/test-quiet-day.py && \
+          python3 scripts/test-post-template.py
 
   lighthouse:
     runs-on: ubuntu-latest

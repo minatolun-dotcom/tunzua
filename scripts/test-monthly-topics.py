@@ -23,7 +23,6 @@ Exit codes:
 """
 
 import glob
-import importlib.util
 import os
 import shutil
 import socket
@@ -31,17 +30,8 @@ import subprocess
 import sys
 import tempfile
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from _testutil import REPO, load_generator, verdict
 MONTH = "2026-07"  # a fake month — nothing in the real repo matches this
-
-
-def load_generator():
-    spec = importlib.util.spec_from_file_location(
-        "generate_digest", os.path.join(REPO, "scripts", "generate-digest.py")
-    )
-    gd = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(gd)
-    return gd
 
 
 def fake_digest(day, stories):
@@ -95,6 +85,9 @@ def render_monthly(gd, tmp):
 
 
 def static_checks(html):
+    # This suite deliberately does NOT use _testutil.check(): static_checks and
+    # browser_checks return their own failure lists, which main() combines and
+    # passes to verdict() explicitly.
     fails = []
     checks = [
         ("monthly chips container present", "monthly-topics" in html),
@@ -259,13 +252,7 @@ def main():
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
-    if fails:
-        print("== Monthly topic self-registration test FAILED ==")
-        for f in fails:
-            print("  FAIL: " + f)
-        return 1
-    print("== Monthly topic self-registration test PASSED ==")
-    return 0
+    return verdict("Monthly topic self-registration test", fails)
 
 
 if __name__ == "__main__":

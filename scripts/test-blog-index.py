@@ -24,14 +24,13 @@ Exit codes:
     1  a check failed
 """
 
-import importlib.util
 import os
 import re
 import shutil
 import sys
 import tempfile
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from _testutil import check, load_generator, verdict
 MARKER = '            <section class="blog-list" data-folio="02" id="blogList">\n'
 # Seed this many digests ABOVE MAX_LIST_ITEMS in the trim test (34 total,
 # 33 seeded + 1 prepended -> 4 removed, 06-01..06-04 gone, 06-05 kept).
@@ -39,24 +38,6 @@ SEED_OVER = 3
 # Same pattern the generator uses to recognise cards (with optional attributes,
 # e.g. data-topic="news") — duplicated here for counting in assertions.
 CARD_RE = r'<article class="post-card"[^>]*>.*?</article>\n'
-
-fails = []
-
-
-def check(name, cond, extra=""):
-    print(("ok  : " if cond else "FAIL: ") + name + ((" | " + extra) if extra else ""))
-    if not cond:
-        fails.append(name)
-
-
-def load_generator():
-    spec = importlib.util.spec_from_file_location(
-        "generate_digest", os.path.join(REPO, "scripts", "generate-digest.py")
-    )
-    gd = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(gd)
-    return gd
-
 
 def digest_card(day_iso, stories=5):
     return (
@@ -178,13 +159,7 @@ def main():
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
-    if fails:
-        print("== update_blog_index test FAILED ==")
-        for f in fails:
-            print("  FAIL: " + f)
-        return 1
-    print("== update_blog_index test PASSED ==")
-    return 0
+    return verdict('update_blog_index test')
 
 
 if __name__ == "__main__":
