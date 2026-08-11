@@ -504,3 +504,4 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
 
 ### August 11, 2026 (follow-up: footer analytics link)
 - Added a discreet "Analytics" link to the footer legal row on all four pages (index, blog, privacy, terms) pointing to https://tunzua.goatcounter.com/admin/ (login-protected — visitors see a sign-in page, no data exposed). GoatCounter's "Allow visitor counts" setting is still off, so per-post counters on posts/blog stay blank until enabled; tracking is live and recording
+- GoatCounter "Allow visitor counts" setting enabled by the user (counter API now returns JSON). Noted: GoatCounter returns HTTP 404 with a JSON body for zero-view paths (200 once a page has hits) — the blog.html views widget now parses the body regardless of status so "no views yet" is handled gracefully; chips appear exactly when counts exist. Simulated a page view to verify the tracking pipeline (count endpoint 200)

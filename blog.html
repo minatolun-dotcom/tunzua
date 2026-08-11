@@ -457,8 +457,15 @@
                 function next() {
                     if (i >= jobs.length) return;
                     var job = jobs[i++];
+                    // GoatCounter returns HTTP 404 (still with a JSON body) for
+                    // paths with zero views, switching to 200 once a page has
+                    // hits. We parse the body regardless of status so "no views
+                    // yet" is handled gracefully. (Note: the browser still logs
+                    // the 404 at the network layer — that's GoatCounter's
+                    // zero-view response and clears itself per page as traffic
+                    // arrives; the chips appear exactly when counts exist.)
                     fetch(HOST + encodeURIComponent(job.path) + '.json')
-                        .then(function (r) { if (!r.ok) throw new Error('gc ' + r.status); return r.json(); })
+                        .then(function (r) { return r.json().catch(function () { throw new Error('gc bad json'); }); })
                         .then(function (d) {
                             var raw = d && (d.count || d.count_unique);
                             var n = parseInt(String(raw || '0').replace(/,/g, ''), 10);
@@ -471,7 +478,7 @@
                             chip.title = 'Page views';
                             meta.appendChild(chip);
                         })
-                        .catch(function () { /* GoatCounter off or unreachable — no chip */ })
+                        .catch(function () { /* unreachable/off — no chip */ })
                         .then(next);
                 }
                 // Run up to 4 fetches concurrently, queueing the rest.
