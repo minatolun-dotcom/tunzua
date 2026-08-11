@@ -527,3 +527,9 @@ Per owner decision (Direction A: Swiss/Editorial Minimalist; light-first with fu
 - Registered: 3 blog.html cards (data-topic gst/business/income-tax — all in label maps already), sitemap +3 (23 URLs), feed +3 (18 items)
 - assets/css/blog.css: added .post-body a rule (accent color + underline) so the new inline body links match the design system in both themes
 - Verified: JSON-LD/XML valid, tags balanced, browser render (18 cards, chips correct, TOC 5-6, no overflow, inline links styled light+dark), 6/6 generator suites + smoke pass
+
+### August 11, 2026 (daily-digest subscribe box + schema hours/map)
+- Daily-digest subscribe box ("Get the daily digest by email", FormSubmit.co AJAX -> info@tunzua.com, honeypot _gotcha, inline status) added to ALL 18 blog posts (injected before the related-posts section + handler script before </body>, idempotent script) and to the monthly archive (blog/monthly/2026-08.html)
+- scripts/generate-digest.py: module-level _SUBSCRIBE_HTML / _SUBSCRIBE_JS constants wired into BOTH the build_post_html template (before {related_html} / before </body>) and update_monthly_archive template (before the topic-chips div / before its </body>) so future digests + monthly pages include the box. KEEP-IN-SYNC comment added (blog.html, injected posts, generator constant share the same copy/endpoint). Escapes (\\s, \\. , \\n, \\') verified byte-accurate in the rendered output
+- index.html: LocalBusiness JSON-LD now has openingHoursSpecification (Mon-Sat 09:30-18:00) and hasMap (Google Maps search URL for 53 Dawn School Road, Lailam Veng, Churachandpur)
+- Verified: browser render of post + monthly (box visible both themes, invalid-email validation fires, no page errors), all posts JS/tags clean, 6/6 generator suites + smoke pass

@@ -582,6 +582,73 @@ def _related_html(posts):
     )
 
 
+# Daily-digest subscribe box. KEEP IN SYNC with the copy in blog.html and the
+# injected copy on blog/*.html (same FormSubmit endpoint, copy and honeypot).
+_SUBSCRIBE_HTML = '''
+                <section class="subscribe-box" aria-labelledby="subscribeTitle">
+                    <span class="crop" aria-hidden="true"></span>
+                    <div class="subscribe-copy">
+                        <h2 id="subscribeTitle">Get the daily digest by email</h2>
+                        <p>Every morning at 8 AM, the day's tax and GST stories — tribunal rulings, due dates and compliance changes — in one short email. No spam, unsubscribe anytime.</p>
+                    </div>
+                    <form class="subscribe-form" id="subscribeForm" novalidate>
+                        <label for="subscribeEmail">Your email address</label>
+                        <input type="email" id="subscribeEmail" name="email" placeholder="you@example.com" autocomplete="email" required>
+                        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <button type="submit" class="btn btn-ink">Subscribe</button>
+                    </form>
+                    <p class="subscribe-status" id="subscribeStatus" role="status" aria-live="polite"></p>
+                </section>
+'''
+
+_SUBSCRIBE_JS = '''
+    <script>
+        (function () {
+            var form = document.getElementById('subscribeForm');
+            if (!form) return;
+            var status = document.getElementById('subscribeStatus');
+            var btn = form.querySelector('button[type="submit"]');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (form.querySelector('[name="_gotcha"]').value) return;
+                var email = form.querySelector('[name="email"]');
+                if (!email.value || !/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email.value)) {
+                    status.textContent = 'Please enter a valid email address.';
+                    status.className = 'subscribe-status err';
+                    email.focus();
+                    return;
+                }
+                btn.disabled = true;
+                btn.textContent = 'Subscribing…';
+                var data = {
+                    email: email.value,
+                    subject: 'New digest subscriber: ' + email.value,
+                    message: 'Someone subscribed to the daily tax digest.\\n\\nEmail: ' + email.value,
+                    _captcha: 'false',
+                    _honey: ''
+                };
+                fetch('https://formsubmit.co/ajax/info@tunzua.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    body: JSON.stringify(data)
+                }).then(function (res) {
+                    if (!res.ok) throw new Error('bad response');
+                    status.textContent = 'You\\'re on the list — the next digest lands in your inbox at 8 AM.';
+                    status.className = 'subscribe-status ok';
+                    form.reset();
+                }).catch(function () {
+                    status.textContent = 'Could not subscribe right now — email us at info@tunzua.com and we\\'ll add you.';
+                    status.className = 'subscribe-status err';
+                }).finally(function () {
+                    btn.disabled = false;
+                    btn.textContent = 'Subscribe';
+                });
+            });
+        })();
+    </script>
+'''
+
+
 def _goatcounter_block():
     """GoatCounter tracking + count-display snippet (empty string when disabled)."""
     site = GOATCOUNTER_SITE
@@ -752,6 +819,7 @@ def update_monthly_archive(day_iso):
                 <p class="legal-updated">{len(cards)} digests · {total_stories} stories</p>
             </header>
 
+{_SUBSCRIBE_HTML}
             <div class="topic-chips monthly-topics" role="group" aria-label="Filter insights by topic"></div>
 
             <section class="blog-list" data-folio="02">
@@ -905,6 +973,7 @@ def update_monthly_archive(day_iso):
             }});
         }})();
     </script>
+{_SUBSCRIBE_JS}
 </body>
 </html>
 """
@@ -1080,6 +1149,7 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
                 <div class="note-box">
                     <p><strong>How this digest works:</strong> stories are selected automatically from public RSS feeds (Taxscan, Economic Times, Moneycontrol) and published with links to the original source. The digest is a news roundup, not professional advice — always check the linked source for details, and ask us if a change affects your business.</p>
                 </div>
+{_SUBSCRIBE_HTML}
 {related_html}
                 <div class="share-row">
                     <span class="share-label">Share this insight</span>
@@ -1241,6 +1311,7 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
             }}
         }})();
     </script>
+{_SUBSCRIBE_JS}
 </body>
 </html>
 """
