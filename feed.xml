@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Tue, 25 Aug 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-08-25.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-08-25.html</guid>
+      <pubDate>Tue, 25 Aug 2026 00:00:00 +0000</pubDate>
+      <description>SC Sets Aside HC Interference in Arbitration, Directs Tribunal to Decide Non-Signatory Status (TaxGuru). Madras HC Dismisses GST Appeal, Upholds Rectification of Bona Fide GSTR-1 Errors (TaxGuru). ITAT Mumbai Deletes ₹37.61 Lakh Section 270A Penalty on Charitable Trust with Nil Income (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-25.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-25.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-25.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Mon, 24 Aug 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-08-24.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-08-24.html</guid>
@@ -257,13 +267,6 @@
       <guid>https://tunzua.com/blog/how-to-file-gst-returns-yourself-india.html</guid>
       <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
       <description>A step-by-step guide to the GST portal — monthly vs QRMP, GSTR-2B and the Invoice Management System, late fees, and the mistakes that trigger notices.</description>
-    </item>
-    <item>
-      <title>Business loans for small businesses in India: what banks check and how to qualify (2026)</title>
-      <link>https://tunzua.com/blog/business-loans-for-small-businesses-india.html</link>
-      <guid>https://tunzua.com/blog/business-loans-for-small-businesses-india.html</guid>
-      <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
-      <description>Credit score, GST returns, bank turnover and vintage — plus collateral-free CGTMSE loans up to ₹10 crore and the documents lenders want.</description>
     </item>
   </channel>
 </rss>
