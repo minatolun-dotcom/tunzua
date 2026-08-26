@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Wed, 26 Aug 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-08-26.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-08-26.html</guid>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+      <description>Calcutta HC Permits GST Appeal Under Section 107 Considering Medical Exigencies (TaxGuru). Kerala HC Restores Section 14 SARFAESI Remedy After Borrower Re-enters Secured Asset (TaxGuru). ITAT Bangalore Restores Assessment of 66-Year-Old Blind Taxpayer for Fresh Adjudication (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-26.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-26.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-26.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Tue, 25 Aug 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-08-25.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-08-25.html</guid>
@@ -260,13 +270,6 @@
       <guid>https://tunzua.com/blog/sole-proprietorship-vs-llp-vs-private-limited.html</guid>
       <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
       <description>Liability, tax, audit and annual compliance compared — so you can pick the structure that fits how you plan to run and grow the business.</description>
-    </item>
-    <item>
-      <title>How to file GST returns yourself: GSTR-1 and GSTR-3B explained (2026)</title>
-      <link>https://tunzua.com/blog/how-to-file-gst-returns-yourself-india.html</link>
-      <guid>https://tunzua.com/blog/how-to-file-gst-returns-yourself-india.html</guid>
-      <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
-      <description>A step-by-step guide to the GST portal — monthly vs QRMP, GSTR-2B and the Invoice Management System, late fees, and the mistakes that trigger notices.</description>
     </item>
   </channel>
 </rss>
