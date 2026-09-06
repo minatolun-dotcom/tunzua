@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Sun, 06 Sep 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-09-06.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-06.html</guid>
+      <pubDate>Sun, 06 Sep 2026 00:00:00 +0000</pubDate>
+      <description>PCIT’s “Satisfied” Approval Lacked Application of Mind u/s 151 of Income Tax Act: ITAT Quashes Reassessment [Read Order] (Taxscan). CA, CS, CMA | How Underpriced Audits Weaken Anti-Corruption Controls (TaxGuru). Goods and Services Tax | Why GST Department Targets Buyers Instead of Defaulting Sellers (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-06.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-06.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-06.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Sat, 05 Sep 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-09-05.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-09-05.html</guid>
@@ -293,13 +303,6 @@
       <guid>https://tunzua.com/blog/income-tax-return-dates-ay-2026-27.html</guid>
       <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
       <description>ITR deadlines for individuals, businesses, tax-audit and transfer-pricing cases, plus the tax audit report (3CB/3CD) that must land a month before.</description>
-    </item>
-    <item>
-      <title>GST return due dates for FY 2026-27: a simple calendar</title>
-      <link>https://tunzua.com/blog/gst-return-due-dates-2026-27.html</link>
-      <guid>https://tunzua.com/blog/gst-return-due-dates-2026-27.html</guid>
-      <pubDate>Sun, 09 Aug 2026 00:00:00 +0000</pubDate>
-      <description>GSTR-1, GSTR-3B, QRMP and annual return due dates for FY 2026-27 — including what QRMP means for businesses in Manipur and Mizoram.</description>
     </item>
   </channel>
 </rss>
