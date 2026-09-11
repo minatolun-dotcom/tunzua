@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Fri, 11 Sep 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-09-11.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-11.html</guid>
+      <pubDate>Fri, 11 Sep 2026 00:00:00 +0000</pubDate>
+      <description>LIC Keyman Insurance Maturity Proceeds taxed twice under Salary and Other Sources: ITAT orders fresh computation [Read Order] (Taxscan). Corporate Law | IRDAI Imposes Rs. 1 Crore Penalty on IndusInd Bank for Corporate Agent Regulatory Violations (TaxGuru). Corporate Law | IRDAI Order: ₹1 Crore Penalty on Canara HSBC Life Insurance for Mis-selling to 88-Year-Old (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-11.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-11.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-11.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Thu, 10 Sep 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-09-10.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-09-10.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-13.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-13.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-13.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Wed, 12 Aug 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-08-12.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-08-12.html</guid>
-      <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
-      <description>GST ITC for FY 2018-19 can be availed before Nov 30, 2021 u/s 16(5): Andhra Pradesh HC Quashes Assessment Order [Read Order] (Taxscan). ITAT Chandigarh: PCIT Cannot Invoke Section 263 Merely Over Cryptic Assessment Order (TaxGuru). ITAT Chandigarh Remanded Cash Deposit Additions Over Multiple PAN Issue (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-12.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-12.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-12.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
