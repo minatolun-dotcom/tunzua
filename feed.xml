@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Thu, 17 Sep 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-09-17.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-17.html</guid>
+      <pubDate>Thu, 17 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Microsoft India’s Six-Monthly VAT Return is Legitimate ‘Tax Planning’ within Statute: Bombay HC quashes Interest Levy [Read Order] (Taxscan). CESTAT states Same Amount cannot again be Demanded merely because part of the Reversal produced a Negative Figure in Return [Read Order] (Taxscan). Finance | Why More Than 150,000 Traders in India Are Choosing OneTwoMarkets in 2026 (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-17.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-17.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-17.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Wed, 16 Sep 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-09-16.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-09-16.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-19.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-19.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-19.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Tue, 18 Aug 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-08-18.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-08-18.html</guid>
-      <pubDate>Tue, 18 Aug 2026 00:00:00 +0000</pubDate>
-      <description>ITAT Hyderabad Excludes 6 TP Comparables for Turnover and Functional Differences: Infor India (TaxGuru). ITAT Bangalore Excludes Infosys and 3 Comparables for TP Benchmarking Differences (TaxGuru). ITAT Mumbai Remits TP Issues, Allows Working Capital Adjustment: Red Hat India (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-18.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-18.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-18.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
