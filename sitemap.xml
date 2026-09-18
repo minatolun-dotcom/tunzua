@@ -121,16 +121,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://tunzua.com/blog/tax-news-digest-2026-08-19.html</loc>
-    <image:image>
-      <image:loc>https://tunzua.com/blog/og/tax-news-digest-2026-08-19.png</image:loc>
-      <image:title>Tax news digest — 2026-08-19</image:title>
-    </image:image>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://tunzua.com/blog/tax-news-digest-2026-08-20.html</loc>
     <image:image>
       <image:loc>https://tunzua.com/blog/og/tax-news-digest-2026-08-20.png</image:loc>
@@ -423,6 +413,16 @@
       <image:title>Tax news digest — 2026-09-17</image:title>
     </image:image>
     <lastmod>2026-09-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tunzua.com/blog/tax-news-digest-2026-09-18.html</loc>
+    <image:image>
+      <image:loc>https://tunzua.com/blog/og/tax-news-digest-2026-09-18.png</image:loc>
+      <image:title>Tax news digest — 2026-09-18</image:title>
+    </image:image>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>

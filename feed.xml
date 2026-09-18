@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Fri, 18 Sep 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-09-18.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-18.html</guid>
+      <pubDate>Fri, 18 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Income Tax | Section 148A(b) Notice Without Seven Clear Days Quashed by ITAT Cuttack (TaxGuru). Income Tax | ITAT Surat Restricts Unaccounted Purchase Addition to Profit Under Section 44AD (TaxGuru). Income Tax | ITAT Jaipur Holds Notice Issuance Alone Insufficient Without Proof of Effective Service (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-18.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-18.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-18.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Thu, 17 Sep 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-09-17.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-09-17.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-20.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-20.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-20.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Wed, 19 Aug 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-08-19.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-08-19.html</guid>
-      <pubDate>Wed, 19 Aug 2026 00:00:00 +0000</pubDate>
-      <description>DPDP Act 2023 &amp; Rules 2025: India’s Data Protection Law (TaxGuru). News Report on Arrest Not Criminal Defamation: Kerala HC (TaxGuru). Clearing the Compliance Fog: A Practitioner’s Guide to FAST-DS, 2026 (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-19.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-19.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-19.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
