@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Mon, 21 Sep 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-09-21.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-21.html</guid>
+      <pubDate>Mon, 21 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Income Tax | Assessee’s Non-Compliance Cannot Cure Section 144B Violation: ITAT Mumbai (TaxGuru). Income Tax | Mumbai ITAT Confirms Section 201(1A) Interest and Section 234E Fee for Delayed TDS (TaxGuru). Income Tax | Mumbai ITAT Allows ₹8.80 Crore Section 54F Exemption Despite Wrong Section 54 Claim (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-21.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-21.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-21.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Sun, 20 Sep 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-09-20.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-09-20.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-23.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-23.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-23.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Sat, 22 Aug 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-08-22.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-08-22.html</guid>
-      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
-      <description>Subjective Difference Insufficient for Section 263 Revision: Gujarat HC (TaxGuru). SC Dismisses Section 263 Challenge Where AO Had Conducted Inquiry and Verification (TaxGuru). ITAT Hyderabad Allows Bad Debt Write-Off by Co-operative Bank Despite State Government Guarantee (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-22.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-22.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-22.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
