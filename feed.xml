@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Fri, 25 Sep 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-09-25.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-25.html</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Income Tax | Foreign Tax Credit Put in the Wrong Column, Form 67 Filed Late: ITAT Allows the Claim (TaxGuru). Income Tax | Final 12AB Registration Granted Before CPC Processing Supports Section 11 Exemption: ITAT Bangalore (TaxGuru). Finance | Why Traders Sometimes Enter a Trade Too Late (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-25.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-25.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-25.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Thu, 24 Sep 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-09-24.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-09-24.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-27.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-27.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-27.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Wed, 26 Aug 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-08-26.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-08-26.html</guid>
-      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
-      <description>Calcutta HC Permits GST Appeal Under Section 107 Considering Medical Exigencies (TaxGuru). Kerala HC Restores Section 14 SARFAESI Remedy After Borrower Re-enters Secured Asset (TaxGuru). ITAT Bangalore Restores Assessment of 66-Year-Old Blind Taxpayer for Fresh Adjudication (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-26.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-26.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-26.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
