@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Sun, 27 Sep 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-09-27.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-27.html</guid>
+      <pubDate>Sun, 27 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Income Tax | ₹4.30 Crore Section 69A Addition Restored as CIT(A) Did Not Decide Merits: ITAT Rajkot (TaxGuru). Goods and Services Tax | GST on UPI Payments? Understanding MDR, 18% GST and Who Bears Cost (TaxGuru). Corporate Law | Rule 86B Decoded: 6 Exceptions When 99% ITC Restriction Does Not Apply (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-27.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-27.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-27.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Sat, 26 Sep 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-09-26.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-09-26.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-29.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-29.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-29.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Fri, 28 Aug 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-08-28.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-08-28.html</guid>
-      <pubDate>Fri, 28 Aug 2026 00:00:00 +0000</pubDate>
-      <description>Halwa, Kadha or Tea Can Constitute Charity: ITAT Grants 12AB Registration &amp; 80G Approval (TaxGuru). ITAT Jodhpur Restores Section 12AB Application: CIT(E) Must Specify Deficiencies (TaxGuru). Service Tax Cannot Apply Retrospectively to Pre-2016 Mining Rights: CESTAT Quashes ₹7.14 Cr Service Tax Demand on Subsequent Royalty Payments [Read Order] (Taxscan).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-08-28.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-08-28.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-08-28.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
