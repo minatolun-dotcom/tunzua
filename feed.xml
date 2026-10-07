@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Wed, 07 Oct 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-10-07.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-10-07.html</guid>
+      <pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate>
+      <description>Corporate Law | NCLAT Delhi Upholds ₹1 Crore Claim Based on Consent Terms in CIRP (TaxGuru). Goods and Services Tax | Section 74 GST Cannot Apply Without Fraud or Suppression: Madras HC (TaxGuru). Custom Duty | CESTAT Delhi Allows LDC Customs Exemption Despite DGFT Licence Notification Condition (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-07.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-07.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-07.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Tue, 06 Oct 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-10-06.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-10-06.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-08.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-08.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-08.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Mon, 07 Sep 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-09-07.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-07.html</guid>
-      <pubDate>Mon, 07 Sep 2026 00:00:00 +0000</pubDate>
-      <description>Company Law | Annual ROC Compliance 2026: Beyond AOC-4 and MGT-7 (TaxGuru). Goods and Services Tax | Calcutta HC Allows Extension of ITC Rectification Time Under Section 16(5) (TaxGuru). CA, CS, CMA | CA Association Seeks Extension of Tax Audit and ITR Due Dates for AY 2026-27 (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-07.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-07.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-07.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
