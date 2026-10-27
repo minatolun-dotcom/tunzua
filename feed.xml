@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Tue, 27 Oct 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-10-27.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-10-27.html</guid>
+      <pubDate>Tue, 27 Oct 2026 00:00:00 +0000</pubDate>
+      <description>Goods and Services Tax | Allahabad HC Dismisses PIL Against 18% GST on Online Legal Research Services (TaxGuru). Income Tax | Section 270A Penalty Deleted for Revised R&amp;D Deduction Claim: ITAT Delhi (TaxGuru). Omission of GST Rule 96(10) applies Retrospectively: CBIC Clarifies following Supreme Court Ruling [Read Circular] (Taxscan).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-27.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-27.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-27.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Mon, 26 Oct 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-10-26.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-10-26.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-28.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-28.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-28.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Sun, 27 Sep 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-09-27.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-09-27.html</guid>
-      <pubDate>Sun, 27 Sep 2026 00:00:00 +0000</pubDate>
-      <description>Income Tax | ₹4.30 Crore Section 69A Addition Restored as CIT(A) Did Not Decide Merits: ITAT Rajkot (TaxGuru). Goods and Services Tax | GST on UPI Payments? Understanding MDR, 18% GST and Who Bears Cost (TaxGuru). Corporate Law | Rule 86B Decoded: 6 Exceptions When 99% ITC Restriction Does Not Apply (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-09-27.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-09-27.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-09-27.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
