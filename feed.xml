@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Tue, 03 Nov 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-11-03.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-11-03.html</guid>
+      <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+      <description>GSTN Advisory: New Composition Levy Category Introduced, Category Changes Allowed Through REG-14 (Taxscan). NCLT Admits ₹5.76 Cr Insolvency Plea ; Upholds Loan Authorization Objection No Defence After Loan Acceptance [Read Order] (Taxscan). Non-Filing of Single ER-1 Return due to Portal Glitch Cannot Be Ground to Deny GST Transitional Credit: GSTAT (Taxscan).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-11-03.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-11-03.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-11-03.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Mon, 02 Nov 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-11-02.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-11-02.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-05.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-05.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-05.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Sun, 04 Oct 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-10-04.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-10-04.html</guid>
-      <pubDate>Sun, 04 Oct 2026 00:00:00 +0000</pubDate>
-      <description>NFRA issues 35 Questions for Auditors on Going Concern [Read Report] (Taxscan). Goods and Services Tax | One Master TRN for Multiple States/UTs: Applicability, Procedure, GSTIN &amp; Compliance (TaxGuru). Finance | Top 10 Gold (XAU/USD) Trading Apps in India (2026) (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-04.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-04.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-04.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
