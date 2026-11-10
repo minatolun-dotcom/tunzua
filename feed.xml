@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Tue, 10 Nov 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-11-10.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-11-10.html</guid>
+      <pubDate>Tue, 10 Nov 2026 00:00:00 +0000</pubDate>
+      <description>Corporate Law | Courts Cannot Substitute Their Interpretation for Plausible Arbitral Award: Supreme Court (TaxGuru). Corporate Law | Plausible Arbitral Findings Cannot Be Reappreciated Under Section 37: Supreme Court (TaxGuru). Income Tax | Penalty on Bogus Purchases Upheld Despite Restriction of Addition to 12.5% Profit Element: ITAT Mumbai (TaxGuru).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-11-10.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-11-10.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-11-10.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Mon, 09 Nov 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-11-09.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-11-09.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-12.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-12.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-12.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Sun, 11 Oct 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-10-11.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-10-11.html</guid>
-      <pubDate>Sun, 11 Oct 2026 00:00:00 +0000</pubDate>
-      <description>SEBI | SEBI Certification of Associated Persons Amendment Regulations, 2026 (TaxGuru). Business | Bandra Bay transformation begins with new pedestrian corridor by Godrej Properties (TaxGuru). Goods and Services Tax | GST Implications for Non-RERA Buildings and Micro-JDAs (TaxGuru).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-11.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-11.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-11.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
