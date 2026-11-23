@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Mon, 23 Nov 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-11-23.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-11-23.html</guid>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0000</pubDate>
+      <description>Income Tax | Section 68 Addition Restricted to Actual DEPB Trading Profit: ITAT Delhi (TaxGuru). Income Tax | ITAT Delhi Deletes ₹1.59 Crore Section 57 Disallowance on Tax-Neutral Reclassification (TaxGuru). Agriculturist’s Property purchase from Agri-Income treated as Unexplained: ITAT remands for fresh Adjudication Despite not Filing ITR [Read order] (Taxscan).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-11-23.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-11-23.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-11-23.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Sun, 22 Nov 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-11-22.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-11-22.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-25.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-25.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-25.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Sat, 24 Oct 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-10-24.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-10-24.html</guid>
-      <pubDate>Sat, 24 Oct 2026 00:00:00 +0000</pubDate>
-      <description>Revaluation of Previous Year&#x27;s Assets cannot be Treated as Unexplained Capital in Current Year: ITAT [Read Order] (Taxscan). Business Premises Sealed due to alleged Bill Trading after GST Inspection: Madras HC orders De-sealing within 48 hours [Read Order] (Taxscan). Department Bound to Inform Registered Person of Missing Documents: Gujarat HC Rules Multiple ADT-01 Notices Does Not Invalidate GST Audit [Read Order] (Taxscan).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-24.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-24.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-24.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
