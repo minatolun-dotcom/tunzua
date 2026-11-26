@@ -8,6 +8,16 @@
     <lastBuildDate>Sun, 09 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://tunzua.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Tax news digest — Thu, 26 Nov 2026</title>
+      <link>https://tunzua.com/blog/tax-news-digest-2026-11-26.html</link>
+      <guid>https://tunzua.com/blog/tax-news-digest-2026-11-26.html</guid>
+      <pubDate>Thu, 26 Nov 2026 00:00:00 +0000</pubDate>
+      <description>Income Tax | Section 54B &amp; 54F Exemption: Missing Verification Report Cannot Justify Section 263 Revision (TaxGuru). Income Tax | Receipts Above ₹10 Crore Alone Do Not Trigger Section 44AB Tax Audit: ITAT Chennai (TaxGuru). CBIC&#x27;s 2022 instruction &quot;non-existent&quot; after Delhi HC ruling: Andhra Pradesh HC directs Customs Dept to Grant MOOWR Permissions for Solar Power Generation Projects (Taxscan).</description>
+      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-11-26.png" length="60000" type="image/png"/>
+      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-11-26.png" medium="image" type="image/png" width="1200" height="630"/>
+      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-11-26.png" width="1200" height="630"/>
+    </item>
+    <item>
       <title>Tax news digest — Wed, 25 Nov 2026</title>
       <link>https://tunzua.com/blog/tax-news-digest-2026-11-25.html</link>
       <guid>https://tunzua.com/blog/tax-news-digest-2026-11-25.html</guid>
@@ -296,16 +306,6 @@
       <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-28.png" length="60000" type="image/png"/>
       <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-28.png" medium="image" type="image/png" width="1200" height="630"/>
       <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-28.png" width="1200" height="630"/>
-    </item>
-    <item>
-      <title>Tax news digest — Tue, 27 Oct 2026</title>
-      <link>https://tunzua.com/blog/tax-news-digest-2026-10-27.html</link>
-      <guid>https://tunzua.com/blog/tax-news-digest-2026-10-27.html</guid>
-      <pubDate>Tue, 27 Oct 2026 00:00:00 +0000</pubDate>
-      <description>Goods and Services Tax | Allahabad HC Dismisses PIL Against 18% GST on Online Legal Research Services (TaxGuru). Income Tax | Section 270A Penalty Deleted for Revised R&amp;D Deduction Claim: ITAT Delhi (TaxGuru). Omission of GST Rule 96(10) applies Retrospectively: CBIC Clarifies following Supreme Court Ruling [Read Circular] (Taxscan).</description>
-      <enclosure url="https://tunzua.com/blog/og/tax-news-digest-2026-10-27.png" length="60000" type="image/png"/>
-      <media:content url="https://tunzua.com/blog/og/tax-news-digest-2026-10-27.png" medium="image" type="image/png" width="1200" height="630"/>
-      <media:thumbnail url="https://tunzua.com/blog/og/tax-news-digest-2026-10-27.png" width="1200" height="630"/>
     </item>
   </channel>
 </rss>
