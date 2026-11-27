@@ -187,7 +187,15 @@ def load_state():
     return {"published": []}
 
 
+# Dedup history cap: the state only needs to cover the freshness window
+# (48h) plus a safety margin; keeping every GUID ever seen made the file
+# grow unbounded (~460 KB after ~4 months).
+MAX_STATE_GUIDS = 500
+
+
 def save_state(state):
+    if len(state.get("published", [])) > MAX_STATE_GUIDS:
+        state["published"] = sorted(state["published"])[-MAX_STATE_GUIDS:]
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2)
         f.write("\n")
@@ -252,6 +260,9 @@ def send_weekly_recap():
     Returns True on success.
     """
     now = datetime.now(timezone.utc)
+    if now.weekday() != 6:
+        print(f"[weekly] not Sunday (UTC) — recap is Sunday-only, skipping.")
+        return False
     cutoff = now - timedelta(days=7)
     try:
         tree = ET.parse(os.path.join(ROOT, "feed.xml"))
@@ -471,7 +482,7 @@ def update_blog_index(items, date_label, day_iso):
     write(path, content)
 
 
-def update_feed(items, date_label, day_iso):
+def update_feed(items, date_label, day_iso, og_size=None):
     """Prepend a digest item to feed.xml right after the atom:link line."""
     path = os.path.join(ROOT, "feed.xml")
     content = read(path)
@@ -486,7 +497,7 @@ def update_feed(items, date_label, day_iso):
         f"      <pubDate>{rss_date(pub)}</pubDate>\n"
         f"      <description>{esc(descriptions)}</description>\n"
         # RSS 2.0 enclosure + mrss media:content so feed readers display the OG card
-        f"      <enclosure url=\"{esc(og_url)}\" length=\"60000\" type=\"image/png\"/>\n"
+        f"      <enclosure url=\"{esc(og_url)}\" length=\"{og_size or 60000}\" type=\"image/png\"/>\n"
         f"      <media:content url=\"{esc(og_url)}\" medium=\"image\" type=\"image/png\" width=\"1200\" height=\"630\"/>\n"
         f"      <media:thumbnail url=\"{esc(og_url)}\" width=\"1200\" height=\"630\"/>\n"
         "    </item>\n"
@@ -750,8 +761,8 @@ def update_monthly_archive(day_iso):
     <meta name="twitter:image" content="https://tunzua.com/og-image.png">
 
     <!-- Brand fonts (self-hosted) -->
-    <link rel="preload" href="../../assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+    <link rel="preload" href="../../assets/fonts/ibm-plex-mono-500-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="../../assets/css/fonts.css">
     <link rel="stylesheet" href="../../assets/css/legal.css">
     <link rel="stylesheet" href="../../assets/css/blog.css">
@@ -769,12 +780,12 @@ def update_monthly_archive(day_iso):
     </script>
 
     <!-- Browser chrome matches the paper background -->
-    <meta name="theme-color" content="#f5f2ea">
+    <meta name="theme-color" content="#ffffff">
     <script>
         (function () {{
             var m = document.querySelector('meta[name="theme-color"]');
             if (!m) return;
-            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
         }})();
     </script>
 </head>
@@ -798,7 +809,6 @@ def update_monthly_archive(day_iso):
                 <img src="../../assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
                 <span class="brand-text">Tunzua<small>Consultancy</small></span>
             </a>
-            <span class="sec-counter" id="secCounter" aria-hidden="true">00</span>
             <div class="nav-actions">
                 <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
                     <svg class="fa-svg" id="sunIcon"><use href="#sun"></use></svg>
@@ -881,36 +891,11 @@ def update_monthly_archive(day_iso):
     </script>
     <script>
         (function () {{
-            var c = document.getElementById('secCounter');
-            if (!c) return;
-            var secs = document.querySelectorAll('main [data-folio]');
-            if (!secs.length) return;
-            var ticking = false;
-            function upd() {{
-                ticking = false;
-                var cur = secs[0].getAttribute('data-folio');
-                if (window.scrollY >= 2) {{
-                    for (var i = secs.length - 1; i >= 0; i--) {{
-                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {{
-                            cur = secs[i].getAttribute('data-folio');
-                            break;
-                        }}
-                    }}
-                }}
-                if (c.textContent !== cur) c.textContent = cur;
-            }}
-            function onScroll() {{ if (!ticking) {{ ticking = true; requestAnimationFrame(upd); }} }}
-            window.addEventListener('scroll', onScroll, {{ passive: true }});
-            upd();
-        }})();
-    </script>
-    <script>
-        (function () {{
             var m = document.querySelector('meta[name="theme-color"]');
             var t = document.getElementById('themeToggle');
             if (!m || !t) return;
             t.addEventListener('click', function () {{
-                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
             }});
         }})();
     </script>
@@ -983,6 +968,36 @@ def update_monthly_archive(day_iso):
     _ensure_sitemap_monthly(month, day_iso)
 
 
+def prune_old_og(days=60):
+    """Delete per-post OG images older than `days` and repoint the matching
+    post's og:image/twitter:image to the generic og-image.png. The feed and
+    sitemap keep only the newest 30 digests, so 60 days is safely beyond
+    every still-referenced image. Never raises; returns the count pruned."""
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%d")
+    og_dir = os.path.join(ROOT, "blog", "og")
+    if not os.path.isdir(og_dir):
+        return 0
+    pruned = 0
+    for name in sorted(os.listdir(og_dir)):
+        m = re.match(r"tax-news-digest-(\d{4}-\d{2}-\d{2})\.png$", name)
+        if not m or m.group(1) >= cutoff:
+            continue
+        day = m.group(1)
+        post_path = os.path.join(ROOT, "blog", f"tax-news-digest-{day}.html")
+        if os.path.exists(post_path):
+            txt = read(post_path)
+            txt = txt.replace(f"https://tunzua.com/blog/og/{name}", "https://tunzua.com/og-image.png")
+            write(post_path, txt)
+        try:
+            os.remove(os.path.join(og_dir, name))
+            pruned += 1
+        except OSError:
+            pass
+    if pruned:
+        print(f"[og] pruned {pruned} OG images older than {days} days (posts repointed to og-image.png)")
+    return pruned
+
+
 def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     """Generate the digest post HTML file (mirrors the site's post template)."""
     og_image = og_image or "https://tunzua.com/og-image.png"
@@ -1002,6 +1017,9 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     if len(first_short) > 96:
         first_short = first_short[:93].rsplit(" ", 1)[0] + "…"
     desc = f"Today's Indian tax and GST news roundup — {len(items)} stories including “{first_short}” — curated from verified sources with links."
+    # JSON-LD needs a real JSON string literal (esc() alone would not escape
+    # backslashes, breaking the script block on headlines containing one).
+    ld_desc = json.dumps(desc)
 
     related_html = _related_html(_related_posts(day_iso, limit=3))
     gc_block = _goatcounter_block()
@@ -1044,7 +1062,7 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": "Tax news digest — {esc(date_label)}",
-        "description": "{esc(desc)}",
+        "description": {ld_desc},
         "datePublished": "{day_iso}",
         "dateModified": "{day_iso}",
         "author": {{ "@type": "Organization", "name": "Tunzua Consultancy", "url": "https://tunzua.com" }},
@@ -1054,8 +1072,8 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     </script>
 
     <!-- Brand fonts (self-hosted) -->
-    <link rel="preload" href="../assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+    <link rel="preload" href="../assets/fonts/ibm-plex-mono-500-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="../assets/css/fonts.css">
     <link rel="stylesheet" href="../assets/css/legal.css">
     <link rel="stylesheet" href="../assets/css/blog.css">
@@ -1073,12 +1091,12 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     </script>
 
     <!-- Browser chrome matches the paper background -->
-    <meta name="theme-color" content="#f5f2ea">
+    <meta name="theme-color" content="#ffffff">
     <script>
         (function () {{
             var m = document.querySelector('meta[name="theme-color"]');
             if (!m) return;
-            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
         }})();
     </script>
 </head>
@@ -1096,15 +1114,12 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
     <symbol id="arrow-left" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" transform="translate(448 0) scale(-1 1)"/></symbol>
     </svg>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
-
     <nav class="navbar">
         <div class="wrap navbar-inner">
             <a href="../index.html" class="brand">
                 <img src="../assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
                 <span class="brand-text">Tunzua<small>Consultancy</small></span>
             </a>
-            <span class="sec-counter" id="secCounter" aria-hidden="true">00</span>
             <div class="nav-actions">
                 <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
                     <svg class="fa-svg" id="sunIcon"><use href="#sun"></use></svg>
@@ -1213,31 +1228,6 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
             }});
         }})();
     </script>
-    <script>
-        (function () {{
-            var c = document.getElementById('secCounter');
-            if (!c) return;
-            var secs = document.querySelectorAll('main [data-folio]');
-            if (!secs.length) return;
-            var ticking = false;
-            function upd() {{
-                ticking = false;
-                var cur = secs[0].getAttribute('data-folio');
-                if (window.scrollY >= 2) {{
-                    for (var i = secs.length - 1; i >= 0; i--) {{
-                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {{
-                            cur = secs[i].getAttribute('data-folio');
-                            break;
-                        }}
-                    }}
-                }}
-                if (c.textContent !== cur) c.textContent = cur;
-            }}
-            function onScroll() {{ if (!ticking) {{ ticking = true; requestAnimationFrame(upd); }} }}
-            window.addEventListener('scroll', onScroll, {{ passive: true }});
-            upd();
-        }})();
-    </script>
 {gc_block}
     <script>
         (function () {{
@@ -1245,23 +1235,12 @@ def build_post_html(items, date_label, day_iso, date_long, og_image=None):
             var t = document.getElementById('themeToggle');
             if (!m || !t) return;
             t.addEventListener('click', function () {{
-                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
             }});
         }})();
     </script>
     <script>
         (function () {{
-            var sp = document.getElementById('scrollProgress');
-            if (sp) {{
-                var spTicking = false;
-                function updP() {{
-                    spTicking = false;
-                    var dh = document.documentElement.scrollHeight - window.innerHeight;
-                    sp.style.width = (dh > 0 ? Math.min(window.scrollY / dh, 1) * 100 : 0) + '%';
-                }}
-                window.addEventListener('scroll', function () {{ if (!spTicking) {{ spTicking = true; requestAnimationFrame(updP); }} }}, {{ passive: true }});
-                updP();
-            }}
             var toc = document.getElementById('toc');
             if (toc) {{
                 var art = document.querySelector('.post-body');
@@ -1355,8 +1334,8 @@ def main():
             for it in parse_items(data):
                 if not it["title"] or not it["link"]:
                     continue
-                if it["date"] and it["date"] < cutoff:
-                    continue  # stale
+                if not it["date"] or it["date"] < cutoff:
+                    continue  # stale, or undated (freshness unverifiable)
                 if not is_tax_relevant(it):
                     continue
                 guid = hashlib.sha1(it["link"].encode()).hexdigest()
@@ -1410,9 +1389,11 @@ def main():
 
     write(post_path, post_html)
     update_blog_index(new_items, date_label, day_iso)
-    update_feed(new_items, date_label, day_iso)
+    og_size = os.path.getsize(os.path.join(ROOT, "blog", "og", f"tax-news-digest-{day_iso}.png")) if og_image else None
+    update_feed(new_items, date_label, day_iso, og_size=og_size)
     update_sitemap(day_iso)
     update_monthly_archive(day_iso)
+    prune_old_og()
     state["published"] = sorted(seen_links)
     save_state(state)
     print(f"Wrote {post_path}")

@@ -24,8 +24,9 @@
     <meta name="twitter:image" content="https://tunzua.com/og-image.png">
 
     <!-- Brand fonts (self-hosted) -->
-    <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+    <link rel="preload" href="assets/fonts/inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/ibm-plex-mono-500-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/css/fonts.css">
     <link rel="stylesheet" href="assets/css/legal.css">
 
@@ -42,12 +43,12 @@
     </script>
 
     <!-- Browser chrome matches the paper background -->
-    <meta name="theme-color" content="#f5f2ea">
+    <meta name="theme-color" content="#ffffff">
     <script>
         (function () {
             var m = document.querySelector('meta[name="theme-color"]');
             if (!m) return;
-            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
         })();
     </script>
 </head>
@@ -259,7 +260,7 @@
             var t = document.getElementById('themeToggle');
             if (!m || !t) return;
             t.addEventListener('click', function () {
-                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
             });
         })();
     </script>

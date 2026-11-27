@@ -15,13 +15,13 @@
     <meta property="og:description" content="Today&#x27;s Indian tax and GST news roundup — 12 stories including “Corporate Law | Bombay HC Upholds IBBI Regulation 31A Levying Regulatory Fee in CIRP” — curated from verified sources with links.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://tunzua.com/blog/tax-news-digest-2026-09-02.html">
-    <meta property="og:image" content="https://tunzua.com/blog/og/tax-news-digest-2026-09-02.png">
+    <meta property="og:image" content="https://tunzua.com/og-image.png">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tax news digest — Wed, 02 Sep 2026 | Tunzua Consultancy">
     <meta name="twitter:description" content="Today&#x27;s Indian tax and GST news roundup — 12 stories including “Corporate Law | Bombay HC Upholds IBBI Regulation 31A Levying Regulatory Fee in CIRP” — curated from verified sources with links.">
-    <meta name="twitter:image" content="https://tunzua.com/blog/og/tax-news-digest-2026-09-02.png">
+    <meta name="twitter:image" content="https://tunzua.com/og-image.png">
 
     <!-- Schema.org: BlogPosting -->
     <script type="application/ld+json">
@@ -39,8 +39,6 @@
     </script>
 
     <!-- Brand fonts (self-hosted) -->
-    <link rel="preload" href="../assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="../assets/css/fonts.css">
     <link rel="stylesheet" href="../assets/css/legal.css">
     <link rel="stylesheet" href="../assets/css/blog.css">
@@ -81,7 +79,6 @@
     <symbol id="arrow-left" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" transform="translate(448 0) scale(-1 1)"/></symbol>
     </svg>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
 
     <nav class="navbar">
         <div class="wrap navbar-inner">
@@ -89,7 +86,6 @@
                 <img src="../assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
                 <span class="brand-text">Tunzua<small>Consultancy</small></span>
             </a>
-            <span class="sec-counter" id="secCounter" aria-hidden="true">00</span>
             <div class="nav-actions">
                 <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
                     <svg class="fa-svg" id="sunIcon"><use href="#sun"></use></svg>
@@ -290,31 +286,6 @@
             });
         })();
     </script>
-    <script>
-        (function () {
-            var c = document.getElementById('secCounter');
-            if (!c) return;
-            var secs = document.querySelectorAll('main [data-folio]');
-            if (!secs.length) return;
-            var ticking = false;
-            function upd() {
-                ticking = false;
-                var cur = secs[0].getAttribute('data-folio');
-                if (window.scrollY >= 2) {
-                    for (var i = secs.length - 1; i >= 0; i--) {
-                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
-                            cur = secs[i].getAttribute('data-folio');
-                            break;
-                        }
-                    }
-                }
-                if (c.textContent !== cur) c.textContent = cur;
-            }
-            function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
-            window.addEventListener('scroll', onScroll, { passive: true });
-            upd();
-        })();
-    </script>
 
     <script data-goatcounter="https://tunzua.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <script>
@@ -341,17 +312,6 @@
     </script>
     <script>
         (function () {
-            var sp = document.getElementById('scrollProgress');
-            if (sp) {
-                var spTicking = false;
-                function updP() {
-                    spTicking = false;
-                    var dh = document.documentElement.scrollHeight - window.innerHeight;
-                    sp.style.width = (dh > 0 ? Math.min(window.scrollY / dh, 1) * 100 : 0) + '%';
-                }
-                window.addEventListener('scroll', function () { if (!spTicking) { spTicking = true; requestAnimationFrame(updP); } }, { passive: true });
-                updP();
-            }
             var toc = document.getElementById('toc');
             if (toc) {
                 var art = document.querySelector('.post-body');

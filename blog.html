@@ -25,8 +25,9 @@
     <meta name="twitter:image" content="https://tunzua.com/og-image.png">
 
     <!-- Brand fonts (self-hosted) -->
-    <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+    <link rel="preload" href="assets/fonts/inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/ibm-plex-mono-500-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/css/fonts.css">
     <link rel="stylesheet" href="assets/css/legal.css">
     <link rel="stylesheet" href="assets/css/blog.css">
@@ -43,12 +44,12 @@
         })();
     </script>
     <!-- Browser chrome matches the paper background -->
-    <meta name="theme-color" content="#f5f2ea">
+    <meta name="theme-color" content="#ffffff">
     <script>
         (function () {
             var m = document.querySelector('meta[name="theme-color"]');
             if (!m) return;
-            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
         })();
     </script>
 </head>
@@ -74,7 +75,6 @@
                 <img src="assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
                 <span class="brand-text">Tunzua<small>Consultancy</small></span>
             </a>
-            <span class="sec-counter" id="secCounter" aria-hidden="true">00</span>
             <div class="nav-actions">
                 <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
                     <svg class="fa-svg" id="sunIcon"><use href="#sun"></use></svg>
@@ -89,9 +89,8 @@
     <main class="legal-main" id="main-content">
         <div class="wrap legal-wrap">
             <header class="legal-hero" data-ghost="01" data-folio="01">
-                <p class="legal-eyebrow">Tunzua Consultancy — Insights</p>
                 <h1 class="legal-title">Notes from the ledger.</h1>
-                <p class="legal-updated">Practical compliance, bookkeeping &amp; tax notes for businesses across Manipur and Mizoram. <a class="rss-link" href="feed.xml">Subscribe via RSS</a></p>
+                <p class="legal-updated">Tunzua Consultancy — Insights. Practical compliance, bookkeeping &amp; tax notes for businesses across Manipur and Mizoram. <a class="rss-link" href="feed.xml">Subscribe via RSS</a></p>
             </header>
 
             <section class="subscribe-box" aria-labelledby="subscribeTitle">
@@ -651,7 +650,7 @@
             var t = document.getElementById('themeToggle');
             if (!m || !t) return;
             t.addEventListener('click', function () {
-                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+                m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
             });
         })();
     </script>

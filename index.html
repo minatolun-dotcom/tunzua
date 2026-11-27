@@ -175,10 +175,9 @@
     </script>
 
     <!-- Brand fonts (self-hosted) -->
-    <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
-    <link rel="preload" href="assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/inter-500-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/inter-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+    <link rel="preload" href="assets/fonts/inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/ibm-plex-mono-500-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/css/fonts.css">
 
     <!-- Apply saved theme before first paint (prevents dark-mode flash) -->
@@ -196,17 +195,16 @@
     <link rel="stylesheet" href="assets/css/home.css">
 
     <!-- Browser chrome matches the paper background (kept in sync with theme) -->
-    <meta name="theme-color" content="#f5f2ea">
+    <meta name="theme-color" content="#ffffff">
     <script>
         (function () {
             var m = document.querySelector('meta[name="theme-color"]');
             if (!m) return;
-            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#15130f' : '#f5f2ea');
+            m.setAttribute('content', document.documentElement.classList.contains('dark') ? '#0c0e12' : '#ffffff');
         })();
     </script>
 </head>
 <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <!-- Icon sprite (local, replaces Font Awesome CDN) -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
@@ -341,833 +339,494 @@
     <symbol id="youtube" viewBox="0 0 576 512">
 <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/>
 </symbol>
-    </svg>
+        <symbol id="bars" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></symbol>
+</svg>
 
-    <!-- Scroll progress -->
-    <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="wrap navbar-inner">
-            <div class="nav-left">
-                <a href="#home" class="brand">
-                    <img src="assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
-                    <span class="brand-text">Tunzua<small>Consultancy</small></span>
-                </a>
-                <span class="sec-counter" id="secCounter" aria-hidden="true">00</span>
-            </div>
-            <div class="nav-links">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#tally" class="nav-link">Tally Prime</a>
-                <a href="#pricing" class="nav-link">Pricing</a>
-                <a href="#clients" class="nav-link">Clients</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-            <div class="nav-actions">
-                <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
+
+    <!-- ================= NAV ================= -->
+    <header class="nav" id="navbar">
+        <div class="nav-inner">
+            <a class="brand" href="index.html" aria-label="Tunzua Consultancy — home">
+                <img src="assets/images/logo.png" alt="" width="34" height="34">
+                <span><span class="brand-name">Tunzua</span><span class="brand-sub">Consultancy</span></span>
+            </a>
+            <nav class="nav-links" aria-label="Primary">
+                <a href="#services">Services</a>
+                <a href="#tally">Tally Prime</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#insights">Insights</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="nav-cta">
+                <button id="themeToggle" class="theme-btn" aria-label="Toggle dark theme">
                     <svg class="fa-svg" id="sunIcon"><use href="#sun"></use></svg>
                     <svg class="fa-svg hidden" id="moonIcon"><use href="#moon"></use></svg>
                 </button>
-                <a href="#contact" class="btn btn-ink" style="padding: 10px 20px;">Get Started</a>
-                <button class="hamburger md:hidden" id="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMobile()">
-                    <span></span><span></span><span></span>
+                <a class="btn btn-sm" href="#contact">Get Started</a>
+                <button class="menu-btn" id="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+                    <svg class="fa-svg" id="menuOpen"><use href="#bars"></use></svg>
                 </button>
             </div>
         </div>
-    </nav>
+        <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+            <a href="#services">Services</a>
+            <a href="#tally">Tally Prime</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#insights">Insights</a>
+            <a href="#contact">Contact</a>
+            <a class="mm-cta" href="#contact">Get Started</a>
+        </nav>
+    </header>
 
-    <!-- Mobile menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#home" class="mobile-link" onclick="closeMobile()">Home</a>
-        <a href="#services" class="mobile-link" onclick="closeMobile()">Services</a>
-        <a href="#tally" class="mobile-link" onclick="closeMobile()">Tally Prime</a>
-        <a href="#pricing" class="mobile-link" onclick="closeMobile()">Pricing</a>
-        <a href="#clients" class="mobile-link" onclick="closeMobile()">Clients</a>
-        <a href="#about" class="mobile-link" onclick="closeMobile()">About</a>
-        <a href="#contact" class="mobile-link" onclick="closeMobile()">Contact</a>
-        <a href="blog.html" onclick="closeMobile()">Insights</a>
-        <a href="#contact" class="btn btn-ink" onclick="closeMobile()">Get Started</a>
+    <!-- ================= COMPLIANCE TICKER ================= -->
+    <div class="ticker" role="note" aria-label="Statutory due dates. Full calendar: upcoming GST, TDS, PF, advance tax and return deadlines.">
+        <div class="ticker-track" aria-hidden="true">
+            <span class="ticker-item"><span class="d">GSTR-1</span> due 11th monthly</span>
+            <span class="ticker-item"><span class="d">GSTR-3B</span> due 20th monthly</span>
+            <span class="ticker-item"><span class="d">TDS deposit</span> due 7th monthly</span>
+            <span class="ticker-item"><span class="d">PF &amp; ESI</span> due 15th monthly</span>
+            <span class="ticker-item"><span class="d">Advance tax</span> 15 Jun · Sep · Dec · Mar</span>
+            <span class="ticker-item"><span class="d">ITR non-audit</span> due 31 Jul</span>
+            <span class="ticker-item"><span class="d">Tax audit report</span> due 30 Sep</span>
+            <span class="ticker-item"><span class="d">GSTR-9 annual return</span> due 31 Dec</span>
+            <span class="ticker-item"><span class="d">GSTR-1</span> due 11th monthly</span>
+            <span class="ticker-item"><span class="d">GSTR-3B</span> due 20th monthly</span>
+            <span class="ticker-item"><span class="d">TDS deposit</span> due 7th monthly</span>
+            <span class="ticker-item"><span class="d">PF &amp; ESI</span> due 15th monthly</span>
+            <span class="ticker-item"><span class="d">Advance tax</span> 15 Jun · Sep · Dec · Mar</span>
+            <span class="ticker-item"><span class="d">ITR non-audit</span> due 31 Jul</span>
+            <span class="ticker-item"><span class="d">Tax audit report</span> due 30 Sep</span>
+            <span class="ticker-item"><span class="d">GSTR-9 annual return</span> due 31 Dec</span>
+        </div>
     </div>
 
     <main id="main-content">
-        <!-- ============ HERO ============ -->
-        <section id="home" class="hero" data-ghost="00">
-            <span class="hero-ghost" data-ghost="00" aria-hidden="true"></span>
+
+        <!-- ================= HERO ================= -->
+        <section class="hero" id="home">
             <div class="wrap">
                 <div class="hero-grid">
-                    <div class="hero-in">
-                        <span class="eyebrow">Accounting · Taxation · Tally Prime</span>
-                        <h1 class="display-xl font-display">Numbers,<br>handled with <span class="italic-accent">clarity.</span></h1>
-                        <p class="body-lg hero-sub">Expert GST filing, taxation, bookkeeping, payroll and Tally Prime solutions for modern Indian businesses. We keep the books — you keep growing.</p>
+                    <div>
+                        <h1>Books. Balanced.<br><span class="accent">Every time.</span></h1>
+                        <p class="hero-copy">Expert GST filing, taxation, bookkeeping, payroll and Tally Prime solutions for modern Indian businesses. We keep the books — you keep growing.</p>
                         <div class="hero-ctas">
-                            <a href="#contact" class="btn btn-ink">Get Started</a>
-                            <a href="#services" class="btn btn-outline">Explore Services</a>
+                            <a class="btn" href="#contact">Get Started</a>
+                            <a class="btn-line" href="#services">Explore Services</a>
                         </div>
                     </div>
-
-                    <aside class="hero-ledger" aria-label="Tunzua at a glance">
-                        <span class="crop" aria-hidden="true"></span>
-                        <div class="ledger-head">
-                            <span class="ledger-title">Statement</span>
-                            <span class="ledger-period">Est. 2008</span>
-                        </div>
-                        <div class="ledger-row">
-                            <span class="lbl">Businesses served</span>
-                            <span class="val"><span class="counter" data-target="100">0</span>+</span>
-                        </div>
-                        <div class="ledger-row">
-                            <span class="lbl">Years experience</span>
-                            <span class="val"><span class="counter" data-target="15">0</span>+</span>
-                        </div>
-                        <div class="ledger-row">
-                            <span class="lbl">Client satisfaction</span>
-                            <span class="val"><span class="counter" data-target="99">0</span>%</span>
-                        </div>
-                        <div class="ledger-foot">
-                            <span>Client-first, always</span>
-                            <span class="ledger-total">Balanced</span>
-                        </div>
-                    </aside>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ CLIENT STRIP ============ -->
-        <section id="clients" class="client-strip">
-            <div class="wrap">
-                <p class="micro" style="text-align: center; margin-bottom: 22px;">Trusted by local businesses across India</p>
-            </div>
-            <div class="marquee">
-                <div class="marquee-track" style="animation-duration: 30s;">
-                    <!-- eager (no lazy): the track animates, so lazy-loading lets logos flicker/never load as they drift in/out of view -->
-                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-0.svg" alt="Green Hills Agro"></div></div>
-                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-1.svg" alt="Tunnu Eatery"></div></div>
-                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-2.svg" alt="Grace Dental"></div></div>
-                    <div class="marquee-item"><div class="logo-chip"><img src="assets/images/client-3.svg" alt="Tunnu School of Nursing"></div></div>
-                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-0.svg" alt="" aria-hidden="true"></div></div>
-                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-1.svg" alt="" aria-hidden="true"></div></div>
-                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-2.svg" alt="" aria-hidden="true"></div></div>
-                    <div class="marquee-item" aria-hidden="true"><div class="logo-chip"><img src="assets/images/client-3.svg" alt="" aria-hidden="true"></div></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ SERVICES ============ -->
-        <section id="services" class="section" data-ghost="01">
-            <div class="wrap">
-                <div class="section-head split">
-                    <div>
-                        <span class="section-index reveal">01 — Services</span>
-                        <h2 class="display-lg font-display reveal" style="margin-top: 14px;">Everything your business<br>needs, in one place.</h2>
-                    </div>
-                    <p class="body-md reveal-right">Comprehensive financial solutions tailored to streamline operations and accelerate growth — from daily bookkeeping to strategic planning.</p>
-                </div>
-
-                <div class="svc-list">
-                    <div class="svc-row reveal">
-                        <span class="idx">01</span>
-                        <span class="ic"><svg class="fa-svg"><use href="#book"></use></svg></span>
-                        <div>
-                            <h3>Bookkeeping &amp; Accounting</h3>
-                            <p>Maintain crystal-clear financial records with professional bookkeeping — from daily transactions to complex reconciliations, audit-ready at all times.</p>
-                        </div>
-                        <div class="tags"><span class="tag">Day Book</span><span class="tag">Ledger</span><span class="tag">Reconciliation</span><span class="tag">Reports</span></div>
-                    </div>
-                    <div class="svc-row reveal">
-                        <span class="idx">02</span>
-                        <span class="ic"><svg class="fa-svg"><use href="#file-invoice-dollar"></use></svg></span>
-                        <div>
-                            <h3>GST Filing</h3>
-                            <p>GSTR-1, GSTR-3B, annual returns — timely and accurate filing with full reconciliation support.</p>
-                        </div>
-                        <div class="tags"><span class="tag">GSTR-1</span><span class="tag">GSTR-3B</span><span class="tag">Annual</span></div>
-                    </div>
-                    <div class="svc-row reveal">
-                        <span class="idx">03</span>
-                        <span class="ic"><svg class="fa-svg"><use href="#calculator"></use></svg></span>
-                        <div>
-                            <h3>Income Tax</h3>
-                            <p>ITR filing, tax planning, and optimization for businesses and individuals.</p>
-                        </div>
-                        <div class="tags"><span class="tag">ITR</span><span class="tag">Planning</span><span class="tag">Optimization</span></div>
-                    </div>
-                    <div class="svc-row reveal">
-                        <span class="idx">04</span>
-                        <span class="ic"><svg class="fa-svg"><use href="#boxes-stacked"></use></svg></span>
-                        <div>
-                            <h3>Inventory &amp; Stock</h3>
-                            <p>Stock tracking, valuation reports, and optimization with clean ledger integration.</p>
-                        </div>
-                        <div class="tags"><span class="tag">Tracking</span><span class="tag">Valuation</span><span class="tag">Ledger</span></div>
-                    </div>
-                    <div class="svc-row reveal">
-                        <span class="idx">05</span>
-                        <span class="ic"><svg class="fa-svg"><use href="#users"></use></svg></span>
-                        <div>
-                            <h3>Payroll Management</h3>
-                            <p>PF, ESI, TDS deductions and compliance management, handled end-to-end.</p>
-                        </div>
-                        <div class="tags"><span class="tag">PF</span><span class="tag">ESI</span><span class="tag">TDS</span></div>
-                    </div>
-                    <div class="svc-row reveal">
-                        <span class="idx">06</span>
-                        <span class="ic"><svg class="fa-svg"><use href="#chart-pie"></use></svg></span>
-                        <div>
-                            <h3>Financial Consulting</h3>
-                            <p>Budgeting, forecasting, and growth planning — actionable insight, not just numbers.</p>
-                        </div>
-                        <div class="tags"><span class="tag">Budgeting</span><span class="tag">Forecasting</span><span class="tag">Growth</span></div>
-                    </div>
-                    <div class="svc-row reveal">
-                        <span class="idx">07</span>
-                        <span class="ic"><svg class="fa-svg"><use href="#arrows-rotate"></use></svg></span>
-                        <div>
-                            <h3>Data Migration</h3>
-                            <p>Seamless data transfer between systems — no downtime, no data loss.</p>
-                        </div>
-                        <div class="tags"><span class="tag">Systems</span><span class="tag">Seamless</span><span class="tag">Secure</span></div>
-                    </div>
-                </div>
-
-                <!-- Why Tunzua (folded in) -->
-                <div class="why-band reveal">
-                    <div class="why-grid">
-                        <div class="why-item">
-                            <span class="ic"><svg class="fa-svg"><use href="#user-tie"></use></svg></span>
-                            <h4>Certified Experts</h4>
-                            <p>Chartered Accountants, tax professionals and Tally-certified experts with 15+ years combined experience.</p>
-                        </div>
-                        <div class="why-item">
-                            <span class="ic"><svg class="fa-svg"><use href="#bolt"></use></svg></span>
-                            <h4>Fast Service</h4>
-                            <p>Quick turnaround on every filing and consultation — deadlines never missed.</p>
-                        </div>
-                        <div class="why-item">
-                            <span class="ic"><svg class="fa-svg"><use href="#hand-holding-dollar"></use></svg></span>
-                            <h4>Affordable Pricing</h4>
-                            <p>Premium services at competitive rates, with transparent quotes up front.</p>
-                        </div>
-                        <div class="why-item">
-                            <span class="ic"><svg class="fa-svg"><use href="#comments"></use></svg></span>
-                            <h4>Personal Support</h4>
-                            <p>A dedicated relationship manager for every client — one call, always.</p>
-                        </div>
-                        <div class="why-item">
-                            <span class="ic"><svg class="fa-svg"><use href="#cloud"></use></svg></span>
-                            <h4>Cloud Ready</h4>
-                            <p>Access your data anytime, anywhere, securely.</p>
-                        </div>
-                        <div class="why-item">
-                            <span class="ic"><svg class="fa-svg"><use href="#rocket"></use></svg></span>
-                            <h4>Growth Focus</h4>
-                            <p>We don't just manage numbers — we deliver insight that helps you scale.</p>
-                        </div>
+                    <div class="hero-figure">
+                        <div class="num">17</div>
+                        <div class="cap">Years of clean books · since 2008</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ============ PROCESS ============ -->
-        <section class="section" data-ghost="02">
-            <div class="wrap">
-                <div class="section-head">
-                    <span class="section-index reveal">02 — Process</span>
-                    <h2 class="display-lg font-display reveal" style="margin-top: 14px;">How we work.</h2>
+        <!-- ================= CLIENTS ================= -->
+        <section class="clients" id="clients" aria-label="Clients">
+            <div class="wrap clients-inner">
+                <span class="clients-label">Trusted by local businesses</span>
+                <div class="clients-logos">
+                    <img src="assets/images/client-0.svg" alt="Green Hills Agro" width="30">
+                    <img src="assets/images/client-1.svg" alt="Tunnu Eatery" width="30">
+                    <img src="assets/images/client-2.svg" alt="Grace Dental" width="30">
+                    <img src="assets/images/client-3.svg" alt="Tunnu School of Nursing" width="30">
                 </div>
-                <div class="proc-grid">
-                    <div class="proc-step reveal">
-                        <div class="n">01</div>
-                        <h3>Discover</h3>
-                        <p>Understand your business needs and goals.</p>
+            </div>
+        </section>
+
+        <!-- ================= SERVICES ================= -->
+        <section class="section" id="services">
+            <div class="wrap">
+                <div class="sec-head">
+                    <h2 class="display-lg">Everything your business needs, in one place.</h2>
+                    <p class="side">From daily bookkeeping to strategic planning — every engagement starts with a free consultation before you commit.</p>
+                </div>
+                <div class="ledger">
+                    <div class="ledger-head">
+                        <span class="mono-label">Services ledger — FY 2026–27</span>
+                        <span class="mono-label">Fees quoted per engagement</span>
                     </div>
-                    <div class="proc-step reveal">
-                        <div class="n">02</div>
-                        <h3>Consult</h3>
-                        <p>Expert guidance and strategic planning.</p>
+                    <div class="lrow">
+                        <div class="ref">01</div>
+                        <div class="svc"><h3>Bookkeeping &amp; Accounting</h3><p>Crystal-clear financial records, audit-ready at all times.</p></div>
+                        <div class="cov"><span>Day Book</span><span>Ledger</span><span>Reconciliation</span><span>Reports</span></div>
+                        <div class="fee">Custom quote</div>
                     </div>
-                    <div class="proc-step reveal">
-                        <div class="n">03</div>
-                        <h3>Setup</h3>
-                        <p>Configure systems and optimize processes.</p>
+                    <div class="lrow">
+                        <div class="ref">02</div>
+                        <div class="svc"><h3>GST Filing</h3><p>Timely, accurate filing with full reconciliation support.</p></div>
+                        <div class="cov"><span>GSTR-1</span><span>GSTR-3B</span><span>Annual return</span></div>
+                        <div class="fee">Custom quote</div>
                     </div>
-                    <div class="proc-step reveal">
-                        <div class="n">04</div>
-                        <h3>Train</h3>
-                        <p>Hands-on team training and onboarding.</p>
+                    <div class="lrow">
+                        <div class="ref">03</div>
+                        <div class="svc"><h3>Income Tax</h3><p>ITR filing, tax planning and optimisation for businesses and individuals.</p></div>
+                        <div class="cov"><span>ITR</span><span>Planning</span><span>Optimisation</span></div>
+                        <div class="fee">Custom quote</div>
                     </div>
-                    <div class="proc-step reveal">
-                        <div class="n">05</div>
-                        <h3>Support</h3>
-                        <p>Ongoing assistance and continuous updates.</p>
+                    <div class="lrow">
+                        <div class="ref">04</div>
+                        <div class="svc"><h3>Inventory &amp; Stock</h3><p>Stock tracking, valuation and clean ledger integration.</p></div>
+                        <div class="cov"><span>Tracking</span><span>Valuation</span><span>Ledger</span></div>
+                        <div class="fee">Custom quote</div>
+                    </div>
+                    <div class="lrow">
+                        <div class="ref">05</div>
+                        <div class="svc"><h3>Payroll Management</h3><p>PF, ESI, TDS deductions and compliance, handled end-to-end.</p></div>
+                        <div class="cov"><span>PF</span><span>ESI</span><span>TDS</span></div>
+                        <div class="fee">Custom quote</div>
+                    </div>
+                    <div class="lrow">
+                        <div class="ref">06</div>
+                        <div class="svc"><h3>Financial Consulting</h3><p>Budgeting, forecasting and growth planning — insight, not just numbers.</p></div>
+                        <div class="cov"><span>Budgeting</span><span>Forecasting</span><span>Growth</span></div>
+                        <div class="fee">Custom quote</div>
+                    </div>
+                    <div class="lrow">
+                        <div class="ref">07</div>
+                        <div class="svc"><h3>Data Migration</h3><p>Seamless transfer between systems — no downtime, no data loss.</p></div>
+                        <div class="cov"><span>Systems</span><span>Seamless</span><span>Secure</span></div>
+                        <div class="fee">Custom quote</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ============ TALLY PRIME ============ -->
-        <section id="tally" class="section" data-ghost="03" style="background: var(--paper-2);">
+        <!-- ================= PROCESS ================= -->
+        <section class="section">
             <div class="wrap">
-                <div class="section-head split">
-                    <div>
-                        <span class="section-index reveal">03 — Tally Prime Experts</span>
-                        <h2 class="display-lg font-display reveal" style="margin-top: 14px;">Tally Prime,<br>done properly.</h2>
-                    </div>
-                    <p class="body-md reveal-right">Official Tally Prime licensing, setup, training and ongoing support for businesses of every size.</p>
+                <div class="sec-head">
+                    <h2 class="display-lg">How we work.</h2>
+                    <p class="side">Five steps from first conversation to ongoing support — you always know where things stand.</p>
                 </div>
-                <div class="price-grid">
-                    <div class="price-card reveal">
-                        <span class="plan">Basic</span>
-                        <div class="amt">₹499<small>/month</small></div>
-                        <p class="per">Perfect for small businesses</p>
+                <div class="steps">
+                    <div class="step"><div class="s-no">01</div><h3>Discover</h3><p>Understand your business needs and goals.</p></div>
+                    <div class="step"><div class="s-no">02</div><h3>Consult</h3><p>Expert guidance and strategic planning.</p></div>
+                    <div class="step"><div class="s-no">03</div><h3>Setup</h3><p>Configure systems and optimise processes.</p></div>
+                    <div class="step"><div class="s-no">04</div><h3>Train</h3><p>Hands-on team training and onboarding.</p></div>
+                    <div class="step"><div class="s-no">05</div><h3>Support</h3><p>Ongoing assistance and continuous updates.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TALLY PRIME ================= -->
+        <section class="section section-alt" id="tally">
+            <div class="wrap">
+                <div class="tally-head">
+                    <h2 class="display-lg">Tally Prime, done properly.</h2>
+                    <p>Official Tally Prime licensing, setup, training and ongoing support for businesses of every size. Pick a plan — we handle the rest.</p>
+                </div>
+                <div class="tiers">
+                    <div class="tier">
+                        <div class="tier-head"><h3>Basic</h3></div>
+                        <div class="price"><b>₹499</b><span>Per month</span></div>
                         <ul>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Tally Prime Essential</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Single User License</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Affordable Monthly Pricing</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>No Long-Term Commitment</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Tally Prime Essential — single user licence</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Affordable monthly pricing</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>No long-term commitment</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Get started instantly</li>
                         </ul>
-                        <a href="#contact" class="btn btn-outline">Get Started Instantly</a>
+                        <a class="btn btn-line" href="#contact" data-service="Tally Prime">Get Started</a>
                     </div>
-                    <div class="price-card featured reveal">
-                        <span class="crop" aria-hidden="true"></span>
-                        <span class="plan">Professional</span>
-                        <div class="amt">₹449<small>/month</small></div>
-                        <p class="per">Billed for 6 months · ideal for growing businesses</p>
+                    <div class="tier hot">
+                        <div class="tier-head"><h3>Professional</h3><span class="tier-flag">MOST POPULAR</span></div>
+                        <div class="price"><b>₹449</b><span>Per month · billed for 6 months</span></div>
                         <ul>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Full Tally Prime Features</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Comprehensive Support</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Advanced Features</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Save Big with 6-Month Billing</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Full Tally Prime features</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Comprehensive support</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Advanced features</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Save big with 6-month billing</li>
                         </ul>
-                        <a href="#contact" class="btn btn-accent">Get Started</a>
+                        <a class="btn" href="#contact" data-service="Tally Prime">Get Started</a>
                     </div>
-                    <div class="price-card reveal">
-                        <span class="plan">Enterprise</span>
-                        <div class="amt">₹399<small>/month</small></div>
-                        <p class="per">Billed for 12 months · tailored for corporations</p>
+                    <div class="tier">
+                        <div class="tier-head"><h3>Enterprise</h3></div>
+                        <div class="price"><b>₹399</b><span>Per month · billed for 12 months</span></div>
                         <ul>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Ultimate Tally Prime Experience</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Priority Support</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Exclusive Enterprise Features</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Best Value for Large Teams</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Ultimate Tally Prime experience</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Priority support</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Exclusive enterprise features</li>
+                            <li><svg class="fa-svg"><use href="#circle-check"></use></svg>Best value for large teams</li>
                         </ul>
-                        <a href="#contact" class="btn btn-outline">Get Started</a>
+                        <a class="btn btn-line" href="#contact" data-service="Tally Prime">Get Started</a>
                     </div>
                 </div>
-                <div style="margin-top: 56px; display: flex; gap: 8px; justify-content: center; padding: 26px 24px; flex-wrap: wrap;">
-                    <span class="tag">Renewals &amp; AMC</span>
-                    <span class="tag">Customization</span>
-                    <span class="tag">Data Migration</span>
-                    <span class="tag">Expert-Led Training</span>
+                <div class="tally-strip">
+                    <span>Renewals &amp; AMC</span><span>Customisation</span><span>Data Migration</span><span>Expert-Led Training</span>
                 </div>
             </div>
         </section>
 
-        <!-- ============ PRICING ============ -->
-        <section id="pricing" class="section" data-ghost="04">
+        <!-- ================= CUSTOM PRICING ================= -->
+        <section class="section" id="pricing">
             <div class="wrap">
-                <div class="section-head split">
-                    <div>
-                        <span class="section-index reveal">04 — Pricing</span>
-                        <h2 class="display-lg font-display reveal" style="margin-top: 14px;">Tailored for<br>your business.</h2>
-                    </div>
-                    <p class="body-md reveal-right">Every business is unique. We customize services and pricing to match your exact requirements.</p>
+                <div class="sec-head">
+                    <h2 class="display-lg">Tailored for your business.</h2>
+                    <p class="side">Every business is unique. We customise services and pricing to match your exact requirements — every engagement starts with a free consultation.</p>
                 </div>
-                <div class="price-grid">
-                    <div class="price-card reveal">
-                        <span class="plan">Bookkeeping &amp; Accounting</span>
-                        <div class="amt" style="font-size: 1.6rem; padding-top: 6px;">Custom Quote</div>
-                        <p class="per">Professional bookkeeping, ledger maintenance and financial reporting.</p>
+                <div class="quotes">
+                    <div class="quote">
+                        <h3>Bookkeeping &amp; Accounting</h3>
+                        <div class="fee">Custom Quote</div>
+                        <p>Professional bookkeeping, ledger maintenance and financial reporting.</p>
                         <ul>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Daily Transaction Recording</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Bank Reconciliation</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Financial Statements</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Monthly Reports</li>
+                            <li>Daily transaction recording</li>
+                            <li>Bank reconciliation</li>
+                            <li>Financial statements</li>
+                            <li>Monthly reports</li>
                         </ul>
-                        <a href="#contact" class="btn btn-outline">Get Quote</a>
+                        <a class="btn-line" href="#contact" data-service="Accounting &amp; Bookkeeping">Get Quote</a>
                     </div>
-                    <div class="price-card featured reveal">
-                        <span class="plan">Tax &amp; Compliance</span>
-                        <div class="amt" style="font-size: 1.6rem; padding-top: 6px;">Custom Quote</div>
-                        <p class="per">Complete GST, Income Tax and regulatory compliance solutions.</p>
+                    <div class="quote">
+                        <h3>Tax &amp; Compliance</h3>
+                        <div class="fee">Custom Quote</div>
+                        <p>Complete GST, income tax and regulatory compliance solutions.</p>
                         <ul>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>GST Filing (All Returns)</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Income Tax Filing</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Tax Planning &amp; Advisory</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Compliance Management</li>
+                            <li>GST filing (all returns)</li>
+                            <li>Income tax filing</li>
+                            <li>Tax planning &amp; advisory</li>
+                            <li>Compliance management</li>
                         </ul>
-                        <a href="#contact" class="btn btn-accent">Get Quote</a>
+                        <a class="btn-line" href="#contact" data-service="GST Filing">Get Quote</a>
                     </div>
-                    <div class="price-card reveal">
-                        <span class="plan">Full Suite</span>
-                        <div class="amt" style="font-size: 1.6rem; padding-top: 6px;">Custom Quote</div>
-                        <p class="per">End-to-end financial management for growing businesses.</p>
+                    <div class="quote">
+                        <h3>Full Suite</h3>
+                        <div class="fee">Custom Quote</div>
+                        <p>End-to-end financial management for growing businesses.</p>
                         <ul>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Everything in Tax &amp; Compliance</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Payroll Processing</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Inventory Management</li>
-                            <li><svg class="fa-svg"><use href="#check"></use></svg>Dedicated Account Manager</li>
+                            <li>Everything in Tax &amp; Compliance</li>
+                            <li>Payroll processing</li>
+                            <li>Inventory management</li>
+                            <li>Dedicated account manager</li>
                         </ul>
-                        <a href="#contact" class="btn btn-outline">Get Quote</a>
-                    </div>
-                </div>
-                <p class="body-md reveal" style="text-align: center; margin-top: 44px;">Need a custom package? <a href="#contact" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">Talk to us for a personalized quote.</a></p>
-            </div>
-        </section>
-
-        <!-- ============ FAQ ============ -->
-        <section id="faq" class="section" data-ghost="05" style="background: var(--paper-2);">
-            <div class="wrap">
-                <div class="section-head split">
-                    <div>
-                        <span class="section-index reveal">05 — FAQ</span>
-                        <h2 class="display-lg font-display reveal" style="margin-top: 14px;">Common<br>questions.</h2>
-                    </div>
-                    <p class="body-md reveal-right">Straight answers about our services, pricing and how we work.</p>
-                </div>
-                <div class="faq-list">
-                    <div class="faq-item open reveal">
-                        <button class="faq-q" id="faq-b1" aria-expanded="true" aria-controls="faq-a1">
-                            <span>Do you offer GST registration and filing services?</span>
-                            <span class="faq-plus" aria-hidden="true"></span>
-                        </button>
-                        <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-b1">
-                            <div><p>Yes. We handle GST registration, monthly/quarterly GSTR-1 and GSTR-3B filings, reconciliation and compliance management end-to-end — including responding to notices from the department.</p></div>
-                        </div>
-                    </div>
-                    <div class="faq-item reveal">
-                        <button class="faq-q" id="faq-b2" aria-expanded="false" aria-controls="faq-a2">
-                            <span>Can you help with income tax returns and TDS?</span>
-                            <span class="faq-plus" aria-hidden="true"></span>
-                        </button>
-                        <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-b2">
-                            <div><p>Absolutely. We prepare and file income tax returns, manage TDS deductions and returns, and handle tax assessments, notices and appeals so you stay compliant without the stress.</p></div>
-                        </div>
-                    </div>
-                    <div class="faq-item reveal">
-                        <button class="faq-q" id="faq-b3" aria-expanded="false" aria-controls="faq-a3">
-                            <span>Do you provide Tally Prime setup and training?</span>
-                            <span class="faq-plus" aria-hidden="true"></span>
-                        </button>
-                        <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-b3">
-                            <div><p>Yes — as Tally Prime experts we handle setup, data migration, customization and on-site team training, plus ongoing support whenever you need it.</p></div>
-                        </div>
-                    </div>
-                    <div class="faq-item reveal">
-                        <button class="faq-q" id="faq-b4" aria-expanded="false" aria-controls="faq-a4">
-                            <span>How does your pricing work?</span>
-                            <span class="faq-plus" aria-hidden="true"></span>
-                        </button>
-                        <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-b4">
-                            <div><p>Bookkeeping &amp; Accounting and Tax &amp; Compliance packages are quoted per engagement, and the Full Suite bundles everything for growing businesses. Every engagement starts with a free consultation before you commit.</p></div>
-                        </div>
-                    </div>
-                    <div class="faq-item reveal">
-                        <button class="faq-q" id="faq-b5" aria-expanded="false" aria-controls="faq-a5">
-                            <span>Do you work with businesses outside Manipur?</span>
-                            <span class="faq-plus" aria-hidden="true"></span>
-                        </button>
-                        <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-b5">
-                            <div><p>Yes. We serve clients across 10+ cities with remote bookkeeping, digital filings and virtual consultations — our workflows are built for distance.</p></div>
-                        </div>
-                    </div>
-                    <div class="faq-item reveal">
-                        <button class="faq-q" id="faq-b6" aria-expanded="false" aria-controls="faq-a6">
-                            <span>How do I get started?</span>
-                            <span class="faq-plus" aria-hidden="true"></span>
-                        </button>
-                        <div class="faq-a" id="faq-a6" role="region" aria-labelledby="faq-b6">
-                            <div><p>Send us a message through the contact form, call or WhatsApp us. We'll set up a free consultation to review your books and filing needs, then propose a plan.</p></div>
-                        </div>
+                        <a class="btn-line" href="#contact" data-service="Full Suite">Get Quote</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ============ TESTIMONIALS ============ -->
-        <section class="section testimonial-marquee" data-ghost="06">
+        <!-- ================= FAQ ================= -->
+        <section class="section section-alt" id="faq">
             <div class="wrap">
-                <div class="section-head">
-                    <span class="section-index reveal">06 — Testimonials</span>
-                    <h2 class="display-lg font-display reveal" style="margin-top: 14px;">What our clients say.</h2>
+                <div class="sec-head">
+                    <h2 class="display-lg">Common questions.</h2>
+                    <p class="side">Straight answers about our services, pricing and how we work.</p>
                 </div>
-            </div>
-            <div class="marquee">
-                <div class="marquee-track" style="animation-duration: 42s;">
-                    <div class="marquee-item">
-                        <div class="quote-card">
-                            <div class="quote-mark">"</div>
-                            <blockquote>The consultant were very nice and open minded, may God bless them in their future endeavors.</blockquote>
-                            <div class="quote-who">
-                                <span class="avatar">LL</span>
-                                <div><div class="nm">Lientlangruol</div><div class="src">Local Guide · 17 reviews</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marquee-item">
-                        <div class="quote-card">
-                            <div class="quote-mark">"</div>
-                            <blockquote>Excellent client/customer service.</blockquote>
-                            <div class="quote-who">
-                                <span class="avatar">HT</span>
-                                <div><div class="nm">Hoihching Thomte</div><div class="src">Google Review</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marquee-item">
-                        <div class="quote-card">
-                            <div class="quote-mark">"</div>
-                            <blockquote>Highly recommended services. Very professional team with excellent knowledge of accounting and Tally solutions.</blockquote>
-                            <div class="quote-who">
-                                <span class="avatar">MS</span>
-                                <div><div class="nm">Minzzy Singson</div><div class="src">Google Review</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marquee-item">
-                        <div class="quote-card">
-                            <div class="quote-mark">"</div>
-                            <blockquote>Trusted and reliable consultancy firm. Great experience with their Tally Prime setup and support.</blockquote>
-                            <div class="quote-who">
-                                <span class="avatar">MG</span>
-                                <div><div class="nm">Micky Guite</div><div class="src">Google Review</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marquee-item" aria-hidden="true">
-                        <div class="quote-card">
-                            <div class="quote-mark">"</div>
-                            <blockquote>The consultant were very nice and open minded, may God bless them in their future endeavors.</blockquote>
-                            <div class="quote-who">
-                                <span class="avatar">LL</span>
-                                <div><div class="nm">Lientlangruol</div><div class="src">Local Guide · 17 reviews</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marquee-item" aria-hidden="true">
-                        <div class="quote-card">
-                            <div class="quote-mark">"</div>
-                            <blockquote>Excellent client/customer service.</blockquote>
-                            <div class="quote-who">
-                                <span class="avatar">HT</span>
-                                <div><div class="nm">Hoihching Thomte</div><div class="src">Google Review</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marquee-item" aria-hidden="true">
-                        <div class="quote-card">
-                            <div class="quote-mark">"</div>
-                            <blockquote>Highly recommended services. Very professional team with excellent knowledge of accounting and Tally solutions.</blockquote>
-                            <div class="quote-who">
-                                <span class="avatar">MS</span>
-                                <div><div class="nm">Minzzy Singson</div><div class="src">Google Review</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marquee-item" aria-hidden="true">
-                        <div class="quote-card">
-                            <div class="quote-mark">"</div>
-                            <blockquote>Trusted and reliable consultancy firm. Great experience with their Tally Prime setup and support.</blockquote>
-                            <div class="quote-who">
-                                <span class="avatar">MG</span>
-                                <div><div class="nm">Micky Guite</div><div class="src">Google Review</div></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="faq">
+                    <details>
+                        <summary><span class="q-no">Q1</span><span class="q-t">Do you offer GST registration and filing services?</span><span class="q-x">+</span></summary>
+                        <div class="a">Yes. We handle GST registration, monthly/quarterly GSTR-1 and GSTR-3B filings, reconciliation and compliance management end-to-end — including responding to notices from the department.</div>
+                    </details>
+                    <details>
+                        <summary><span class="q-no">Q2</span><span class="q-t">Can you help with income tax returns and TDS?</span><span class="q-x">+</span></summary>
+                        <div class="a">Absolutely. We prepare and file income tax returns, manage TDS deductions and returns, and handle tax assessments, notices and appeals so you stay compliant without the stress.</div>
+                    </details>
+                    <details>
+                        <summary><span class="q-no">Q3</span><span class="q-t">Do you provide Tally Prime setup and training?</span><span class="q-x">+</span></summary>
+                        <div class="a">Yes — as Tally Prime experts we handle setup, data migration, customisation and on-site team training, plus ongoing support whenever you need it.</div>
+                    </details>
+                    <details>
+                        <summary><span class="q-no">Q4</span><span class="q-t">How does your pricing work?</span><span class="q-x">+</span></summary>
+                        <div class="a">Bookkeeping &amp; Accounting and Tax &amp; Compliance packages are quoted per engagement, and the Full Suite bundles everything for growing businesses. Every engagement starts with a free consultation before you commit.</div>
+                    </details>
+                    <details>
+                        <summary><span class="q-no">Q5</span><span class="q-t">Do you work with businesses outside Manipur?</span><span class="q-x">+</span></summary>
+                        <div class="a">Yes. We serve clients across 10+ cities with remote bookkeeping, digital filings and virtual consultations — our workflows are built for distance.</div>
+                    </details>
+                    <details>
+                        <summary><span class="q-no">Q6</span><span class="q-t">How do I get started?</span><span class="q-x">+</span></summary>
+                        <div class="a">Send us a message through the contact form, call or WhatsApp us. We'll set up a free consultation to review your books and filing needs, then propose a plan.</div>
+                    </details>
                 </div>
             </div>
         </section>
 
-        <!-- ============ ABOUT ============ -->
-        <section id="about" class="section" data-ghost="07" style="background: var(--paper-2);">
+        <!-- ================= INSIGHTS ================= -->
+        <section class="section" id="insights">
             <div class="wrap">
-                <div class="section-head">
-                    <span class="section-index reveal">07 — About</span>
-                    <h2 class="display-lg font-display reveal" style="margin-top: 14px;">A firm built on<br>trusted numbers.</h2>
+                <div class="sec-head">
+                    <h2 class="display-lg">Notes from the ledger.</h2>
+                    <p class="side">Practical compliance, bookkeeping and tax notes for businesses across Manipur and Mizoram.</p>
                 </div>
-                <div class="about-grid">
-                    <div class="about-col reveal-left">
-                        <h3 class="display-md font-display" style="margin-bottom: 18px;">Our Mission</h3>
-                        <p>To simplify complex financial processes and help businesses focus on growth while we handle the numbers.</p>
-                        <h3 class="display-md font-display" style="margin: 34px 0 18px;">Our Vision</h3>
-                        <p>To become India's most trusted financial consultancy — known for accuracy, innovation, and client success.</p>
-                    </div>
-                    <div class="about-col reveal-right">
-                        <p>With over 15 years of experience, Tunzua Consultancy has been empowering businesses across India with comprehensive accounting, taxation and financial consulting solutions.</p>
-                        <div class="values">
-                            <div class="value-item"><div class="k">Integrity</div><div class="d">We do the right thing, always.</div></div>
-                            <div class="value-item"><div class="k">Excellence</div><div class="d">Precision in every number.</div></div>
-                            <div class="value-item"><div class="k">Innovation</div><div class="d">Modern tools, modern methods.</div></div>
-                            <div class="value-item"><div class="k">Transparency</div><div class="d">Clear fees, clear books.</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="firm-card reveal">
-                    <span class="crop" aria-hidden="true"></span>
-                    <div class="firm-head">
-                        <span class="firm-overline">Firm record</span>
-                        <span class="firm-period">Regd. Manipur · Mizoram</span>
-                    </div>
-                    <div class="firm-rows">
-                        <div class="firm-row"><span class="lbl">Founded</span><span class="val">2008</span></div>
-                        <div class="firm-row"><span class="lbl">Pan-India since</span><span class="val">2018</span></div>
-                        <div class="firm-row"><span class="lbl">Cities served</span><span class="val">10+</span></div>
-                        <div class="firm-row"><span class="lbl">Client satisfaction</span><span class="val">99%</span></div>
-                        <div class="firm-row"><span class="lbl">Service lines</span><span class="val">07</span></div>
-                    </div>
-                    <div class="firm-foot">
-                        <span>Bookkeeping · GST · ITR · Inventory · Payroll · Consulting · Migration</span>
-                        <span class="firm-total">True &amp; fair</span>
-                    </div>
-                </div>
-                <div class="timeline reveal">
-                    <div class="tl-row">
-                        <div class="yr">2008</div>
-                        <div><h4>Founded</h4><p>Started with a vision to simplify business accounting.</p></div>
-                    </div>
-                    <div class="tl-row">
-                        <div class="yr">2012</div>
-                        <div><h4>Expanded Services</h4><p>Added Tally Prime, GST and comprehensive tax services.</p></div>
-                    </div>
-                    <div class="tl-row">
-                        <div class="yr">2018</div>
-                        <div><h4>Pan-India Presence</h4><p>Expanded to serve businesses across 10+ cities.</p></div>
-                    </div>
-                    <div class="tl-row">
-                        <div class="yr">2024</div>
-                        <div><h4>100+ Clients</h4><p>Milestone of serving over 100 businesses successfully.</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ INSIGHTS ============ -->
-        <section id="insights" class="section" data-ghost="08">
-            <div class="wrap">
-                <div class="section-head split">
-                    <div>
-                        <span class="section-index reveal">08 — Insights</span>
-                        <h2 class="display-lg font-display reveal" style="margin-top: 14px;">Notes from<br>the ledger.</h2>
-                    </div>
-                    <div>
-                        <p class="body-md reveal-right">Practical compliance, bookkeeping and tax notes for businesses across Manipur and Mizoram.</p>
-                        <a class="insights-all reveal-right" href="blog.html">All insights <svg class="fa-svg"><use href="#arrow-right"></use></svg></a>
-                    </div>
-                </div>
-                <div class="insights-grid">
-                    <article class="insight-card reveal">
-                        <p class="insight-meta">Tax · 5 min read · 9 Aug 2026</p>
-                        <h3 class="font-display"><a href="blog/income-tax-return-dates-ay-2026-27.html">Income tax return due dates for AY 2026-27: a simple calendar</a></h3>
+                <div class="posts">
+                    <article class="post">
+                        <div class="p-meta"><span class="cat">Tax</span><span>·</span><span>5 min read</span><span>·</span><span>9 Aug 2026</span></div>
+                        <h3><a href="blog/income-tax-return-dates-ay-2026-27.html">Income tax return due dates for AY 2026-27: a simple calendar</a></h3>
                         <p>ITR deadlines for individuals, businesses, tax-audit and transfer-pricing cases — plus the audit report that must land a month before.</p>
-                        <a class="insight-link" href="blog/income-tax-return-dates-ay-2026-27.html">Read article <svg class="fa-svg"><use href="#arrow-right"></use></svg></a>
+                        <a class="p-link" href="blog/income-tax-return-dates-ay-2026-27.html">Read article <svg class="fa-svg"><use href="#arrow-right"></use></svg></a>
                     </article>
-                    <article class="insight-card reveal">
-                        <p class="insight-meta">GST · 5 min read · 9 Aug 2026</p>
-                        <h3 class="font-display"><a href="blog/when-does-your-business-need-gst-registration.html">When does your business need GST registration?</a></h3>
+                    <article class="post">
+                        <div class="p-meta"><span class="cat">GST</span><span>·</span><span>5 min read</span><span>·</span><span>9 Aug 2026</span></div>
+                        <h3><a href="blog/when-does-your-business-need-gst-registration.html">When does your business need GST registration?</a></h3>
                         <p>The thresholds for FY 2026-27 — including the lower limits in Manipur and Mizoram, compulsory cases, and the cost of not registering.</p>
-                        <a class="insight-link" href="blog/when-does-your-business-need-gst-registration.html">Read article <svg class="fa-svg"><use href="#arrow-right"></use></svg></a>
+                        <a class="p-link" href="blog/when-does-your-business-need-gst-registration.html">Read article <svg class="fa-svg"><use href="#arrow-right"></use></svg></a>
                     </article>
+                </div>
+                <div class="posts-more">
+                    <a class="btn-line" href="blog.html">All insights</a>
                 </div>
             </div>
         </section>
 
-        <!-- ============ CONTACT ============ -->
-        <section id="contact" class="section" data-ghost="09">
+        <!-- ================= CONTACT ================= -->
+        <section class="section section-alt" id="contact">
             <div class="wrap">
-                <div class="section-head split">
-                    <div>
-                        <span class="section-index reveal">09 — Contact</span>
-                        <h2 class="display-lg font-display reveal" style="margin-top: 14px;">Let's talk<br>business.</h2>
-                    </div>
-                    <p class="body-md reveal-right">Reach out for a free consultation — we'll review your books, filing needs and growth plan with zero obligation.</p>
+                <div class="sec-head">
+                    <h2 class="display-lg">Let's talk business.</h2>
+                    <p class="side">Reach out for a free consultation — we'll review your books, filing needs and growth plan with zero obligation.</p>
                 </div>
                 <div class="contact-grid">
-                    <span class="crop" aria-hidden="true"></span>
-                    <div class="contact-card reveal">
-                        <span class="ic"><svg class="fa-svg"><use href="#map-location-dot"></use></svg></span>
-                        <h3>Visit Us</h3>
-                        <p>53, Dawn School Road,<br>Lailam Veng, Churachandpur,<br>Manipur 795006</p>
-                    </div>
-                    <div class="contact-card reveal">
-                        <span class="ic"><svg class="fa-svg"><use href="#phone"></use></svg></span>
-                        <h3>Call Us</h3>
-                        <a class="line" href="tel:+918731831178">+91 87318 31178</a>
-                        <div class="rating">
-                            <span class="stars">
-                                <svg class="fa-svg"><use href="#star"></use></svg>
-                                <svg class="fa-svg"><use href="#star"></use></svg>
-                                <svg class="fa-svg"><use href="#star"></use></svg>
-                                <svg class="fa-svg"><use href="#star"></use></svg>
-                                <svg class="fa-svg"><use href="#star"></use></svg>
-                            </span>
-                            <span>Rated 5.0 on Google</span>
-                        </div>
-                    </div>
-                    <div class="contact-card reveal">
-                        <span class="ic"><svg class="fa-svg"><use href="#envelope"></use></svg></span>
-                        <h3>Email Us</h3>
-                        <a class="line" href="mailto:info@tunzua.com">info@tunzua.com</a>
-                    </div>
-                    <div class="contact-card reveal">
-                        <span class="ic"><svg class="fa-svg"><use href="#whatsapp"></use></svg></span>
-                        <h3>WhatsApp</h3>
-                        <a class="line" href="https://wa.me/918731831178" target="_blank" rel="noopener">Quick response guaranteed</a>
-                    </div>
-                </div>
-
-                <div class="contact-form-wrap reveal">
-                    <div class="form-head">
-                        <h3>Send us a message</h3>
-                        <p>Tell us about your business and what you need — we'll reply within one business day.</p>
-                    </div>
-                    <form id="contactForm" class="contact-form" novalidate>
-                        <div class="form-grid">
-                            <div class="field">
-                                <label for="cf-name">Full name</label>
-                                <input type="text" id="cf-name" name="name" required autocomplete="name" placeholder="Your name">
+                    <div>
+                        <div class="c-cards">
+                            <div class="c-card">
+                                <svg class="fa-svg"><use href="#map-location-dot"></use></svg>
+                                <h3>Visit Us</h3>
+                                <p>53, Dawn School Road,<br>Lailam Veng, Churachandpur,<br>Manipur 795006</p>
                             </div>
-                            <div class="field">
-                                <label for="cf-email">Email</label>
-                                <input type="email" id="cf-email" name="email" required autocomplete="email" placeholder="you@example.com">
+                            <div class="c-card">
+                                <svg class="fa-svg"><use href="#phone"></use></svg>
+                                <h3>Call Us</h3>
+                                <p><a href="tel:+918731831178">+91 87318 31178</a><br><span class="body-sm">Rated 5.0 on Google <span class="star">★</span></span></p>
                             </div>
-                            <div class="field">
-                                <label for="cf-phone">Phone <span class="opt">(optional)</span></label>
-                                <input type="tel" id="cf-phone" name="phone" autocomplete="tel" placeholder="+91 00000 00000">
+                            <div class="c-card">
+                                <svg class="fa-svg"><use href="#envelope"></use></svg>
+                                <h3>Email Us</h3>
+                                <p><a href="mailto:info@tunzua.com">info@tunzua.com</a></p>
                             </div>
-                            <div class="field">
-                                <label for="cf-service">Service</label>
-                                <select id="cf-service" name="service" required>
-                                    <option value="" disabled selected>Select a service…</option>
-                                    <option value="Accounting &amp; Bookkeeping">Accounting &amp; Bookkeeping</option>
-                                    <option value="GST Filing">GST Filing</option>
-                                    <option value="Income Tax">Income Tax</option>
-                                    <option value="Tally Prime">Tally Prime</option>
-                                    <option value="Payroll Management">Payroll Management</option>
-                                    <option value="Financial Consulting">Financial Consulting</option>
-                                    <option value="Other / Not sure">Other / Not sure</option>
-                                </select>
-                            </div>
-                            <div class="field field-full">
-                                <label for="cf-msg">How can we help?</label>
-                                <textarea id="cf-msg" name="message" rows="4" required placeholder="Briefly describe your business and what you need help with."></textarea>
+                            <div class="c-card">
+                                <svg class="fa-svg"><use href="#whatsapp"></use></svg>
+                                <h3>WhatsApp</h3>
+                                <p><a href="https://wa.me/918731831178" target="_blank" rel="noopener">Quick response guaranteed</a></p>
                             </div>
                         </div>
-                        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-                        <div class="form-foot">
-                            <button type="submit" class="btn btn-ink">Send message</button>
-                            <p class="form-note">Prefer to talk? <a href="https://wa.me/918731831178" target="_blank" rel="noopener" style="color: var(--accent);">WhatsApp us</a> or call <a href="tel:+918731831178" style="color: var(--accent);">+91 87318 31178</a>.</p>
-                        </div>
-                        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-                    </form>
+                        <p class="c-note">Monday–Saturday, 09:30–18:00 IST. We reply within one business day.</p>
+                    </div>
+                    <div>
+                        <form id="contactForm" class="contact-form" novalidate>
+                            <div class="form-grid">
+                                <div class="field">
+                                    <label for="cf-name">Full name</label>
+                                    <input type="text" id="cf-name" name="name" required autocomplete="name" placeholder="Your name">
+                                </div>
+                                <div class="field">
+                                    <label for="cf-email">Email</label>
+                                    <input type="email" id="cf-email" name="email" required autocomplete="email" placeholder="you@example.com">
+                                </div>
+                                <div class="field">
+                                    <label for="cf-phone">Phone <span class="opt">(optional)</span></label>
+                                    <input type="tel" id="cf-phone" name="phone" autocomplete="tel" placeholder="+91 00000 00000">
+                                </div>
+                                <div class="field">
+                                    <label for="cf-service">Service</label>
+                                    <select id="cf-service" name="service" required>
+                                        <option value="" disabled selected>Select a service…</option>
+                                        <option value="Accounting &amp; Bookkeeping">Accounting &amp; Bookkeeping</option>
+                                        <option value="GST Filing">GST Filing</option>
+                                        <option value="Income Tax">Income Tax</option>
+                                        <option value="Tally Prime">Tally Prime</option>
+                                        <option value="Payroll Management">Payroll Management</option>
+                                        <option value="Financial Consulting">Financial Consulting</option>
+                                        <option value="Full Suite">Full Suite</option>
+                                        <option value="Other / Not sure">Other / Not sure</option>
+                                    </select>
+                                </div>
+                                <div class="field field-full">
+                                    <label for="cf-msg">How can we help?</label>
+                                    <textarea id="cf-msg" name="message" rows="4" required placeholder="Briefly describe your business and what you need help with."></textarea>
+                                </div>
+                            </div>
+                            <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                            <div class="form-foot">
+                                <button type="submit" class="btn">Send message</button>
+                                <p class="form-note">Prefer to talk? <a href="https://wa.me/918731831178" target="_blank" rel="noopener">WhatsApp us</a> or call <a href="tel:+918731831178">+91 87318 31178</a>.</p>
+                            </div>
+                            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ============ CTA BAND ============ -->
+        <!-- ================= CTA BAND ================= -->
         <section class="cta-band">
-            <span class="crop" aria-hidden="true"></span>
             <div class="wrap cta-inner">
-                <div class="reveal-left">
-                    <h2 class="display-lg font-display">Ready to grow<br>your business?</h2>
-                    <p>Get a free consultation — we'll review your books, filing needs and growth plan with zero obligation.</p>
-                </div>
-                <div class="cta-btns reveal-right">
-                    <a href="#contact" class="btn btn-ink">Get Started</a>
-                    <a href="tel:+918731831178" class="btn btn-outline">Call Now</a>
-                </div>
+                <h2>Hand over the books. <span class="soft">Keep the growth.</span></h2>
+                <a class="btn" href="tel:+918731831178">Call +91 87318 31178</a>
             </div>
         </section>
+
     </main>
 
-    <!-- ============ FOOTER ============ -->
-    <footer>
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
         <div class="wrap">
-            <div class="foot-grid">
-                <div class="foot-brand">
-                    <a href="#home" class="brand">
-                        <img src="assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
-                        <span class="brand-text">Tunzua<small>Consultancy</small></span>
+            <div class="footer-grid">
+                <div>
+                    <a class="brand" href="index.html" aria-label="Tunzua Consultancy — home">
+                        <img src="assets/images/logo.png" alt="" width="34" height="34">
+                        <span><span class="brand-name">Tunzua</span><span class="brand-sub">Consultancy</span></span>
                     </a>
-                    <p>Professional accounting, taxation and business consulting solutions for modern businesses.</p>
+                    <p class="footer-about">Professional accounting, taxation and business solutions across India — since 2008.</p>
                     <div class="socials">
                         <a href="https://www.facebook.com/tunzuaconsultancy/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="fa-svg"><use href="#facebook-f"></use></svg></a>
                         <a href="https://x.com/jammangguite" target="_blank" rel="noopener" aria-label="X (Twitter)"><svg class="fa-svg"><use href="#x-twitter"></use></svg></a>
                         <a href="https://www.instagram.com/tunzuaconsultancy/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="fa-svg"><use href="#instagram"></use></svg></a>
                         <a href="https://www.youtube.com/channel/UCcl0Yn-8bnv7dDuS6NJxCWQ" target="_blank" rel="noopener" aria-label="YouTube"><svg class="fa-svg"><use href="#youtube"></use></svg></a>
-                        <a href="https://wa.me/918731831178" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="fa-svg"><use href="#whatsapp"></use></svg></a>
                     </div>
                 </div>
-                <div class="foot-col">
+                <div>
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#home">Home</a></li>
+                        <li><a href="index.html">Home</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#tally">Tally Prime</a></li>
                         <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
-                        <li><a href="blog.html">Insights</a></li>
                     </ul>
                 </div>
-                <div class="foot-col">
+                <div>
                     <h3>Services</h3>
                     <ul>
                         <li><a href="#services">Bookkeeping</a></li>
                         <li><a href="#services">GST Filing</a></li>
                         <li><a href="#services">Income Tax</a></li>
-                        <li><a href="#tally">Tally Prime</a></li>
+                        <li><a href="#services">Tally Prime</a></li>
                         <li><a href="#services">Payroll</a></li>
                     </ul>
                 </div>
-                <div class="foot-col">
+                <div>
                     <h3>Contact</h3>
-                    <ul>
-                        <li>53, Dawn School Road,<br>Lailam Veng</li>
-                        <li><a href="tel:+918731831178">+91 87318 31178</a></li>
-                        <li><a href="mailto:info@tunzua.com">info@tunzua.com</a></li>
-                    </ul>
+                    <address>
+                        53, Dawn School Road,<br>
+                        Lailam Veng, Churachandpur,<br>
+                        Manipur 795006
+                        <a href="tel:+918731831178">+91 87318 31178</a>
+                        <a href="mailto:info@tunzua.com">info@tunzua.com</a>
+                    </address>
                 </div>
             </div>
-            <div class="foot-bottom">
-                <p>&copy; 2026 Tunzua Consultancy. All rights reserved.</p>
-                <div class="legal">
+            <div class="footer-bottom">
+                <span>© 2026 Tunzua Consultancy. All rights reserved.</span>
+                <span class="legal-links">
                     <a href="privacy.html">Privacy Policy</a>
                     <a href="terms.html">Terms of Service</a>
-                    <a href="https://tunzua.goatcounter.com/admin/" target="_blank" rel="noopener">Analytics</a>
-                </div>
+                    <a href="blog.html">Insights</a>
+                </span>
             </div>
         </div>
     </footer>
 
-    <!-- Mobile quick-contact bar (Call / WhatsApp) -->
-    <nav class="mobile-cta" aria-label="Quick contact">
-        <a class="m-call" href="tel:+918731831178">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Call Now
-        </a>
-        <a class="m-wa" href="https://wa.me/918731831178" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-            WhatsApp
-        </a>
-    </nav>
+    <a class="wa-float" href="https://wa.me/918731831178" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <svg class="fa-svg"><use href="#whatsapp"></use></svg>
+    </a>
 
-    <!-- Back to Top (with scroll-progress ring) -->
-    <button id="backToTop" aria-label="Back to top">
-        <svg class="ring" viewBox="0 0 46 46" aria-hidden="true">
-            <circle class="ring-bg" cx="23" cy="23" r="20.5"></circle>
-            <circle class="ring-fg" id="ringFg" cx="23" cy="23" r="20.5"></circle>
-        </svg>
-        <svg class="fa-svg"><use href="#arrow-up"></use></svg>
-    </button>
-
-    <!-- Cookie Consent Banner -->
     <div id="cookieConsent">
         <div class="wrap cookie-inner">
             <p>We use cookies to enhance your experience. By continuing to browse, you agree to our <a href="privacy.html">privacy policy</a>.</p>
             <div class="cookie-btns">
-                <button class="btn btn-ink" onclick="acceptCookies()">Accept</button>
-                <button class="btn btn-outline" onclick="acceptCookies()">Decline</button>
+                <button class="btn btn-sm" id="cookieAccept" type="button">Accept</button>
             </div>
         </div>
     </div>
@@ -1177,22 +836,22 @@
         const themeToggle = document.getElementById('themeToggle');
         const sunIcon = document.getElementById('sunIcon');
         const moonIcon = document.getElementById('moonIcon');
-        const html = document.documentElement;
+        const htmlEl = document.documentElement;
 
         function setTheme(dark) {
             if (dark) {
-                html.classList.add('dark');
+                htmlEl.classList.add('dark');
                 sunIcon.classList.add('hidden');
                 moonIcon.classList.remove('hidden');
-                localStorage.setItem('theme', 'dark');
+                try { localStorage.setItem('theme', 'dark'); } catch (e) {}
             } else {
-                html.classList.remove('dark');
+                htmlEl.classList.remove('dark');
                 sunIcon.classList.remove('hidden');
                 moonIcon.classList.add('hidden');
-                localStorage.setItem('theme', 'light');
+                try { localStorage.setItem('theme', 'light'); } catch (e) {}
             }
             var tc = document.querySelector('meta[name="theme-color"]');
-            if (tc) tc.setAttribute('content', dark ? '#15130f' : '#f5f2ea');
+            if (tc) tc.setAttribute('content', dark ? '#0c0e12' : '#ffffff');
         }
 
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1200,110 +859,24 @@
         if (savedTheme) {
             setTheme(savedTheme === 'dark');
         } else if (prefersDark) {
-            html.classList.add('dark');
-            sunIcon.classList.add('hidden');
-            moonIcon.classList.remove('hidden');
+            setTheme(true);
         }
+        themeToggle.addEventListener('click', () => setTheme(!htmlEl.classList.contains('dark')));
 
-        themeToggle.addEventListener('click', () => {
-            setTheme(!html.classList.contains('dark'));
-        });
+        // ---------- Mobile menu ----------
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
 
-        // ---------- Navbar scroll + progress + back-to-top ----------
-        const navbar = document.getElementById('navbar');
-        const backToTop = document.getElementById('backToTop');
-        const scrollProgress = document.getElementById('scrollProgress');
-        const secCounter = document.getElementById('secCounter');
-        const secs = document.querySelectorAll('section[data-ghost]');
-        const navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
-        const mobileLinks = Array.prototype.slice.call(document.querySelectorAll('.mobile-link'));
-        const ringFg = document.getElementById('ringFg');
-        const heroEl = document.getElementById('home');
-        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        let lastDrift = 0;
-        let docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        let scrollTicking = false;
-
-        function handleScroll() {
-            if (scrollTicking) return;
-            scrollTicking = true;
-            requestAnimationFrame(function () {
-                const scrollY = window.scrollY;
-                navbar.classList.toggle('scrolled', scrollY > 50);
-                backToTop.classList.toggle('opacity-0', scrollY < 500);
-                backToTop.classList.toggle('pointer-events-none', scrollY < 500);
-                const p = docHeight > 0 ? Math.min(scrollY / docHeight, 1) : 0;
-                scrollProgress.style.width = (p * 100) + '%';
-                if (ringFg) ringFg.style.strokeDashoffset = ((1 - p) * 128.8).toFixed(1);
-                let curLink = null;
-                if (navLinks.length) {
-                    const line = window.innerHeight * 0.12;
-                    for (let i = 0; i < navLinks.length; i++) {
-                        const tgt = document.querySelector(navLinks[i].getAttribute('href'));
-                        if (!tgt) continue;
-                        const r = tgt.getBoundingClientRect();
-                        if (r.top <= line && r.bottom > line) { curLink = navLinks[i]; break; }
-                    }
-                    if (!curLink) {
-                        let bestTop = -Infinity;
-                        for (let i = 0; i < navLinks.length; i++) {
-                            const tgt = document.querySelector(navLinks[i].getAttribute('href'));
-                            if (!tgt) continue;
-                            const t = tgt.getBoundingClientRect().top;
-                            if (t <= line && t > bestTop) { bestTop = t; curLink = navLinks[i]; }
-                        }
-                    }
-                    navLinks.forEach(l => l.classList.toggle('active', l === curLink));
-                }
-                if (mobileLinks.length) {
-                    const mHref = curLink ? curLink.getAttribute('href') : null;
-                    mobileLinks.forEach(l => l.classList.toggle('active', mHref ? l.getAttribute('href') === mHref : false));
-                }
-                if (secCounter && secs.length) {
-                    let cur = secs[0].dataset.ghost;
-                    for (let i = secs.length - 1; i >= 0; i--) {
-                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
-                            cur = secs[i].dataset.ghost; break;
-                        }
-                    }
-                    if (secCounter.textContent !== cur) secCounter.textContent = cur;
-                }
-                if (heroEl && !reduceMotion && window.innerWidth > 820) {
-                    const drift = Math.min(scrollY * 0.12, 60);
-                    if (Math.abs(drift - lastDrift) >= 1) {
-                        heroEl.style.setProperty('--parallax', drift + 'px');
-                        lastDrift = drift;
-                    }
-                }
-                scrollTicking = false;
-            });
+        function toggleMobile() {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.setAttribute('aria-expanded', String(isOpen));
+            hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
         }
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('resize', function () {
-            docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        });
-        handleScroll();
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // ---------- FAQ accordion ----------
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const btn = item.querySelector('.faq-q');
-            btn.addEventListener('click', () => {
-                const isOpen = item.classList.contains('open');
-                faqItems.forEach(o => {
-                    o.classList.remove('open');
-                    o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-                });
-                if (!isOpen) {
-                    item.classList.add('open');
-                    btn.setAttribute('aria-expanded', 'true');
-                }
-            });
-        });
+        hamburger.addEventListener('click', toggleMobile);
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+        }));
 
         // ---------- Contact form ----------
         // Contact form backend: FormSubmit.co AJAX endpoint (free, no account,
@@ -1320,22 +893,12 @@
                 if (contactForm.querySelector('[name="_gotcha"]').value) return;
                 if (!contactForm.checkValidity()) {
                     contactForm.querySelectorAll('input, select, textarea').forEach(el => {
-                        el.setAttribute('aria-invalid', el.validity.valid ? 'false' : 'true');
+                        el.setAttribute('aria-invalid', el.checkValidity() ? 'false' : 'true');
                     });
                     contactForm.reportValidity();
                     return;
                 }
-                contactForm.querySelectorAll('input, select, textarea').forEach(el => {
-                    el.setAttribute('aria-invalid', 'false');
-                    el.addEventListener('input', () => {
-                        if (el.validity.valid) el.setAttribute('aria-invalid', 'false');
-                    });
-                });
-
-                const data = Object.fromEntries(new FormData(contactForm));
-                // Pass the local honeypot value to FormSubmit's native _honey field
-                // so bot submissions are dropped server-side too.
-                data._honey = data._gotcha || '';
+                const data = Object.fromEntries(new FormData(contactForm).entries());
                 btn.disabled = true;
                 btn.textContent = 'Sending…';
 
@@ -1374,102 +937,16 @@
             });
         }
 
-        // ---------- Mobile menu ----------
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        function toggleMobile() {
-            const isOpen = hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            hamburger.setAttribute('aria-expanded', isOpen);
-            document.body.style.overflow = isOpen ? 'hidden' : '';
-            if (isOpen) handleScroll();
-        }
-        function closeMobile() {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-
-        // ---------- Scroll reveal ----------
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    // Staggered cascade: when several reveal elements share a
-                    // parent (service rows, process steps, pricing cards,
-                    // insight cards, FAQ items), reveal them in sequence.
-                    const parent = el.parentElement;
-                    if (parent) {
-                        const sibs = Array.prototype.filter.call(
-                            parent.children,
-                            c => c.classList.contains('reveal') || c.classList.contains('reveal-left') ||
-                                 c.classList.contains('reveal-right') || c.classList.contains('reveal-scale')
-                        );
-                        const i = sibs.indexOf(el);
-                        const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                        if (sibs.length > 1 && i > 0 && !reduced) {
-                            el.style.transitionDelay = Math.min(i * 70, 420) + 'ms';
-                            el.addEventListener('transitionend', function handler(e) {
-                                if (e.propertyName !== 'opacity') return;
-                                el.style.transitionDelay = '';
-                                el.removeEventListener('transitionend', handler);
-                            });
-                        }
-                    }
-                    el.classList.add('active');
-                    observer.unobserve(el);
-                }
-            });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
-            observer.observe(el);
-        });
-
-        // ---------- Counter animation (ease-out, reduced-motion aware) ----------
-        const formatNumber = (n) => n.toLocaleString('en-US');
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = parseInt(counter.dataset.target, 10);
-                    counterObserver.unobserve(counter);
-                    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                        counter.textContent = formatNumber(target);
-                        return;
-                    }
-                    const duration = 1800;
-                    const startTime = performance.now();
-                    const updateCounter = (now) => {
-                        const elapsed = Math.min(Math.max((now - startTime) / duration, 0), 1);
-                        const eased = 1 - Math.pow(1 - elapsed, 3);
-                        counter.textContent = formatNumber(Math.floor(eased * target));
-                        if (elapsed < 1) {
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            counter.textContent = formatNumber(target);
-                        }
-                    };
-                    requestAnimationFrame(updateCounter);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.counter').forEach(counter => {
-            counterObserver.observe(counter);
-        });
-
-        // ---------- Smooth scroll for anchor links ----------
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href === '#' || href.length < 2) return;
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // ---------- Service-aware CTAs ----------
+        // CTAs marked data-service jump to the contact form with that
+        // service preselected, so identical-looking buttons carry context.
+        const serviceSelect = document.getElementById('cf-service');
+        document.querySelectorAll('a[data-service]').forEach(a => {
+            a.addEventListener('click', () => {
+                if (!serviceSelect) return;
+                const v = a.getAttribute('data-service');
+                if ([...serviceSelect.options].some(o => o.value === v)) {
+                    serviceSelect.value = v;
                 }
             });
         });
@@ -1479,14 +956,12 @@
         function showCookieBanner() {
             if (!localStorage.getItem('cookieConsent')) {
                 cookieConsent.classList.add('show');
-                document.body.classList.add('cookie-open');
             }
         }
-        function acceptCookies() {
-            localStorage.setItem('cookieConsent', 'accepted');
+        document.getElementById('cookieAccept').addEventListener('click', () => {
+            try { localStorage.setItem('cookieConsent', 'accepted'); } catch (e) {}
             cookieConsent.classList.remove('show');
-            document.body.classList.remove('cookie-open');
-        }
+        });
         setTimeout(showCookieBanner, 1200);
     </script>
 </body>

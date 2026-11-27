@@ -27,6 +27,7 @@ Exit codes:
 """
 
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -100,7 +101,24 @@ def test_template(gd, tmp):
     jsonld = out[jsonld_start:jsonld_end] if jsonld_start != -1 and jsonld_end != -1 else ""
     check("template: JSON-LD present", bool(jsonld))
     check("template: JSON-LD headline + date", '"headline": "Tax news digest — Mon, 10 Aug 2026"' in jsonld and '"datePublished": "2026-08-10"' in jsonld)
-    check("template: JSON-LD escapes quotes/amps", '&quot;extended&quot;' in jsonld and '&amp;' in jsonld)
+    # The JSON-LD description must be a real JSON string literal (json.dumps):
+    # it must parse back to the original text with quotes/backslashes intact,
+    # and never contain raw control characters that would break the script block.
+    import json as _json
+    ld_block = ""
+    m_ld = re.search(r'<script type="application/ld\+json">\s*(\{.*?\})\s*</script>', out, re.S)
+    if m_ld:
+        ld_block = m_ld.group(1)
+    desc_ok = False
+    try:
+        parsed = _json.loads(ld_block)
+        first_title = items[0]["title"]
+        short = first_title if len(first_title) <= 96 else first_title[:93].rsplit(" ", 1)[0] + "…"
+        expected = f"Today's Indian tax and GST news roundup — {len(items)} stories including \u201c{short}\u201d — curated from verified sources with links."
+        desc_ok = parsed["description"] == expected
+    except Exception:
+        pass
+    check("template: JSON-LD description is valid, round-tripping JSON", desc_ok)
 
     check("template: description truncated with ellipsis", "…" in out)
     check("template: 3 digest items", out.count('<li class="digest-item">') == 3)

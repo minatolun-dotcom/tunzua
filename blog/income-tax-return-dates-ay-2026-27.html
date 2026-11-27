@@ -39,8 +39,6 @@
     </script>
 
     <!-- Brand fonts (self-hosted) -->
-    <link rel="preload" href="../assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="../assets/css/fonts.css">
     <link rel="stylesheet" href="../assets/css/legal.css">
     <link rel="stylesheet" href="../assets/css/blog.css">
@@ -68,7 +66,6 @@
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- Icon sprite (local) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
@@ -87,7 +84,6 @@
                 <img src="../assets/images/logo.png" alt="Tunzua Consultancy" width="34" height="34">
                 <span class="brand-text">Tunzua<small>Consultancy</small></span>
             </a>
-            <span class="sec-counter" id="secCounter" aria-hidden="true">00</span>
             <div class="nav-actions">
                 <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
                     <svg class="fa-svg" id="sunIcon"><use href="#sun"></use></svg>
@@ -271,31 +267,6 @@
     </script>
     <script>
         (function () {
-            var c = document.getElementById('secCounter');
-            if (!c) return;
-            var secs = document.querySelectorAll('main [data-folio]');
-            if (!secs.length) return;
-            var ticking = false;
-            function upd() {
-                ticking = false;
-                var cur = secs[0].getAttribute('data-folio');
-                if (window.scrollY >= 2) {
-                    for (var i = secs.length - 1; i >= 0; i--) {
-                        if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.4) {
-                            cur = secs[i].getAttribute('data-folio');
-                            break;
-                        }
-                    }
-                }
-                if (c.textContent !== cur) c.textContent = cur;
-            }
-            function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }
-            window.addEventListener('scroll', onScroll, { passive: true });
-            upd();
-        })();
-    </script>
-    <script>
-        (function () {
             var m = document.querySelector('meta[name="theme-color"]');
             var t = document.getElementById('themeToggle');
             if (!m || !t) return;
@@ -306,17 +277,6 @@
     </script>
     <script>
         (function () {
-            var sp = document.getElementById('scrollProgress');
-            if (sp) {
-                var spTicking = false;
-                function updP() {
-                    spTicking = false;
-                    var dh = document.documentElement.scrollHeight - window.innerHeight;
-                    sp.style.width = (dh > 0 ? Math.min(window.scrollY / dh, 1) * 100 : 0) + '%';
-                }
-                window.addEventListener('scroll', function () { if (!spTicking) { spTicking = true; requestAnimationFrame(updP); } }, { passive: true });
-                updP();
-            }
             var toc = document.getElementById('toc');
             if (toc) {
                 var art = document.querySelector('.post-body');
