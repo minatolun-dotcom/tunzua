@@ -1,0 +1,69 @@
+name: DNS Watchdog
+
+# Alerts if tunzua.com stops pointing at GitHub Pages, if a wildcard DNS record
+# reappears, if MX records vanish, or if the TLS certificate stops validating —
+# the failure modes from the Nov 2026 Cloudflare zone hijack.
+on:
+  schedule:
+    # Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC).
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ALERT_LABEL: dns-alert
+      ALERT_TITLE: "DNS watchdog: tunzua.com is unhealthy"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check DNS, TLS and site content
+        run: python3 scripts/dns-watchdog.py
+
+      # A failing scheduled workflow emails the owner, but an issue keeps a
+      # durable trail and survives notification settings. Comment on the open
+      # issue while the problem persists instead of filing one every 6 hours.
+      - name: Open or update alert issue
+        if: failure()
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          gh label create "$ALERT_LABEL" --force \
+            --description "Automated DNS watchdog alert" --color B60205 >/dev/null 2>&1 || true
+
+          body=$(sed -e 's/^ *//' <<EOF
+          The scheduled DNS watchdog failed at $(date -u '+%Y-%m-%d %H:%M UTC').
+
+          Run: $RUN_URL
+
+          It checks: apex A records are GitHub Pages' four IPs, no wildcard record,
+          www resolves, MX records present, HTTPS returns 200 with a valid
+          certificate and no off-domain redirect.
+
+          See scripts/dns-watchdog.py and docs/security-hardening.md.
+          EOF
+          )
+
+          existing=$(gh issue list --state open --label "$ALERT_LABEL" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+            echo "Commented on existing alert issue #$existing"
+          else
+            gh issue create --title "$ALERT_TITLE" --label "$ALERT_LABEL" --body "$body"
+          fi
+
+      - name: Close alert issue once healthy
+        if: success()
+        run: |
+          set -euo pipefail
+          for n in $(gh issue list --state open --label "$ALERT_LABEL" --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "Watchdog passed at $(date -u '+%Y-%m-%d %H:%M UTC') — closing."
+          done

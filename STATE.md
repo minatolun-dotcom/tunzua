@@ -1,6 +1,43 @@
 # Project State
 
-**Last Updated:** August 10, 2026
+**Last Updated:** November 27, 2026
+
+## Nov 27 — Custom domain restored after Cloudflare zone hijack; DNS watchdog + hardening checklist
+
+**Incident:** `tunzua.com` returned `301` to `cloudcheck.click` for every path (apex, www,
+random paths, plain HTTP) from a proxied wildcard DNS record plus a catch-all redirect rule,
+with all MX/TXT/`_dmarc` records wiped — so `info@tunzua.com` (contact form + digest email)
+received nothing. **The repo was never involved**: `CNAME`, pages and workflows were
+unchanged. Root cause was a compromised Cloudflare account (unrecognised API tokens,
+including one created during the incident), not a GitHub Pages or DNS misconfiguration.
+
+**Recovery (owner-side):** password change, 2FA, session revocation, token revocation,
+Global API Key rotation, wildcard + redirect rule removed, apex `A` records set to the four
+GitHub Pages IPs (DNS-only), `www` CNAME to `minatolun-dotcom.github.io`, GitHub Pages custom
+domain re-added (GitHub had cleared it when its DNS check failed), certificate reissued
+(Let's Encrypt, Nov 27 → Feb 25 2027), `Enforce HTTPS` pending.
+
+**Verified from outside after recovery:** apex resolves to the four GitHub IPs; random
+subdomain NXDOMAIN; `https://tunzua.com/` → `200` with `x-github-request-id` and the real
+title; `www` → apex; no `cloudcheck` references. **Still outstanding:** MX/TXT/`_dmarc` for
+`info@tunzua.com` (record set depends on the mail host).
+
+**Added:**
+
+- `scripts/dns-watchdog.py` — apex A records = GitHub Pages IPs, random subdomain must be
+  NXDOMAIN (wildcard detection), `www` resolves, MX present, HTTPS 200 with a valid cert and
+  no off-domain redirect, page still carries the site title. DNS via Google/Cloudflare DoH
+  with resolver fallback; exits 1 on any failure.
+- `.github/workflows/dns-watchdog.yml` — every 6 hours + `workflow_dispatch`; opens or
+  comments on an issue labelled `dns-alert` on failure, closes it when healthy. Complements
+  `digest-health.yml`, which only checks content and would pass while DNS pointed elsewhere.
+- `docs/security-hardening.md` — Cloudflare / Squarespace / GitHub access checklist, correct
+  DNS baseline, token hygiene, certificate + DNS monitoring, and a repeatable incident
+  runbook (evidence first, credentials second, DNS repair last — a surviving token reverts
+  DNS fixes).
+
+**Note:** `www` must stay proxied through Cloudflare — GitHub's reissued certificate covers
+only the apex, so Cloudflare supplies the `www` certificate and issues the redirect.
 
 ## Aug 10 — Visual refinement pass (hero, crop marks, quotes, rhythm, polish)
 

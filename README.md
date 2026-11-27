@@ -180,6 +180,17 @@ www  CNAME minatolun-dotcom.github.io
 
 GitHub Pages issues a certificate automatically for the custom domain once the CNAME propagates. No manual certificate setup needed.
 
+### Monitoring & security
+
+| Workflow | Schedule | Checks |
+|----------|----------|--------|
+| `.github/workflows/digest-health.yml` | daily 04:00 UTC | Live site content: core pages + assets 200, feed/sitemap parse, today's digest, blog card order |
+| `.github/workflows/dns-watchdog.yml` | every 6 hours | `scripts/dns-watchdog.py` — apex A records are GitHub Pages' four IPs, no wildcard DNS record, `www` resolves, MX records present, HTTPS 200 with a valid certificate and no off-domain redirect. Opens (or comments on) an issue labelled `dns-alert` on failure and closes it once healthy |
+
+Run the watchdog locally with `python3 scripts/dns-watchdog.py` (exit 1 = unhealthy). It exists because a compromised Cloudflare zone can serve a redirect for every path while the site itself is untouched — content checks alone would not notice.
+
+**`docs/security-hardening.md`** is the companion checklist: Cloudflare access and token hygiene, Squarespace Domains (registrar), GitHub access, certificate/DNS monitoring, and a repeatable incident runbook. Review it after any credential scare and before renewing the domain or certificate.
+
 ---
 
 ## Performance Optimizations
