@@ -382,22 +382,22 @@
     <!-- ================= COMPLIANCE TICKER ================= -->
     <div class="ticker" role="note" aria-label="Statutory due dates. Full calendar: upcoming GST, TDS, PF, advance tax and return deadlines.">
         <div class="ticker-track" aria-hidden="true">
-            <span class="ticker-item"><span class="d">GSTR-1</span> due 11th monthly</span>
-            <span class="ticker-item"><span class="d">GSTR-3B</span> due 20th monthly</span>
-            <span class="ticker-item"><span class="d">TDS deposit</span> due 7th monthly</span>
-            <span class="ticker-item"><span class="d">PF &amp; ESI</span> due 15th monthly</span>
-            <span class="ticker-item"><span class="d">Advance tax</span> 15 Jun · Sep · Dec · Mar</span>
-            <span class="ticker-item"><span class="d">ITR non-audit</span> due 31 Jul</span>
-            <span class="ticker-item"><span class="d">Tax audit report</span> due 30 Sep</span>
-            <span class="ticker-item"><span class="d">GSTR-9 annual return</span> due 31 Dec</span>
-            <span class="ticker-item"><span class="d">GSTR-1</span> due 11th monthly</span>
-            <span class="ticker-item"><span class="d">GSTR-3B</span> due 20th monthly</span>
-            <span class="ticker-item"><span class="d">TDS deposit</span> due 7th monthly</span>
-            <span class="ticker-item"><span class="d">PF &amp; ESI</span> due 15th monthly</span>
-            <span class="ticker-item"><span class="d">Advance tax</span> 15 Jun · Sep · Dec · Mar</span>
-            <span class="ticker-item"><span class="d">ITR non-audit</span> due 31 Jul</span>
-            <span class="ticker-item"><span class="d">Tax audit report</span> due 30 Sep</span>
-            <span class="ticker-item"><span class="d">GSTR-9 annual return</span> due 31 Dec</span>
+            <span class="ticker-item" data-rule="monthly" data-day="11"><span class="d">GSTR-1</span> due 11th monthly</span>
+            <span class="ticker-item" data-rule="monthly" data-day="20"><span class="d">GSTR-3B</span> due 20th monthly</span>
+            <span class="ticker-item" data-rule="monthly" data-day="7"><span class="d">TDS deposit</span> due 7th monthly</span>
+            <span class="ticker-item" data-rule="monthly" data-day="15"><span class="d">PF &amp; ESI</span> due 15th monthly</span>
+            <span class="ticker-item" data-rule="dates" data-dates="6/15,9/15,12/15,3/15"><span class="d">Advance tax</span> 15 Jun · Sep · Dec · Mar</span>
+            <span class="ticker-item" data-rule="dates" data-dates="7/31"><span class="d">ITR non-audit</span> due 31 Jul</span>
+            <span class="ticker-item" data-rule="dates" data-dates="9/30"><span class="d">Tax audit report</span> due 30 Sep</span>
+            <span class="ticker-item" data-rule="dates" data-dates="12/31"><span class="d">GSTR-9 annual return</span> due 31 Dec</span>
+            <span class="ticker-item" data-rule="monthly" data-day="11"><span class="d">GSTR-1</span> due 11th monthly</span>
+            <span class="ticker-item" data-rule="monthly" data-day="20"><span class="d">GSTR-3B</span> due 20th monthly</span>
+            <span class="ticker-item" data-rule="monthly" data-day="7"><span class="d">TDS deposit</span> due 7th monthly</span>
+            <span class="ticker-item" data-rule="monthly" data-day="15"><span class="d">PF &amp; ESI</span> due 15th monthly</span>
+            <span class="ticker-item" data-rule="dates" data-dates="6/15,9/15,12/15,3/15"><span class="d">Advance tax</span> 15 Jun · Sep · Dec · Mar</span>
+            <span class="ticker-item" data-rule="dates" data-dates="7/31"><span class="d">ITR non-audit</span> due 31 Jul</span>
+            <span class="ticker-item" data-rule="dates" data-dates="9/30"><span class="d">Tax audit report</span> due 30 Sep</span>
+            <span class="ticker-item" data-rule="dates" data-dates="12/31"><span class="d">GSTR-9 annual return</span> due 31 Dec</span>
         </div>
     </div>
 
@@ -963,6 +963,43 @@
             cookieConsent.classList.remove('show');
         });
         setTimeout(showCookieBanner, 1200);
+    </script>
+
+    <!-- Compute next statutory due dates from the encoded rules (the static
+         text above is the no-JS fallback, so nothing renders empty). -->
+    <script>
+        (function () {
+            var M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            var today = new Date(); today.setHours(0, 0, 0, 0);
+            function nextMonthly(day) {
+                var d = new Date(today.getFullYear(), today.getMonth(), day);
+                if (d <= today) d = new Date(today.getFullYear(), today.getMonth() + 1, day);
+                return d;
+            }
+            function nextOf(m, day) {
+                var d = new Date(today.getFullYear(), m - 1, day);
+                if (d <= today) d = new Date(today.getFullYear() + 1, m - 1, day);
+                return d;
+            }
+            function fmt(d) { return d.getDate() + ' ' + M[d.getMonth()] + ' ' + d.getFullYear(); }
+            document.querySelectorAll('.ticker-item[data-rule]').forEach(function (el) {
+                var next;
+                if (el.dataset.rule === 'monthly') {
+                    next = nextMonthly(parseInt(el.dataset.day, 10));
+                } else {
+                    next = el.dataset.dates.split(',').map(function (s) {
+                        var p = s.split('/'); return nextOf(parseInt(p[0], 10), parseInt(p[1], 10));
+                    }).sort(function (a, b) { return a - b; })[0];
+                }
+                var n = Math.round((next - today) / 864e5);
+                var label = el.querySelector('.d').textContent;
+                var text = ' due ' + (n === 0 ? 'today' : fmt(next));
+                if (n >= 0 && n <= 7) text += n === 0 ? ' · today' : ' · in ' + n + 'd';
+                if (n <= 7) el.classList.add('soon');
+                el.innerHTML = '<span class="d"></span>' + text;
+                el.querySelector('.d').textContent = label;
+            });
+        })();
     </script>
 </body>
 </html>

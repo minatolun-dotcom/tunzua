@@ -198,6 +198,7 @@ html.dark .nav-links a:hover { color: var(--navy); }
 .ticker-item { padding: 2px 26px; display: inline-flex; gap: 10px; }
 .ticker-item .d { color: var(--on-navy); font-weight: 600; }
 html.dark .ticker-item .d { color: #061024; }
+.ticker-item.soon .d { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
     .ticker-track { animation: none; flex-wrap: wrap; white-space: normal; }
